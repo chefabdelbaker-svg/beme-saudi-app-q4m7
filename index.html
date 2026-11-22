@@ -895,7 +895,7 @@ V.settings=()=>{const co=S().co;const lb=localStorage.getItem("beme_lastbackup")
  <div class="quick"><button class="btn" onclick="exportDB()">${L("Exporter (JSON)","Export (JSON)")}</button><label class="btn" style="margin:0;color:var(--navy);font-size:15px">${L("Importer","Import")}<input type="file" accept="application/json" style="display:none" onchange="importDB(this)"></label><button class="btn bad sm" onclick="resetDB()">${L("Tout effacer","Erase all")}</button></div></div>`};
 let NAV=[];
 window.go=p=>{window.QS="";location.hash="#"+p};
-window.goBack=()=>{const prev=NAV.length>1?NAV[NAV.length-2]:"home";NAV.length=Math.max(NAV.length-2,0);go(prev)};
+window.goBack=()=>{const cur=NAV[NAV.length-1];if((TABS[ME.role]||[]).includes(cur)||NAV.length<2){NAV=[];go("home");return}const prev=NAV[NAV.length-2];NAV.length=Math.max(NAV.length-2,0);go(prev)};
 const allowed=()=>["home"].concat(PAGES.filter(p=>can("view",p)));
 window.openProfile=()=>{const m=sheet(`<h3>${esc(ME.name)}</h3><p class="mut">${esc(ME.title||t("role_"+ME.role))}</p><div class="menu"><button id="pl">${t("lang")}</button><button id="ps">${t("logout")}</button><button id="px" style="color:var(--mut)">${t("cancel")}</button></div>`);
  m.querySelector("#pl").onclick=()=>{LANG=LANG==="fr"?"en":"fr";localStorage.setItem("beme_lang",LANG);m.remove();render()};
@@ -911,6 +911,7 @@ const avIcon=x=>{const t=((x.title||"")+" "+(x.name||"")).toLowerCase();const by
  const k=/partner|associ/.test(t)?"gem":/general|\bgm\b/.test(t)?"compass":/ceo/.test(t)?"crown":/operations/.test(t)?"plan":/sales/.test(t)?"target":/\bhr\b/.test(t)?"doc":/account|financ/.test(t)?"money":byR[x.role]||"user";
  return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${AIC[k]}</svg>`};
 (()=>{let T=0;const bump=()=>{clearTimeout(T);if(typeof ME!=="undefined"&&ME)T=setTimeout(()=>{if(ME){ME=null;NAV=[];try{sessionStorage.removeItem("beme_me")}catch(e){}render()}},600000)};["click","keydown","touchstart"].forEach(e=>addEventListener(e,bump,{passive:true}));bump()})();
+(()=>{try{if("serviceWorker"in navigator&&location.protocol==="https:"&&!/[?&]frame/.test(location.search))addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}))}catch(e){}})();
 function render(keep){
  {let dv0="";try{dv0=localStorage.getItem("beme_dev")||""}catch(e){}const vm=document.querySelector('meta[name="viewport"]');const want=(dv0==="l"&&screen.width<900&&!/[?&]frame/.test(location.search))?"width=1280":"width=device-width,initial-scale=1,viewport-fit=cover";if(vm&&vm.content!==want)vm.content=want}
  const app=$("#app");document.documentElement.lang=LANG;document.body.classList.toggle("lg",!ME);
