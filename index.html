@@ -131,6 +131,7 @@ label{display:block;font-size:12px;color:var(--mut);margin:10px 0 4px;font-weigh
 @media(min-width:900px){.lg-a .ttl{font-size:30px;letter-spacing:.14em}.lg-a .bg{font-size:11px;letter-spacing:.22em;gap:10px}.lg-a .bg img{height:22px}.lg-a .av1{min-width:112px}}
 .lg-a .avs{gap:4px}.lg-a .av1{width:calc(25% - 4px);min-width:0}
 @media(min-width:900px){.login.lg-a .in{max-width:620px!important}.lg-a .av1{min-width:0}}
+.dvs{position:fixed;top:12px;left:12px;z-index:20;display:flex;background:rgba(10,20,40,.7);border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:3px;backdrop-filter:blur(4px)}.dvs button{border:0;background:none;color:#c9d3e8;font:600 11px var(--sans);padding:6px 11px;border-radius:999px;min-height:30px}.dvs button.on{background:var(--gold);color:var(--navy)}
 </style>
 </head>
 <body>
@@ -538,7 +539,7 @@ const avIcon=x=>{const t=((x.title||"")+" "+(x.name||"")).toLowerCase();const by
 function render(keep){
  const app=$("#app");document.documentElement.lang=LANG;document.body.classList.toggle("lg",!ME);
  if(!ME){const pr=DB.profiles;
-  const V=new URLSearchParams(location.search).get("l");const lv=V==="a"||V==="b"||V==="c"||V==="d"?V:(matchMedia("(min-width:900px)").matches?"d":"a");
+  const V=new URLSearchParams(location.search).get("l");const lv=V==="a"||V==="b"||V==="c"||V==="d"?V:(()=>{let d="";try{d=localStorage.getItem("beme_dev")||""}catch(e){}return d==="m"?"a":d==="l"?"d":matchMedia("(min-width:900px)").matches?"d":"a"})();
   const head1=`<img class="lg" src="assets/beme-logo-white.svg" alt="BEME"><div class="tag">YOUR PARTNER IN CULINARY EXCELLENCE</div><div class="tag ar">شريككم في التميز في فنون الطهي</div><div class="kick" style="text-align:center;margin-top:18px">BEME RIYAD · OPERATIONS</div><div class="sal">السلام عليكم<span>Salam alaikum</span></div><h2 style="color:#fff;text-align:center;font:800 24px var(--sans);margin:0 0 6px">${L("Qui êtes-vous ?","Who are you?")}</h2>`;
   const avs=`<div class="avs">${pr.map(x=>`<button class="av1" data-p="${esc(x.id)}"><span class="c">${avIcon(x)}</span><b>${esc(x.title)}</b><small>${esc(x.name||"")}</small></button>`).join("")}</div>`;
   const rest=`<details style="margin-top:6px"><summary class="mut" style="cursor:pointer;min-height:36px">${L("Autre profil","Other profile")}</summary><label for="ln">${t("name")}</label><input id="ln" maxlength="60" autocomplete="name"><label for="lr">${t("role")}</label><select id="lr">${ROLES.map(r=>`<option value="${r}">${t("role_"+r)}</option>`).join("")}</select><button class="btn gold" style="width:100%;margin-top:12px" id="lgo">${t("login")}</button></details>
@@ -547,9 +548,11 @@ function render(keep){
   const bg=`<div class="bg"><span>BEME =</span><img src="assets/img/bongard-logo.png" alt="Bongard"><span>ÉQUIPEMENT MIDDLE EAST</span></div>`;
   const core2=`<img class="lg" src="assets/beme-logo-white.svg" alt="BEME"><div class="ttl">BEME RIYAD<span> · ${L("OPÉRATIONS","OPERATIONS")}</span></div>`+`<div class="sal">السلام عليكم<span>Salam alaikum</span></div>`+avs+rest;
   const topD=`<div class="top"><img class="lg" src="assets/beme-logo-white.svg" alt="BEME"></div>`;const salD=`<div class="sal">السلام عليكم<span>Salam alaikum</span></div>`;
-  app.innerHTML=lv==="d"?`<div class="login lg-d">${topD}<div class="mid"></div><div class="bot"><div class="ttl">BEME RIYAD<span> · ${L("OPÉRATIONS","OPERATIONS")}</span></div>${bg}${salD}${avs}${rest}</div></div>`:lv==="a"?`<div class="login lg-a"><div class="ph"><div class="cap"><div class="kick">${L("BRANCHE DE RIYAD","RIYADH BRANCH")}</div><h1>${L("Four, froid, fermentation,<br>laboratoire complet : Bongard à Riyad","Ovens, refrigeration, fermentation,<br>complete bakery labs: Bongard in Riyadh")}</h1>${bg}</div></div><div class="pn"><div class="in">${core2}</div></div></div>`
+  let dv="";try{dv=localStorage.getItem("beme_dev")||""}catch(e){}const dvb=`<div class="dvs" role="group" aria-label="${L("Affichage","Display")}"><button data-d="m" class="${dv==="m"||(!dv&&!matchMedia("(min-width:900px)").matches)?"on":""}">${L("Téléphone","Phone")}</button><button data-d="l" class="${dv==="l"||(!dv&&matchMedia("(min-width:900px)").matches)?"on":""}">${L("Ordinateur","Laptop")}</button></div>`;
+  app.innerHTML=dvb+(lv==="d"?`<div class="login lg-d">${topD}<div class="mid"></div><div class="bot"><div class="ttl">BEME RIYAD<span> · ${L("OPÉRATIONS","OPERATIONS")}</span></div>${bg}${salD}${avs}${rest}</div></div>`:lv==="a"?`<div class="login lg-a"><div class="ph"><div class="cap"><div class="kick">${L("BRANCHE DE RIYAD","RIYADH BRANCH")}</div><h1>${L("Four, froid, fermentation,<br>laboratoire complet : Bongard à Riyad","Ovens, refrigeration, fermentation,<br>complete bakery labs: Bongard in Riyadh")}</h1>${bg}</div></div><div class="pn"><div class="in">${core2}</div></div></div>`
   :lv==="b"?`<div class="login lg-b"><div class="in">${core}</div>${bg}</div>`
-  :`<div class="login lg-c"><div class="s1"></div><div class="in">${core}</div><div class="s2"></div>${bg}</div>`;
+  :`<div class="login lg-c"><div class="s1"></div><div class="in">${core}</div><div class="s2"></div>${bg}</div>`);
+  document.querySelectorAll(".dvs button").forEach(b=>b.onclick=()=>{try{localStorage.setItem("beme_dev",b.dataset.d)}catch(e){}render()});
   const enter=(name,role,title)=>{ME={name:name.slice(0,60),role,title:title||""};sessionStorage.setItem("beme_me",JSON.stringify(ME));NAV=[];render()};
   document.querySelectorAll(".av1").forEach(bt=>bt.onclick=()=>{const x=pr.find(y=>y.id===bt.dataset.p);if(x)enter(x.name||x.title,x.role,x.title)});
   $("#lgo").onclick=()=>{const n=$("#ln").value.trim();if(!n){$("#ln").focus();return}enter(n,$("#lr").value,"")};
