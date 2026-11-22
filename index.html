@@ -121,6 +121,8 @@ label{display:block;font-size:12px;color:var(--mut);margin:10px 0 4px;font-weigh
 @media(min-width:900px){.login.lg-d{background-position:center 100%}.lg-d img.lg{width:150px}.lg-d .sal{font-size:18px}.lg-d .sal span{font-size:12px}.lg-d .mid{height:auto;flex:1}.lg-d .av1{min-width:118px}}
 .lg-d .sal{margin:0 0 2px}.lg-d .sal span{color:var(--gold)}.lg-d img.lg{width:120px}@media(min-width:900px){.lg-d img.lg{width:150px}}
 @media(max-width:600px){.lg-d .bg{flex-wrap:wrap;gap:6px;letter-spacing:.12em;font-size:10px;padding-bottom:10px}.lg-d .bg img{height:18px}}
+.lg-d .ttl{text-align:center;color:#fff;font:800 clamp(22px,6vw,30px) var(--sans);letter-spacing:.16em;text-shadow:0 2px 12px rgba(0,0,0,.7)}.lg-d .ttl span{color:var(--gold)}.lg-d .bg{margin:6px 0 12px!important}.lg-d .bot p.mut{margin:2px 0 0!important}
+@media(max-width:600px){.lg-d .ttl{font-size:21px;letter-spacing:.12em}}
 </style>
 </head>
 <body>
@@ -532,7 +534,7 @@ function render(keep){
   const core=head1+avs+rest;
   const bg=`<div class="bg"><span>BEME =</span><img src="assets/img/bongard-logo.png" alt="Bongard"><span>ÉQUIPEMENT MIDDLE EAST</span></div>`;
   const topD=`<div class="top"><img class="lg" src="assets/beme-logo-white.svg" alt="BEME"></div>`;const salD=`<div class="sal">السلام عليكم<span>Salam alaikum</span></div>`;
-  app.innerHTML=lv==="d"?`<div class="login lg-d">${topD}<div class="mid"></div><div class="bot">${salD}${avs}${rest}${bg}</div></div>`:lv==="a"?`<div class="login lg-a"><div class="ph"><div class="cap"><div class="kick">${L("BRANCHE DE RIYAD","RIYADH BRANCH")}</div><h1>${L("Four, froid, fermentation,<br>laboratoire complet : Bongard à Riyad","Ovens, refrigeration, fermentation,<br>complete bakery labs: Bongard in Riyadh")}</h1>${bg}</div></div><div class="pn"><div class="in">${core}</div></div></div>`
+  app.innerHTML=lv==="d"?`<div class="login lg-d">${topD}<div class="mid"></div><div class="bot"><div class="ttl">BEME RIYAD<span> · ${L("OPÉRATIONS","OPERATIONS")}</span></div>${bg}${salD}${avs}${rest}</div></div>`:lv==="a"?`<div class="login lg-a"><div class="ph"><div class="cap"><div class="kick">${L("BRANCHE DE RIYAD","RIYADH BRANCH")}</div><h1>${L("Four, froid, fermentation,<br>laboratoire complet : Bongard à Riyad","Ovens, refrigeration, fermentation,<br>complete bakery labs: Bongard in Riyadh")}</h1>${bg}</div></div><div class="pn"><div class="in">${core}</div></div></div>`
   :lv==="b"?`<div class="login lg-b"><div class="in">${core}</div>${bg}</div>`
   :`<div class="login lg-c"><div class="s1"></div><div class="in">${core}</div><div class="s2"></div>${bg}</div>`;
   const enter=(name,role,title)=>{ME={name:name.slice(0,60),role,title:title||""};sessionStorage.setItem("beme_me",JSON.stringify(ME));NAV=[];render()};
