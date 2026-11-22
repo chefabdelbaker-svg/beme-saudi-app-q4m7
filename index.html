@@ -240,6 +240,14 @@ html:has(.login),body:has(.login){background:#070e1c!important}
 .lg-a .ph{background:linear-gradient(180deg,rgba(7,11,20,.25),rgba(11,22,48,.35) 45%,#0b1630 99%),url(assets/img/riyadh-night.jpg) 30% 40%/cover no-repeat,#070b14!important;min-height:300px!important}
 .lg-d .imgp{background:#070b14 url(assets/img/riyadh-night.jpg) 91% center/cover no-repeat!important}
 .lg-d .imgp::after{background:linear-gradient(90deg,#0b1630 0,rgba(11,22,48,.35) 22%,transparent 45%),linear-gradient(0deg,rgba(7,11,20,.55),transparent 35%),rgba(8,16,36,.18)!important}
+
+/* ===== v26 laptop = same single-column page, wide banner on top ===== */
+@media(min-width:900px){
+.login.lg-a.lg-w{display:block!important}
+.lg-w .ph{min-height:38vh!important;justify-content:center;align-items:flex-end;padding:56px 40px 36px!important;background:linear-gradient(180deg,rgba(7,11,20,.35),rgba(11,22,48,.25) 40%,#0b1630 99%),url(assets/img/riyadh-night.jpg) 50% 42%/cover no-repeat,#070b14!important}
+.lg-w .cap{text-align:center}.lg-w .cap img.lg{width:170px;margin:0 auto 12px}
+.lg-w .pn{padding:22px 20px 40px}.lg-w .in{max-width:640px!important}
+}
 </style>
 </head>
 <body>
@@ -813,7 +821,7 @@ function render(keep){
   const ttl=`<div class="ttl">BEME KSA<span> · ${L("OPÉRATIONS","OPERATIONS")}</span></div>`;
   const dvbX=FRAME?"":dvb;
   if(lv==="a"&&!FRAME&&innerWidth>=900){app.innerHTML=dvbX+`<div class="pf"><iframe title="Phone view" src="?frame=1&l=a"></iframe></div>`;document.querySelectorAll(".dvs button").forEach(b=>b.onclick=()=>{try{localStorage.setItem("beme_dev",b.dataset.d)}catch(e){}location.reload()});return}
-  else app.innerHTML=dvbX+(lv==="d"?`<div class="login lg-d"><div class="pnl"><img class="lg" src="assets/beme-logo-white.svg" alt="BEME">${ttl}<div class="sal">السلام عليكم<span>Salam alaikum</span></div>${avs}${rest}</div><div class="imgp"></div></div>`:`<div class="login lg-a"><div class="ph"><div class="cap"><img class="lg" src="assets/beme-logo-white.svg" alt="BEME">${ttl}</div></div><div class="pn"><div class="in"><div class="sal">السلام عليكم<span>Salam alaikum</span></div>${avs}${rest}</div></div></div>`);
+  else app.innerHTML=dvbX+(`<div class="login lg-a${lv==="d"?" lg-w":""}"><div class="ph"><div class="cap"><img class="lg" src="assets/beme-logo-white.svg" alt="BEME">${ttl}</div></div><div class="pn"><div class="in"><div class="sal">السلام عليكم<span>Salam alaikum</span></div>${avs}${rest}</div></div></div>`);
   document.querySelectorAll(".dvs button").forEach(b=>b.onclick=()=>{try{localStorage.setItem("beme_dev",b.dataset.d)}catch(e){}location.reload()});
   const enter=(name,role,title)=>{ME={name:name.slice(0,60),role,title:title||""};sessionStorage.setItem("beme_me",JSON.stringify(ME));NAV=[];render()};
   document.querySelectorAll(".av1").forEach(bt=>bt.onclick=()=>{const x=pr.find(y=>y.id===bt.dataset.p);if(x)pinAsk(x,()=>enter(x.name||x.title,x.role,x.title))});
