@@ -248,6 +248,25 @@ html:has(.login),body:has(.login){background:#070e1c!important}
 .lg-w .cap{text-align:center}.lg-w .cap img.lg{width:170px;margin:0 auto 12px}
 .lg-w .pn{padding:22px 20px 40px}.lg-w .in{max-width:640px!important}
 }
+
+/* ===== v27 black (not blue) palette, logos row + title stack ===== */
+html:has(.login),body:has(.login){background:#0a0a0c!important}
+.login.lg-a,.login.lg-a.lg-w{background:#0a0a0c!important}
+.lg-a .ph{background:linear-gradient(180deg,rgba(10,10,12,.78) 0,rgba(10,10,12,.35) 38%,rgba(10,10,12,.45) 70%,#0a0a0c 99%),url(assets/img/riyadh-night.jpg) 30% 40%/cover no-repeat,#0a0a0c!important;min-height:360px!important;align-items:flex-start!important;justify-content:center;padding:58px 16px 22px!important}
+.lg-a .cap{width:100%;text-align:center;display:flex;flex-direction:column;align-items:center}
+.lgrow{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:18px}.lgrow img.lg{width:96px!important;margin:0!important}.lgrow img.bl{height:22px;width:auto}.lgrow i{width:1px;height:30px;background:rgba(191,159,95,.7)}
+.login .ttl{font:600 clamp(26px,8vw,38px)/1.1 var(--sans)!important;letter-spacing:.2em!important;color:#fff!important;text-shadow:0 2px 18px rgba(0,0,0,.7)!important;margin:0!important}
+.login .ttl2{font:600 clamp(12px,3.4vw,15px) var(--sans);letter-spacing:.5em;color:#BF9F5F;text-transform:uppercase;margin-top:12px;padding-left:.5em;text-shadow:0 1px 10px rgba(0,0,0,.8)}
+.login .ttl::after{display:none!important}
+.lg-a .avs .av1,.lg-d .avs .av1{background:rgba(255,255,255,.045)!important;border:1px solid rgba(191,159,95,.3)!important}
+.lg-a .av1:hover{background:rgba(191,159,95,.12)!important}
+.login .av1 .c{background:#17171b!important;box-shadow:0 4px 14px rgba(0,0,0,.5)!important}
+.lg-a .pn{padding-top:8px}
+@media(min-width:900px){
+.lg-w .ph{min-height:46vh!important;align-items:center!important;padding:50px 40px 30px!important;background:linear-gradient(180deg,rgba(10,10,12,.75) 0,rgba(10,10,12,.55) 45%,rgba(10,10,12,.5) 72%,#0a0a0c 99%),url(assets/img/riyadh-night.jpg) 50% 42%/cover no-repeat,#0a0a0c!important}
+.lgrow img.lg{width:120px!important}.lgrow img.bl{height:28px}
+.login .ttl{font-size:46px!important;letter-spacing:.24em!important}.login .ttl2{font-size:16px}
+}
 </style>
 </head>
 <body>
@@ -818,10 +837,10 @@ function render(keep){
   const core2=`<img class="lg" src="assets/beme-logo-white.svg" alt="BEME"><div class="ttl">BEME KSA<span> · ${L("OPÉRATIONS","OPERATIONS")}</span></div>`+`<div class="sal">السلام عليكم<span>Salam alaikum</span></div>`+avs+rest;
   const topD=`<div class="top"><img class="lg" src="assets/beme-logo-white.svg" alt="BEME"></div>`;const salD=`<div class="sal">السلام عليكم<span>Salam alaikum</span></div>`;
   let dv="";try{dv=localStorage.getItem("beme_dev")||""}catch(e){}const dvb=`<div class="dvs" role="group" aria-label="${L("Affichage","Display")}"><button data-d="m" class="${dv==="m"||(!dv&&!matchMedia("(min-width:900px)").matches)?"on":""}">${L("Téléphone","Phone")}</button><button data-d="l" class="${dv==="l"||(!dv&&matchMedia("(min-width:900px)").matches)?"on":""}">${L("Ordinateur","Laptop")}</button></div>`;
-  const ttl=`<div class="ttl">BEME KSA<span> · ${L("OPÉRATIONS","OPERATIONS")}</span></div>`;
+  const ttl=`<div class="ttl">BEME KSA</div><div class="ttl2">${L("OPÉRATIONS","OPERATIONS")}</div>`;const lgrow=`<div class="lgrow"><img class="lg" src="assets/beme-logo-white.svg" alt="BEME"><i></i><img class="bl" src="assets/img/bongard-logo.png" alt="Bongard"></div>`;
   const dvbX=FRAME?"":dvb;
   if(lv==="a"&&!FRAME&&innerWidth>=900){app.innerHTML=dvbX+`<div class="pf"><iframe title="Phone view" src="?frame=1&l=a"></iframe></div>`;document.querySelectorAll(".dvs button").forEach(b=>b.onclick=()=>{try{localStorage.setItem("beme_dev",b.dataset.d)}catch(e){}location.reload()});return}
-  else app.innerHTML=dvbX+(`<div class="login lg-a${lv==="d"?" lg-w":""}"><div class="ph"><div class="cap"><img class="lg" src="assets/beme-logo-white.svg" alt="BEME">${ttl}</div></div><div class="pn"><div class="in"><div class="sal">السلام عليكم<span>Salam alaikum</span></div>${avs}${rest}</div></div></div>`);
+  else app.innerHTML=dvbX+(`<div class="login lg-a${lv==="d"?" lg-w":""}"><div class="ph"><div class="cap">${lgrow}${ttl}</div></div><div class="pn"><div class="in"><div class="sal">السلام عليكم<span>Salam alaikum</span></div>${avs}${rest}</div></div></div>`);
   document.querySelectorAll(".dvs button").forEach(b=>b.onclick=()=>{try{localStorage.setItem("beme_dev",b.dataset.d)}catch(e){}location.reload()});
   const enter=(name,role,title)=>{ME={name:name.slice(0,60),role,title:title||""};sessionStorage.setItem("beme_me",JSON.stringify(ME));NAV=[];render()};
   document.querySelectorAll(".av1").forEach(bt=>bt.onclick=()=>{const x=pr.find(y=>y.id===bt.dataset.p);if(x)pinAsk(x,()=>enter(x.name||x.title,x.role,x.title))});
