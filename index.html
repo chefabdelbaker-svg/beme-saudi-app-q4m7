@@ -6,7 +6,7 @@
 <meta name="robots" content="noindex,nofollow">
 <meta name="referrer" content="no-referrer">
 <meta name="theme-color" content="#12284c">
-<title>BEME Riyad — Operations</title>
+<title>BEME KSA — Operations</title>
 <style>
 :root{--sans:"Avenir Next","Segoe UI","Helvetica Neue",Arial,system-ui,sans-serif;--navy:#12284c;--navy-2:#1b3866;--navy-tint:#eef1f7;--gold:#BF9F5F;--gold-dark:#8f7433;--gold-tint:#f6efe0;--ivory:#faf7f0;--surface:#fff;--line:#e6dfcf;--ink:#1d2433;--mut:#5d6578;--ok:#1f7a4a;--ok-bg:#e3f3ea;--warn:#8a4a0f;--warn-bg:#fbeedd;--bad:#a3302a;--bad-bg:#f9e2df;--r:12px;--sh:0 1px 2px rgba(18,40,76,.06),0 2px 10px rgba(18,40,76,.06);--serif:Georgia,"Times New Roman",serif}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -224,6 +224,17 @@ html:has(.login),body:has(.login){background:#070e1c!important}
 @media(max-width:899px){.login .ttl{font-size:14px!important;letter-spacing:.2em!important}}
 .lg-a .av1 b,.lg-d .av1 b{grid-row:1/3;align-self:center}.lg-a .av1 b:has(+small),.lg-d .av1 b:has(+small){grid-row:1;align-self:end}.lg-a .av1 small,.lg-d .av1 small{grid-row:2;align-self:start}
 .lg-a .av1 b:has(+small),.lg-d .av1 b:has(+small){grid-row:1/3;align-self:center}.lg-a .av1 b:has(+small:not(:empty)),.lg-d .av1 b:has(+small:not(:empty)){grid-row:1;align-self:end}.av1 small:empty{display:none}
+
+/* ===== v24 KSA + Riyadh skyline + PIN ===== */
+.lg-a .ph{background:linear-gradient(180deg,rgba(5,8,14,0) 55%,#0b1630 99%),url(assets/img/riyadh-skyline.svg) center bottom/cover no-repeat,#070b14!important;min-height:290px!important}
+.lg-d .imgp{background:#070b14 url(assets/img/riyadh-skyline.svg) 62% bottom/cover no-repeat!important}
+.lg-d .imgp::after{background:linear-gradient(90deg,#0b1630 0,transparent 16%)!important}
+@media(max-width:899px){.login.lg-d{background:linear-gradient(180deg,#0b1630,#070b14)!important}}
+.pinbox{text-align:center}.pinh b{display:block;font:600 20px var(--sans)}.pinh small{display:block;color:var(--mut);margin-top:4px;font-size:13px}
+.pdots{display:flex;gap:12px;justify-content:center;margin:18px 0 6px}.pdots i{width:14px;height:14px;border-radius:50%;border:2px solid #BF9F5F;opacity:.55}.pdots i.on{background:#BF9F5F;opacity:1}
+.pdots.shk{animation:shk .35s}@keyframes shk{20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
+.pmsg{min-height:20px;font-size:13px;color:var(--mut)}.pmsg.bad{color:#b3261e;font-weight:600}
+.pkeys{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:280px;margin:8px auto 0}.pkeys button{min-height:54px;border-radius:14px;border:1px solid var(--line);background:#fff;font:600 22px var(--sans);color:var(--navy)}.pkeys button:active{background:#eef1f7}.pkeys .go{background:var(--navy);color:#fff;font-size:15px}
 </style>
 </head>
 <body>
@@ -367,7 +378,7 @@ function sanitize(d){
  if(!d||typeof d!=="object")return null;
  const out={demoV:Math.max(0,parseInt(d.demoV)||0),profiles:[],fx:{SAR:1,EUR:4.1,AED:1.02},qseq:Math.max(0,parseInt(d.qseq)||0),settings:DEFSET()};
  ["EUR","AED"].forEach(c=>{const v=+(d.fx&&d.fx[c]);if(v>0&&isFinite(v))out.fx[c]=v});
- out.profiles=(Array.isArray(d.profiles)?d.profiles:DEFPROF()).filter(x=>x&&IDRE.test(String(x.id))&&ROLES.includes(x.role)).slice(0,40).map(x=>({id:x.id,title:String(x.title||"").slice(0,40),name:String(x.name||"").slice(0,60),role:x.role}));
+ out.profiles=(Array.isArray(d.profiles)?d.profiles:DEFPROF()).filter(x=>x&&IDRE.test(String(x.id))&&ROLES.includes(x.role)).slice(0,40).map(x=>({id:x.id,title:String(x.title||"").slice(0,40),name:String(x.name||"").slice(0,60),role:x.role,pin:/^[0-9a-f]{64}$/.test(String(x.pin||""))?x.pin:""}));
  const s=d.settings&&typeof d.settings==="object"?d.settings:{};
  out.settings.maxDisc=Math.min(100,Math.max(0,+s.maxDisc>=0?+s.maxDisc:5));out.settings.wMonths=Math.min(120,Math.max(1,Math.round(+s.wMonths||24)));
  out.settings.wStart=s.wStart==="delivery"?"delivery":"commissioning";out.settings.depPct=Math.min(100,Math.max(0,+s.depPct>=0?+s.depPct:30));
@@ -490,7 +501,7 @@ function kpis(){const r=ME.role;const al=alerts();
 const V={};
 V.home=()=>{const al=alerts();const show=window.ALL?al:al.slice(0,3);
  const q=[];if(can("edit","quotes"))q.push(`<button class="btn gold" onclick="A_quotes()">+ ${L("Devis","Quote")}</button>`);if(can("edit","clients"))q.push(`<button class="btn" onclick="A_clients()">+ Client</button>`);if(can("edit","stock"))q.push(`<button class="btn" onclick="A_stock()">+ ${L("Article","Item")}</button>`);if(can("edit","service"))q.push(`<button class="btn" onclick="A_service()">+ ${L("Panne","Fault")}</button>`);if(can("edit","accounting"))q.push(`<button class="btn" onclick="A_invoices()">+ ${L("Facture","Invoice")}</button>`);
- return `<div class="hello"><div class="kick">BEME RIYAD · ${L("OPÉRATIONS","OPERATIONS")}</div><h1>Salam alaikum ${esc(ME.name)}</h1><div class="mut">${esc(fmtD(today()))} · ${esc(ME.title||t("role_"+ME.role))}</div></div>
+ return `<div class="hello"><div class="kick">BEME KSA · ${L("OPÉRATIONS","OPERATIONS")}</div><h1>Salam alaikum ${esc(ME.name)}</h1><div class="mut">${esc(fmtD(today()))} · ${esc(ME.title||t("role_"+ME.role))}</div></div>
  <div class="stats">${kpis().map(k=>`<button class="stat" onclick="go('${k[2]}')"><div class="v num">${esc(k[1])}</div><div class="l">${esc(k[0])}</div></button>`).join("")}</div>
  ${q.length?`<div class="quick">${q.join("")}</div>`:""}
  ${(()=>{const act=can("view","orders")?DB.orders.filter(o=>o.stage!=="installed").slice(0,4):[];return act.length?`<h3 style="margin:6px 0 8px">${L("Commandes en cours","Orders in progress")}</h3>`+act.map(o=>`<button class="alert" onclick="go('orders')"><span>${esc(o.no)} · ${esc(clientName(o.client))} — <b>${esc(OPT.stage[o.stage][LANG])}</b>${o.eta?" · "+L("prévu ","ETA ")+esc(fmtD(o.eta)):""}</span></button>`).join(""):""})()}
@@ -498,7 +509,7 @@ V.home=()=>{const al=alerts();const show=window.ALL?al:al.slice(0,3);
  ${show.length?show.map(x=>`<button class="alert ${x[0]==="r"?"r":""}" onclick="go('${x[2]}')">${esc(x[1])}</button>`).join(""):`<p class="mut">${t("none")}</p>`}
  ${al.length>3?`<button class="btn sm" onclick="window.ALL=!window.ALL;render()">${window.ALL?L("Réduire","Show less"):L("Voir tout","See all")+" ("+al.length+")"}</button>`:""}
  <p class="mut" style="margin-top:18px">${t("demo")}</p>`};
-const head=(p,fn,extra)=>`<div class="pt"><div><div class="kick">BEME RIYAD</div><h1>${t(p)}</h1></div>${extra||""}${fn&&can("edit",p)?`<button class="btn gold" onclick="${fn}">+ ${t("add")}</button>`:""}</div>`;
+const head=(p,fn,extra)=>`<div class="pt"><div><div class="kick">BEME KSA</div><h1>${t(p)}</h1></div>${extra||""}${fn&&can("edit",p)?`<button class="btn gold" onclick="${fn}">+ ${t("add")}</button>`:""}</div>`;
 const CF=()=>[{k:"name",label:L("Nom / société","Name / company"),req:1},{k:"contact",label:"Contact"},{k:"phone",label:L("Téléphone","Phone")},{k:"addr",label:L("Adresse du site / de livraison","Site / delivery address")},{k:"city",label:L("Ville","City")},{k:"source",label:L("Origine du contact","Lead source"),type:"select",opts:opts("source")},{k:"stage",label:L("Étape du projet","Project stage"),type:"select",opts:opts("cstage")},{k:"lost",label:L("Si perdu : raison","If lost: reason")},{k:"next",label:L("Prochaine relance","Next follow-up"),type:"date"},{k:"notes",label:L("Notes / historique","Notes / history"),type:"textarea"}];
 const clientCheck=o=>{if(o.stage==="lost"&&!o.lost){toast(L("Indiquez la raison de la perte.","Please give the reason for the loss."));return false}};
 window.A_clients=()=>crud("clients",CF(),t("add"),{id:uid(),stage:"lead",source:"walkin",next:addDays(today(),2)},clientCheck);window.E_clients=id=>crud("clients",CF(),t("edit"),DB.clients.find(x=>x.id===id),clientCheck);
@@ -720,12 +731,39 @@ window.fxSet=(c,v)=>{if(ME.role!=="direction"||!(c==="EUR"||c==="AED"))return;co
 window.exportDB=()=>{if(ME.role!=="direction")return;const b=new Blob([JSON.stringify(DB)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="beme-backup-"+today()+".json";a.click();localStorage.setItem("beme_lastbackup",today());render()};
 window.importDB=inp=>{if(ME.role!=="direction")return;const f=inp.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=sanitize(JSON.parse(r.result));if(!d)throw 0;if(!confirm(L("Remplacer toutes les données par cette sauvegarde ?","Replace all data with this backup?")))return;DB=d;persist();render()}catch(e){toast(L("Fichier invalide.","Invalid file."))}};r.readAsText(f)};
 window.resetDB=()=>{if(ME.role!=="direction")return;if(prompt(L("Tapez RESET pour effacer toutes les données :","Type RESET to erase all data:"))==="RESET"){DB=sanitize(seed());persist();render()}};
+
+/* ===== access codes (front-end barrier only; real protection = Supabase Auth) ===== */
+const pinHash=async(id,p)=>{const d=id+":beme-ksa:"+p;try{if(crypto&&crypto.subtle){const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(d));return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("")}}catch(e){}let h=0x811c9dc5,o="";for(let k=0;k<8;k++){for(let i=0;i<d.length;i++){h^=d.charCodeAt(i)+k;h=Math.imul(h,16777619)>>>0}o+=h.toString(16).padStart(8,"0")}return(o+o).slice(0,64)};
+const lockGet=id=>{try{return(JSON.parse(localStorage.getItem("beme_lock")||"{}"))[id]||{n:0,u:0}}catch(e){return{n:0,u:0}}};
+const lockSet=(id,v)=>{try{const o=JSON.parse(localStorage.getItem("beme_lock")||"{}");o[id]=v;localStorage.setItem("beme_lock",JSON.stringify(o))}catch(e){}};
+window.pinAsk=(x,ok)=>{
+ const first=!x.pin;let step=first?1:0,buf="",first1="";
+ const m=sheet(`<div class="pinbox"><div class="pinh"><b></b><small></small></div><div class="pdots" aria-live="polite"></div><div class="pmsg" role="alert"></div><div class="pkeys">${[1,2,3,4,5,6,7,8,9].map(n=>`<button type="button" data-k="${n}">${n}</button>`).join("")}<button type="button" data-k="x" aria-label="${L("Effacer","Delete")}">⌫</button><button type="button" data-k="0">0</button><button type="button" data-k="ok" class="go">OK</button></div><button type="button" class="btn sm pcx" style="width:100%;margin-top:8px">${t("cancel")}</button></div>`);
+ const H=m.querySelector(".pinh b"),S=m.querySelector(".pinh small"),D=m.querySelector(".pdots"),M=m.querySelector(".pmsg");
+ const paint=()=>{H.textContent=x.name||x.title;S.textContent=step===1?L("Première connexion : choisissez un code (4 à 6 chiffres)","First sign-in: choose a code (4 to 6 digits)"):step===2?L("Confirmez votre code","Confirm your code"):L("Entrez votre code d'accès","Enter your access code");D.innerHTML=Array.from({length:6},(_,i)=>`<i class="${i<buf.length?"on":""}"></i>`).join("")};
+ const msg=(t1,bad)=>{M.textContent=t1||"";M.classList.toggle("bad",!!bad)};
+ const shake=()=>{D.classList.remove("shk");void D.offsetWidth;D.classList.add("shk")};
+ const lockMsg=()=>{const l=lockGet(x.id);const r=Math.ceil((l.u-Date.now())/1000);return r>0?(msg(L("Trop d'essais. Réessayez dans "+r+" s.","Too many attempts. Try again in "+r+" s."),1),true):false};
+ const submit=async()=>{
+  if(buf.length<4){msg(L("4 chiffres minimum.","4 digits minimum."),1);shake();return}
+  if(step===1){first1=buf;buf="";step=2;msg("");paint();return}
+  if(step===2){if(buf!==first1){buf="";first1="";step=1;msg(L("Les deux codes ne correspondent pas. Recommencez.","Codes do not match. Start over."),1);shake();paint();return}
+   x.pin=await pinHash(x.id,buf);const i=DB.profiles.findIndex(y=>y.id===x.id);if(i>=0)DB.profiles[i].pin=x.pin;persist();m.remove();ok();return}
+  if(lockMsg()){buf="";paint();return}
+  const h=await pinHash(x.id,buf);
+  if(h===x.pin){lockSet(x.id,{n:0,u:0});m.remove();ok();return}
+  const l=lockGet(x.id);l.n++;if(l.n>=5){l.n=0;l.u=Date.now()+30000}lockSet(x.id,l);buf="";shake();paint();if(!lockMsg())msg(L("Code incorrect.","Wrong code."),1)};
+ m.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;if(b.classList.contains("pcx")){m.remove();return}const k=b.dataset.k;if(k===undefined)return;if(k==="x"){buf=buf.slice(0,-1);msg("")}else if(k==="ok")submit();else if(buf.length<6){buf+=k;msg("")}paint()});
+ m.addEventListener("keydown",e=>{if(/^\d$/.test(e.key)&&buf.length<6){buf+=e.key;msg("");paint()}else if(e.key==="Backspace"){buf=buf.slice(0,-1);paint()}else if(e.key==="Enter")submit()});
+ m.tabIndex=-1;m.focus();paint();lockMsg();
+};
+window.pinReset=id=>{if(ME.role!=="direction")return;const x=DB.profiles.find(y=>y.id===id);if(!x)return;if(confirm(L("Réinitialiser le code de ce profil ? Il en créera un nouveau à sa prochaine connexion.","Reset this profile's code? A new one will be created at next sign-in."))){x.pin="";lockSet(id,{n:0,u:0});persist();render()}};
 window.pEdit=id=>{if(ME.role!=="direction")return;const x=id?DB.profiles.find(y=>y.id===id):{id:uid(),title:"",name:"",role:"staff"};form(id?t("edit"):t("add"),[{k:"title",label:L("Fonction (CEO, RH…)","Position (CEO, HR…)"),req:1},{k:"name",label:L("Prénom / nom","Name")},{k:"role",label:L("Droits d'accès","Access rights"),type:"select",opts:ROLES.map(r=>[r,t("role_"+r)])}],x,o=>{if(ME.role!=="direction"||!ROLES.includes(o.role))return false;const i=DB.profiles.findIndex(y=>y.id===o.id);if(i>=0)DB.profiles[i]=o;else DB.profiles.push(o);persist();render();return true})};
 window.pDel=id=>{if(ME.role!=="direction")return;if(confirm(L("Supprimer ce profil ?","Delete this profile?"))){DB.profiles=DB.profiles.filter(y=>y.id!==id);persist();render()}};
 V.settings=()=>{const co=S().co;const lb=localStorage.getItem("beme_lastbackup");
  const fld=(k,l)=>`<label>${l}</label><input value="${esc(co[k])}" onchange="setCo('${k}',this.value)">`;
  return `<div class="pt"><h1>${t("settings")}</h1></div>
- <div class="card"><h3>${L("Équipe et accès","Team & access")}</h3><p class="mut">${L("Les profils proposés à la connexion. Les droits décident de ce que chacun voit.","Profiles shown at sign-in. Access rights decide what each person sees.")}</p>${DB.profiles.map(x=>`<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)"><span class="ib av" style="border:0">${esc((x.name||x.title).slice(0,1).toUpperCase())}</span><div style="flex:1"><b>${esc(x.title)}</b><div class="mut">${esc(x.name||"—")} · ${t("role_"+x.role)}</div></div><button class="btn sm" onclick="pEdit('${esc(x.id)}')">${t("edit")}</button><button class="btn sm bad" aria-label="Delete" onclick="pDel('${esc(x.id)}')">✕</button></div>`).join("")}<button class="btn gold" style="margin-top:10px" onclick="pEdit()">+ ${t("add")}</button></div>
+ <div class="card"><h3>${L("Équipe et accès","Team & access")}</h3><p class="mut">${L("Les profils proposés à la connexion (🔑 = code défini, toucher pour le réinitialiser). Les droits décident de ce que chacun voit.","Profiles shown at sign-in (🔑 = code set, tap to reset). Access rights decide what each person sees.")}</p>${DB.profiles.map(x=>`<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)"><span class="ib av" style="border:0">${esc((x.name||x.title).slice(0,1).toUpperCase())}</span><div style="flex:1"><b>${esc(x.title)}</b><div class="mut">${esc(x.name||"—")} · ${t("role_"+x.role)}</div></div><button class="btn sm" title="${L("Code d'accès","Access code")}" onclick="pinReset('${esc(x.id)}')">${x.pin?"🔑":"—"}</button><button class="btn sm" onclick="pEdit('${esc(x.id)}')">${t("edit")}</button><button class="btn sm bad" aria-label="Delete" onclick="pDel('${esc(x.id)}')">✕</button></div>`).join("")}<button class="btn gold" style="margin-top:10px" onclick="pEdit()">+ ${t("add")}</button></div>
  <div class="card"><h3>${L("Société (apparaît sur les devis)","Company (shown on quotes)")}</h3>${fld("name",L("Raison sociale","Legal name"))}${fld("addr",L("Adresse","Address"))}${fld("phone",L("Téléphone","Phone"))}${fld("email","Email")}${fld("vat",L("N° de TVA","VAT number"))}${fld("cr",L("Registre de commerce (CR)","Commercial registration (CR)"))}${fld("bank",L("Coordonnées bancaires (IBAN…)","Bank details (IBAN…)"))}</div>
  <div class="card"><h3>${L("Règles","Rules")}</h3>
  <label>${L("Garantie standard (mois)","Standard warranty (months)")}</label><input type="number" min="1" step="1" inputmode="numeric" value="${esc(S().wMonths)}" onchange="setS('wMonths',this.value)">
@@ -758,24 +796,23 @@ function render(keep){
  const app=$("#app");document.documentElement.lang=LANG;document.body.classList.toggle("lg",!ME);
  if(!ME){const pr=DB.profiles;
   const V=new URLSearchParams(location.search).get("l");const FRAME=new URLSearchParams(location.search).has("frame");const lv=FRAME?"a":V==="a"||V==="d"?V:(()=>{let d="";try{d=localStorage.getItem("beme_dev")||""}catch(e){}return d==="m"?"a":d==="l"?"d":matchMedia("(min-width:900px)").matches?"d":"a"})();
-  const VV=(new URLSearchParams(location.search).get("v")||"1").replace(/[^123]/g,"")||"1";const head1=`<img class="lg" src="assets/beme-logo-white.svg" alt="BEME"><div class="tag">YOUR PARTNER IN CULINARY EXCELLENCE</div><div class="tag ar">شريككم في التميز في فنون الطهي</div><div class="kick" style="text-align:center;margin-top:18px">BEME RIYAD · OPERATIONS</div><div class="sal">السلام عليكم<span>Salam alaikum</span></div><h2 style="color:#fff;text-align:center;font:800 24px var(--sans);margin:0 0 6px">${L("Qui êtes-vous ?","Who are you?")}</h2>`;
+  const VV=(new URLSearchParams(location.search).get("v")||"1").replace(/[^123]/g,"")||"1";const head1=`<img class="lg" src="assets/beme-logo-white.svg" alt="BEME"><div class="tag">YOUR PARTNER IN CULINARY EXCELLENCE</div><div class="tag ar">شريككم في التميز في فنون الطهي</div><div class="kick" style="text-align:center;margin-top:18px">BEME KSA · OPERATIONS</div><div class="sal">السلام عليكم<span>Salam alaikum</span></div><h2 style="color:#fff;text-align:center;font:800 24px var(--sans);margin:0 0 6px">${L("Qui êtes-vous ?","Who are you?")}</h2>`;
   const avs=`<div class="avs">${pr.map(x=>`<button class="av1" data-p="${esc(x.id)}"><span class="c">${avIcon(x)}</span><b>${esc(x.title)}</b><small>${esc(x.name||"")}</small></button>`).join("")}</div>`;
-  const rest=`<details style="margin-top:6px"><summary class="mut" style="cursor:pointer;min-height:36px">${L("Autre profil","Other profile")}</summary><label for="ln">${t("name")}</label><input id="ln" maxlength="60" autocomplete="name"><label for="lr">${t("role")}</label><select id="lr">${ROLES.map(r=>`<option value="${r}">${t("role_"+r)}</option>`).join("")}</select><button class="btn gold" style="width:100%;margin-top:12px" id="lgo">${t("login")}</button></details>
+  const rest=`
   <div style="text-align:center;margin-top:14px"><button class="btn sm" style="background:transparent;color:#fff;border-color:rgba(255,255,255,.5)" id="llang">${t("lang")}</button></div><p class="mut" style="margin-top:14px;font-size:12px;text-align:center">${t("demo")}</p>`;
   const core=head1+avs+rest;
   const bg="";
-  const core2=`<img class="lg" src="assets/beme-logo-white.svg" alt="BEME"><div class="ttl">BEME RIYAD<span> · ${L("OPÉRATIONS","OPERATIONS")}</span></div>`+`<div class="sal">السلام عليكم<span>Salam alaikum</span></div>`+avs+rest;
+  const core2=`<img class="lg" src="assets/beme-logo-white.svg" alt="BEME"><div class="ttl">BEME KSA<span> · ${L("OPÉRATIONS","OPERATIONS")}</span></div>`+`<div class="sal">السلام عليكم<span>Salam alaikum</span></div>`+avs+rest;
   const topD=`<div class="top"><img class="lg" src="assets/beme-logo-white.svg" alt="BEME"></div>`;const salD=`<div class="sal">السلام عليكم<span>Salam alaikum</span></div>`;
   let dv="";try{dv=localStorage.getItem("beme_dev")||""}catch(e){}const dvb=`<div class="dvs" role="group" aria-label="${L("Affichage","Display")}"><button data-d="m" class="${dv==="m"||(!dv&&!matchMedia("(min-width:900px)").matches)?"on":""}">${L("Téléphone","Phone")}</button><button data-d="l" class="${dv==="l"||(!dv&&matchMedia("(min-width:900px)").matches)?"on":""}">${L("Ordinateur","Laptop")}</button></div>`;
-  const ttl=`<div class="ttl">BEME RIYAD<span> · ${L("OPÉRATIONS","OPERATIONS")}</span></div>`;
+  const ttl=`<div class="ttl">BEME KSA<span> · ${L("OPÉRATIONS","OPERATIONS")}</span></div>`;
   const dvbX=FRAME?"":dvb;
   if(lv==="a"&&!FRAME&&innerWidth>=900){app.innerHTML=dvbX+`<div class="pf"><iframe title="Phone view" src="?frame=1&l=a"></iframe></div>`;document.querySelectorAll(".dvs button").forEach(b=>b.onclick=()=>{try{localStorage.setItem("beme_dev",b.dataset.d)}catch(e){}location.reload()});return}
   else app.innerHTML=dvbX+(lv==="d"?`<div class="login lg-d"><div class="pnl"><img class="lg" src="assets/beme-logo-white.svg" alt="BEME">${ttl}<div class="sal">السلام عليكم<span>Salam alaikum</span></div>${avs}${rest}</div><div class="imgp"></div></div>`:`<div class="login lg-a"><div class="ph"><div class="cap"><img class="lg" src="assets/beme-logo-white.svg" alt="BEME">${ttl}</div></div><div class="pn"><div class="in"><div class="sal">السلام عليكم<span>Salam alaikum</span></div>${avs}${rest}</div></div></div>`);
   document.querySelectorAll(".dvs button").forEach(b=>b.onclick=()=>{try{localStorage.setItem("beme_dev",b.dataset.d)}catch(e){}location.reload()});
   const enter=(name,role,title)=>{ME={name:name.slice(0,60),role,title:title||""};sessionStorage.setItem("beme_me",JSON.stringify(ME));NAV=[];render()};
-  document.querySelectorAll(".av1").forEach(bt=>bt.onclick=()=>{const x=pr.find(y=>y.id===bt.dataset.p);if(x)enter(x.name||x.title,x.role,x.title)});
-  $("#lgo").onclick=()=>{const n=$("#ln").value.trim();if(!n){$("#ln").focus();return}enter(n,$("#lr").value,"")};
-  $("#llang").onclick=()=>{LANG=LANG==="fr"?"en":"fr";localStorage.setItem("beme_lang",LANG);render()};return}
+  document.querySelectorAll(".av1").forEach(bt=>bt.onclick=()=>{const x=pr.find(y=>y.id===bt.dataset.p);if(x)pinAsk(x,()=>enter(x.name||x.title,x.role,x.title))});
+    $("#llang").onclick=()=>{LANG=LANG==="fr"?"en":"fr";localStorage.setItem("beme_lang",LANG);render()};return}
  let p=location.hash.slice(1)||"home";if(!(p==="home"||(PAGES.includes(p)&&can("view",p))))p="home";
  if(NAV[NAV.length-1]!==p)NAV.push(p);
  const foc=keep&&document.activeElement&&document.activeElement.tagName==="INPUT"?document.activeElement.selectionStart:null;
