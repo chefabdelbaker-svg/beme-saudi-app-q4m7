@@ -8,36 +8,36 @@
 <meta name="theme-color" content="#12284c">
 <title>BEME Saudi — Operations</title>
 <style>
-:root{--navy:#12284c;--navy-2:#1b3866;--navy-tint:#eef1f7;--gold:#BF9F5F;--gold-dark:#8f7433;--gold-tint:#f6efe0;--ivory:#faf7f0;--surface:#fff;--line:#e6dfcf;--ink:#1d2433;--mut:#5d6578;--ok:#1f7a4a;--ok-bg:#e3f3ea;--warn:#8a4a0f;--warn-bg:#fbeedd;--bad:#a3302a;--bad-bg:#f9e2df;--r:12px;--sh:0 1px 2px rgba(18,40,76,.06),0 2px 10px rgba(18,40,76,.06);--serif:Georgia,"Times New Roman",serif}
+:root{--sans:"Avenir Next","Segoe UI","Helvetica Neue",Arial,system-ui,sans-serif;--navy:#12284c;--navy-2:#1b3866;--navy-tint:#eef1f7;--gold:#BF9F5F;--gold-dark:#8f7433;--gold-tint:#f6efe0;--ivory:#faf7f0;--surface:#fff;--line:#e6dfcf;--ink:#1d2433;--mut:#5d6578;--ok:#1f7a4a;--ok-bg:#e3f3ea;--warn:#8a4a0f;--warn-bg:#fbeedd;--bad:#a3302a;--bad-bg:#f9e2df;--r:12px;--sh:0 1px 2px rgba(18,40,76,.06),0 2px 10px rgba(18,40,76,.06);--serif:Georgia,"Times New Roman",serif}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{margin:0;font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--ivory);color:var(--ink);padding-bottom:calc(72px + env(safe-area-inset-bottom))}
 h1,h2,h3{font-family:var(--serif);color:var(--navy);margin:0;font-weight:600}
-h1{font-size:26px;line-height:1.2}h2{font-size:20px}h3{font-size:17px}
+h1{font:800 28px/1.1 var(--sans);letter-spacing:-.02em}h2{font-size:20px}h3{font-size:17px}
 .num{font-variant-numeric:tabular-nums}
 button{font:inherit;cursor:pointer}
 .btn{font-weight:600;border:1px solid var(--navy);background:#fff;color:var(--navy);border-radius:10px;padding:0 14px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;gap:6px}
 .btn.pri{background:var(--navy);color:#fff}.btn.gold{background:var(--gold);border-color:var(--gold);color:var(--navy)}.btn.bad{border-color:var(--bad);color:var(--bad)}.btn.sm{min-height:36px;padding:0 10px;font-size:13px}
 .btn:disabled{opacity:.45;cursor:not-allowed}
 :focus-visible{outline:3px solid var(--gold);outline-offset:2px}
-.appbar{position:sticky;top:0;z-index:30;background:var(--navy);display:flex;align-items:center;gap:10px;padding:8px 14px;padding-top:calc(8px + env(safe-area-inset-top));border-bottom:3px solid var(--gold)}
+.appbar{position:sticky;top:0;z-index:30;background:linear-gradient(rgba(14,30,58,.9),rgba(10,22,44,.94)),url(assets/img/texture.webp) center/cover;display:flex;align-items:center;gap:10px;padding:8px 14px;padding-top:calc(8px + env(safe-area-inset-top));border-bottom:3px solid var(--gold)}
 .appbar img{height:42px;width:auto}
 .appbar .sp{flex:1}
 .ib{width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:700}
 .ib.av{background:var(--gold);color:var(--navy);border-color:var(--gold)}
 .ib[hidden]{display:none}
-.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--navy);display:flex;padding-bottom:env(safe-area-inset-bottom);border-top:1px solid #0c1a33}
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:linear-gradient(rgba(14,30,58,.92),rgba(10,22,44,.96)),url(assets/img/texture.webp) center/cover;display:flex;padding-bottom:env(safe-area-inset-bottom);border-top:1px solid #0c1a33}
 .tab{flex:1;min-height:60px;background:none;border:0;color:#aeb9cf;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:11px;position:relative}
 .tab svg{width:22px;height:22px}
 .tab.on{color:#fff}.tab.on:after{content:"";position:absolute;top:0;left:22%;right:22%;height:3px;background:var(--gold);border-radius:0 0 3px 3px}
 .side{display:none}
 svg.i{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 @media(min-width:900px){body{padding-bottom:0;padding-left:232px}.tabbar{display:none}
-.side{display:block;position:fixed;top:0;left:0;bottom:0;width:232px;background:var(--navy);padding:76px 10px 10px;z-index:20;overflow:auto}
+.side{display:block;position:fixed;top:0;left:0;bottom:0;width:232px;background:linear-gradient(rgba(14,30,58,.93),rgba(10,22,44,.97)),url(assets/img/texture.webp) center/cover;padding:76px 10px 10px;z-index:20;overflow:auto}
 .side button{display:flex;align-items:center;gap:10px;width:100%;background:none;border:0;color:#cfd7e8;padding:11px 12px;border-radius:10px;font-size:14px;text-align:left}
 .side button.on{background:rgba(255,255,255,.1);color:#fff;box-shadow:inset 3px 0 0 var(--gold)}.side svg{width:20px;height:20px}
 .appbar{position:fixed;left:0;right:0;top:0}main{padding-top:84px!important}}
 main{max-width:980px;margin:0 auto;padding:16px}
-.pt{margin:4px 0 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}.pt h1{flex:1}
+.pt{margin:4px 0 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}.pt>div{flex:1}.pt h1{margin:0}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px;margin-bottom:12px;box-shadow:var(--sh)}
 .lst{display:grid;gap:12px;grid-template-columns:1fr}
 @media(min-width:760px){.lst{grid-template-columns:1fr 1fr}}
@@ -54,18 +54,18 @@ main{max-width:980px;margin:0 auto;padding:16px}
 .chips-row{display:flex;gap:8px;overflow-x:auto;padding:2px 0 10px;margin:0 -2px}
 .mut{color:var(--mut);font-size:13px}
 .empty{text-align:center;padding:34px 16px;color:var(--mut)}.empty svg{width:48px;height:48px;color:var(--gold);margin-bottom:6px}.empty p{margin:4px 0 12px}
-.hello{background:var(--navy);color:#fff;border-radius:var(--r);padding:16px;margin-bottom:12px;border-bottom:3px solid var(--gold)}.hello h1{color:#fff}.hello .mut{color:#c9d3e8}
+.hello{position:relative;overflow:hidden;color:#fff;border-radius:16px;padding:22px 18px 20px;margin-bottom:14px;min-height:170px;display:flex;flex-direction:column;justify-content:flex-end;background:linear-gradient(100deg,rgba(10,22,44,.94) 35%,rgba(10,22,44,.35)),url(assets/img/hero-oven.jpg) right center/cover;border-bottom:3px solid var(--gold);box-shadow:0 10px 30px rgba(18,40,76,.25)}.hello h1{color:#fff;font:800 clamp(26px,6vw,38px)/1.05 var(--sans);letter-spacing:-.02em}.hello .mut{color:#d8dff0}.kick{font:700 11px/1 var(--sans);letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
 .stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
 @media(min-width:760px){.stats{grid-template-columns:repeat(4,1fr)}}
 .stat{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:12px;text-align:left;box-shadow:var(--sh)}
-.stat .v{font:600 22px var(--serif);color:var(--navy)}.stat .l{font-size:12px;color:var(--mut)}
+.stat .v{font:800 22px var(--sans);color:var(--navy);letter-spacing:-.01em}.stat{border-top:3px solid var(--gold)}.stat .l{font-size:12px;color:var(--mut)}
 .alert{display:flex;gap:10px;align-items:center;width:100%;text-align:left;background:#fff;border:1px solid var(--line);border-left:4px solid #c9772b;border-radius:10px;padding:10px 12px;margin-bottom:8px;font-size:14px}
 .alert.r{border-left-color:var(--bad)}
 .quick{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
 .sgrid{display:grid;gap:12px;grid-template-columns:1fr 1fr}@media(min-width:760px){.sgrid{grid-template-columns:repeat(3,1fr)}}@media(min-width:1100px){.sgrid{grid-template-columns:repeat(4,1fr)}}
 .sc{background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);cursor:pointer;display:flex;flex-direction:column}
-.sc .ph{aspect-ratio:4/3;background:linear-gradient(135deg,var(--navy-tint),var(--gold-tint));display:flex;align-items:center;justify-content:center;position:relative;color:var(--gold-dark)}
-.sc .ph img{width:100%;height:100%;object-fit:cover}.sc .ph svg{width:44px;height:44px}
+.sc .ph{aspect-ratio:1/1;background:#fff;border-bottom:1px solid var(--line);padding:8px;display:flex;align-items:center;justify-content:center;position:relative;color:var(--gold-dark)}
+.sc .ph img{width:100%;height:100%;object-fit:contain}.sc .ph svg{width:44px;height:44px}
 .sc .t1{position:absolute;top:6px;left:6px}.sc .t2{position:absolute;top:6px;right:6px}
 .sc .bd{padding:10px;display:flex;flex-direction:column;gap:2px;flex:1}.sc b{font-size:14px;line-height:1.25}.sc .pr{font:700 16px var(--serif);color:var(--gold-dark)}
 .steps{display:flex;margin:10px 0 4px}
@@ -83,7 +83,7 @@ label{display:block;font-size:12px;color:var(--mut);margin:10px 0 4px;font-weigh
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .menu button{display:flex;width:100%;text-align:left;padding:0 6px;min-height:50px;align-items:center;background:none;border:0;border-bottom:1px solid var(--line);font-size:16px;color:var(--navy)}.menu button.bad{color:var(--bad)}
 .thumb{width:56px;height:56px;object-fit:cover;border-radius:8px;border:1px solid var(--line)}
-.login{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:24px;background:linear-gradient(180deg,var(--navy),#0c1a33);color:#fff}
+.login{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:24px;background:linear-gradient(180deg,rgba(10,22,44,.45),rgba(8,16,32,.96) 62%),url(assets/img/hero-oven.jpg) center top/cover;color:#fff}
 .login .in{max-width:400px;margin:0 auto;width:100%}.login img{width:210px;display:block;margin:0 auto 18px}.login label{color:#c9d3e8}.login .mut{color:#c9d3e8}
 .toast{position:fixed;left:12px;right:12px;bottom:calc(76px + env(safe-area-inset-bottom));background:var(--navy);border:2px solid var(--gold);color:#fff;padding:12px;border-radius:10px;z-index:90;text-align:center}
 .qline{border:1px solid var(--line);border-radius:12px;padding:10px;margin-bottom:10px;background:#fcfaf5}
@@ -153,8 +153,12 @@ const IDRE=/^[a-z0-9-]{1,40}$/;
 const DEFSET=()=>({maxDisc:5,wMonths:24,wStart:"commissioning",co:{name:"BEME Saudi",vat:"",cr:"",bank:"",addr:"",phone:"",email:""}});
 function seed(){const d=today();return{fx:{SAR:1,EUR:4.1,AED:1.02},qseq:0,settings:DEFSET(),
 clients:[{id:uid(),name:"Hotel bakery (demo)",contact:"Procurement",phone:"",city:"Riyadh",stage:"qualified",source:"referral",lost:"",next:d,notes:""}],quotes:[],stock:[
-{id:uid(),ref:"EX-001",brand:"Bongard",name:"Rotary oven (demo)",cond:"new",status:"in_stock",avail:"riyadh",price:85000,cost:62000,extra:3000,cur:"SAR",qty:1,serial:"",volt:"v380",dims:"",loc:"Riyadh warehouse",photo:""},
-{id:uid(),ref:"EX-002",brand:"Bongard",name:"Spiral mixer 80L (demo)",cond:"used",status:"in_transit",avail:"dubai",price:9000,cost:6500,extra:0,cur:"EUR",qty:2,serial:"",volt:"v380",dims:"",loc:"Dubai hub",photo:""}],
+{id:uid(),ref:"RO-001",brand:"Bongard",name:"Rotary rack oven (demo)",cond:"new",status:"in_stock",avail:"riyadh",price:185000,cost:132000,extra:9000,cur:"SAR",qty:1,serial:"",volt:"v380",dims:"",loc:"Riyadh warehouse",photo:"assets/img/rotary-oven.webp"},
+{id:uid(),ref:"DK-002",brand:"Bongard",name:"Electric deck oven, 4 decks (demo)",cond:"new",status:"in_transit",avail:"dubai",price:9800,cost:7200,extra:600,cur:"EUR",qty:2,serial:"",volt:"v380",dims:"",loc:"Dubai hub",photo:"assets/img/deck-oven.webp"},
+{id:uid(),ref:"PT-003",brand:"Bongard",name:"Traditional oven (demo)",cond:"used",status:"in_stock",avail:"riyadh",price:65000,cost:40000,extra:2500,cur:"SAR",qty:1,serial:"",volt:"gas",dims:"",loc:"Riyadh warehouse",photo:"assets/img/paneotrad-oven.webp"},
+{id:uid(),ref:"DV-004",brand:"Bongard",name:"Dough divider (demo)",cond:"new",status:"in_stock",avail:"toorder",price:38000,cost:24000,extra:1500,cur:"SAR",qty:1,serial:"",volt:"v380",dims:"",loc:"",photo:"assets/img/divider.webp"},
+{id:uid(),ref:"SH-005",brand:"Bongard",name:"Dough sheeter (demo)",cond:"new",status:"in_stock",avail:"riyadh",price:29000,cost:18000,extra:1200,cur:"SAR",qty:2,serial:"",volt:"v220",dims:"",loc:"Riyadh warehouse",photo:"assets/img/sheeter.webp"},
+{id:uid(),ref:"BC-006",brand:"Bongard",name:"Blast chiller / freezer (demo)",cond:"new",status:"in_stock",avail:"dubai",price:52000,cost:33000,extra:2800,cur:"SAR",qty:1,serial:"",volt:"v380",dims:"",loc:"Dubai hub",photo:"assets/img/blast-chiller.webp"}],
 orders:[],equip:[],service:[],contracts:[],planning:[],hr:[],invoices:[]}}
 const ENUMS={stock:{cond:"cond",status:"status",avail:"avail",volt:"volt"},clients:{stage:"cstage",source:"source"},quotes:{status:"qstatus"},orders:{stage:"stage",supplier:"supplier"},service:{status:"tstatus",prio:"prio",cause:"cause"},invoices:{kind:"kind"}};
 const CURCOLL=["stock","quotes","orders","invoices","contracts"];
@@ -276,14 +280,14 @@ function kpis(){const r=ME.role;const al=alerts();
 const V={};
 V.home=()=>{const al=alerts();const show=window.ALL?al:al.slice(0,3);
  const q=[];if(can("edit","quotes"))q.push(`<button class="btn gold" onclick="A_quotes()">+ ${L("Devis","Quote")}</button>`);if(can("edit","clients"))q.push(`<button class="btn" onclick="A_clients()">+ Client</button>`);if(can("edit","stock"))q.push(`<button class="btn" onclick="A_stock()">+ ${L("Article","Item")}</button>`);if(can("edit","service"))q.push(`<button class="btn" onclick="A_service()">+ ${L("Panne","Fault")}</button>`);if(can("edit","accounting"))q.push(`<button class="btn" onclick="A_invoices()">+ ${L("Facture","Invoice")}</button>`);
- return `<div class="hello"><h1>${L("Bonjour","Hello")} ${esc(ME.name)}</h1><div class="mut">${esc(fmtD(today()))} · ${t("role_"+ME.role)}</div></div>
+ return `<div class="hello"><div class="kick">BEME SAUDI · OPERATIONS</div><h1>${L("Bonjour","Hello")} ${esc(ME.name)}</h1><div class="mut">${esc(fmtD(today()))} · ${t("role_"+ME.role)}</div></div>
  <div class="stats">${kpis().map(k=>`<button class="stat" onclick="go('${k[2]}')"><div class="v num">${esc(k[1])}</div><div class="l">${esc(k[0])}</div></button>`).join("")}</div>
  ${q.length?`<div class="quick">${q.join("")}</div>`:""}
  <h3 style="margin:6px 0 8px">${t("alerts")} ${al.length?badge(al.length,"gold"):""}</h3>
  ${show.length?show.map(x=>`<button class="alert ${x[0]==="r"?"r":""}" onclick="go('${x[2]}')">${esc(x[1])}</button>`).join(""):`<p class="mut">${t("none")}</p>`}
  ${al.length>3?`<button class="btn sm" onclick="window.ALL=!window.ALL;render()">${window.ALL?L("Réduire","Show less"):L("Voir tout","See all")+" ("+al.length+")"}</button>`:""}
  <p class="mut" style="margin-top:18px">${t("demo")}</p>`};
-const head=(p,fn,extra)=>`<div class="pt"><h1>${t(p)}</h1>${extra||""}${fn&&can("edit",p)?`<button class="btn gold" onclick="${fn}">+ ${t("add")}</button>`:""}</div>`;
+const head=(p,fn,extra)=>`<div class="pt"><div><div class="kick">BEME SAUDI</div><h1>${t(p)}</h1></div>${extra||""}${fn&&can("edit",p)?`<button class="btn gold" onclick="${fn}">+ ${t("add")}</button>`:""}</div>`;
 const CF=()=>[{k:"name",label:L("Nom / société","Name / company"),req:1},{k:"contact",label:"Contact"},{k:"phone",label:L("Téléphone","Phone")},{k:"city",label:L("Ville","City")},{k:"source",label:L("Origine du contact","Lead source"),type:"select",opts:opts("source")},{k:"stage",label:L("Étape du projet","Project stage"),type:"select",opts:opts("cstage")},{k:"lost",label:L("Si perdu : raison","If lost: reason")},{k:"next",label:L("Prochaine relance","Next follow-up"),type:"date"},{k:"notes",label:L("Notes / historique","Notes / history"),type:"textarea"}];
 const clientCheck=o=>{if(o.stage==="lost"&&!o.lost){toast(L("Indiquez la raison de la perte.","Please give the reason for the loss."));return false}};
 window.A_clients=()=>crud("clients",CF(),t("add"),{id:uid(),stage:"lead",source:"walkin",next:addDays(today(),2)},clientCheck);window.E_clients=id=>crud("clients",CF(),t("edit"),DB.clients.find(x=>x.id===id),clientCheck);
@@ -303,7 +307,7 @@ V.stock=()=>{const q=Q();const cost=SEE_COST.includes(ME.role);
  const chip=(v,cur,k,txt)=>`<button class="chip ${cur===v?"on":""}" onclick="${k}='${v}';render()">${txt}</button>`;
  return head("stock","A_stock()")+search()+`<div class="chips-row">${chip("",SFa,"SFa",L("Tout","All"))}${Object.keys(OPT.avail).map(k=>chip(k,SFa,"SFa",OPT.avail[k][LANG])).join("")}<span style="width:8px"></span>${chip("",SFc,"SFc",L("Neuf + occasion","New + used"))}${Object.keys(OPT.cond).map(k=>chip(k,SFc,"SFc",OPT.cond[k][LANG])).join("")}</div>`+
  (Ls.length?`<div class="sgrid">${Ls.map(s=>{const r=reserved(s),a=(+s.qty||0)-r;const ed=can("edit","stock");const ex=ed?[{t:"+1",f:()=>adj(s.id,1)},{t:"−1",f:()=>adj(s.id,-1)},{t:t("edit"),f:()=>E_stock(s.id)},{t:L("Supprimer","Delete"),bad:1,f:()=>remove("stock",s.id)}]:[];
-  return `<div class="sc" ${ed?`onclick="E_stock('${esc(s.id)}')"`:""}><div class="ph">${s.photo?`<img alt="" src="${esc(s.photo)}">`:ico("stock")}<span class="t1">${badge(lab("cond",s.cond),s.cond==="new"?"ok":"gold")}</span><span class="t2">${badge(lab("avail",s.avail),s.avail==="toorder"?"":"ok")}</span></div><div class="bd"><b>${esc(s.name)}</b><span class="mut">${esc(s.ref)} · ${esc(s.brand)}${s.serial?" · S/N "+esc(s.serial):""}</span><span class="pr num">${money(s.price,s.cur)}</span>${cost&&(+s.cost)?`<span class="mut num">${L("Achat","Cost")} ${money(s.cost,s.cur)}${s.extra?` + ${money(s.extra,s.cur)}`:""}</span>`:""}<span class="mut">${L("Qté","Qty")} <b>${esc(s.qty)}</b>${r?` · ${L("réservé","reserved")} ${r} · ${L("dispo","avail.")} <b style="color:${a<0?"var(--bad)":"var(--ok)"}">${a}</b>`:""}${s.volt?` · ${lab("volt",s.volt)}`:""}</span><span style="margin-top:6px;display:flex;gap:6px;align-items:center;flex-wrap:wrap">${badge(lab("status",s.status))}${mk(ex)}</span></div></div>`}).join("")}</div>`:empty("A_stock()","stock",L("Aucun équipement. Ajoutez le premier.","No equipment yet. Add the first one.")))};
+  return `<div class="sc" ${ed?`onclick="E_stock('${esc(s.id)}')"`:""}><div class="ph">${s.photo?`<img alt="" src="${esc(s.photo)}">`:ico("stock")}<span class="t1">${badge(lab("cond",s.cond),s.cond==="new"?"ok":"gold")}</span></div><div class="bd"><b>${esc(s.name)}</b><span class="mut">${esc(s.ref)} · ${esc(s.brand)}${s.serial?" · S/N "+esc(s.serial):""}</span><span class="pr num">${money(s.price,s.cur)}</span>${cost&&(+s.cost)?`<span class="mut num">${L("Achat","Cost")} ${money(s.cost,s.cur)}${s.extra?` + ${money(s.extra,s.cur)}`:""}</span>`:""}<span class="mut">${L("Qté","Qty")} <b>${esc(s.qty)}</b>${r?` · ${L("réservé","reserved")} ${r} · ${L("dispo","avail.")} <b style="color:${a<0?"var(--bad)":"var(--ok)"}">${a}</b>`:""}${s.volt?` · ${lab("volt",s.volt)}`:""}</span><span style="margin-top:6px;display:flex;gap:6px;align-items:center;flex-wrap:wrap">${badge(lab("avail",s.avail),s.avail==="toorder"?"warn":"ok")}${badge(lab("status",s.status))}${mk(ex)}</span></div></div>`}).join("")}</div>`:empty("A_stock()","stock",L("Aucun équipement. Ajoutez le premier.","No equipment yet. Add the first one.")))};
 window.A_quotes=()=>quoteForm({id:uid(),client:DB.clients[0]&&DB.clients[0].id,cur:"SAR",status:"draft",date:today(),valid:addDays(today(),30),items:[{type:"equipment",stock:"",desc:"",qty:1,price:0,opt:false,inc:false}],notes:"",terms:"",vat:0,disc:0});
 window.E_quotes=id=>quoteForm(JSON.parse(JSON.stringify(DB.quotes.find(x=>x.id===id))));
 function quoteForm(q){
