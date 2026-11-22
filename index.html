@@ -397,6 +397,21 @@ html:has(.login)::-webkit-scrollbar,.login::-webkit-scrollbar{width:8px;backgrou
 .login.lg-a .avsx .g2:last-child .av1 b,.login.lg-a .avsx .g2:last-child .av1 small{text-align:center!important}
 .login.lg-a .avsx .g2:last-child .av1 .c{width:46px!important;height:46px!important}
 .login.lg-a .avsx{padding-bottom:12px}
+/* v39 page d'accueil */
+.login .wlb,.login .wlk{display:none}
+.login.wl .wlb{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;padding:26px 22px 8px}
+.login.wl .wlb .sal{margin:0}
+.login.wl .wlb h1{font:600 28px/1.15 var(--serif,Georgia,serif);color:#fff;margin:6px 0 0}
+.login.wl .wlb p{margin:0;color:#e6dcc4;font-size:15px;max-width:30ch;line-height:1.4}
+.login.wl .wlgo{margin-top:22px;min-height:56px;padding:0 34px;border-radius:999px;border:2px solid #BF9F5F;background:linear-gradient(180deg,#d9c28f,#BF9F5F);color:#0b0b0b;font:800 15px var(--sans);letter-spacing:.16em;text-transform:uppercase;box-shadow:0 8px 24px rgba(0,0,0,.5)}
+.login.wl .ph{min-height:100vh!important;min-height:100svh!important;display:flex;flex-direction:column;justify-content:center;padding:70px 16px 40px!important}
+.login.wl .lgrow img.lg{width:min(260px,70vw)!important}
+.login.wl .ttl{font-size:clamp(22px,6.4vw,28px)!important}
+.login.wl .pn{height:0;min-height:0!important;padding:0!important;overflow:visible}
+.login.wl .in>:not(div[style*="text-align:center"]){display:none!important}
+.login:not(.wl) .wlk{display:block;margin:18px auto 0;background:none;border:0;color:#BF9F5F;font:600 14px var(--sans);min-height:44px;padding:0 14px}
+.login.wl .wlb h1{text-wrap:balance;font-size:26px}.login.wl .wlgo{white-space:nowrap;letter-spacing:.1em;padding:0 28px}
+.login.wl{height:100svh;overflow:hidden}
 </style>
 </head>
 <body>
@@ -979,9 +994,9 @@ function render(keep){
   const topD=`<div class="top"><img class="lg" src="assets/beme-logo-white.svg" alt="BEME"></div>`;const salD=`<div class="sal">السلام عليكم<span>Salam alaikum</span></div>`;
   let dv="";try{dv=localStorage.getItem("beme_dev")||""}catch(e){}const dvb=`<div class="dvs" role="group" aria-label="${L("Affichage","Display")}"><button data-d="m" class="${dv==="m"||(!dv&&!matchMedia("(min-width:900px)").matches)?"on":""}">${L("Téléphone","Phone")}</button><button data-d="l" class="${dv==="l"||(!dv&&matchMedia("(min-width:900px)").matches)?"on":""}">${L("Ordinateur","Laptop")}</button></div>`;
   const ttl=`<div class="ttl">BEME KSA</div><div class="ttl2">${L("OPÉRATIONS","OPERATIONS")}</div>`;const lgrow=`<div class="lgrow"><img class="lg" src="assets/beme-logo-white.svg" alt="BEME"></div>`;const prt=`<div class="prt"><i></i><img class="bl" src="assets/img/bongard-logo.png" alt="Bongard"><i></i></div>`;
-  const dvbX=FRAME?"":dvb;
+  const dvbX=FRAME?"":dvb;let WEL=false;try{WEL=sessionStorage.getItem("beme_w")==="1"}catch(e){}
   if(lv==="a"&&!FRAME&&innerWidth>=900){app.innerHTML=dvbX+`<div class="pf"><iframe title="Phone view" src="?frame=1&l=a"></iframe></div>`;document.querySelectorAll(".dvs button").forEach(b=>b.onclick=()=>{try{localStorage.setItem("beme_dev",b.dataset.d)}catch(e){}location.reload()});return}
-  else app.innerHTML=dvbX+(`<div class="login lg-a${lv==="d"?" lg-w":""}"><div class="ph"><div class="cap">${lgrow}${ttl}${prt}</div></div><div class="pn"><div class="in"><div class="sal">السلام عليكم<span>Salam alaikum</span></div>${avs}${rest}</div></div></div>`);
+  else app.innerHTML=dvbX+(`<div class="login lg-a${lv==="d"?" lg-w":""}${WEL?"":" wl"}"><div class="ph"><div class="cap">${lgrow}${ttl}${prt}</div><div class="wlb"><div class="sal">السلام عليكم<span>Salam alaikum</span></div><h1>${L("Bienvenue chez BEME KSA","Welcome to BEME KSA")}</h1><p>${L("Équipements Bongard pour les fournils d’Arabie saoudite","Bongard equipment for Saudi bakeries")}</p><button type="button" class="wlgo" id="wlgo">${L("Toucher pour continuer","Tap to continue")}</button></div></div><div class="pn"><div class="in"><div class="sal">السلام عليكم<span>Salam alaikum</span></div>${avs}<button type="button" class="wlk" id="wlk">← ${L("Retour à l’accueil","Back to welcome")}</button>${rest}</div></div></div>`);const wg=document.getElementById("wlgo");if(wg)wg.onclick=()=>{try{sessionStorage.setItem("beme_w","1")}catch(e){}render();scrollTo(0,0)};const wk=document.getElementById("wlk");if(wk)wk.onclick=()=>{try{sessionStorage.removeItem("beme_w")}catch(e){}render();scrollTo(0,0)};
   document.querySelectorAll(".dvs button").forEach(b=>b.onclick=()=>{try{localStorage.setItem("beme_dev",b.dataset.d)}catch(e){}location.reload()});
   const enter=(name,role,title)=>{ME={name:name.slice(0,60),role,title:title||""};sessionStorage.setItem("beme_me",JSON.stringify(ME));NAV=[];render()};
   document.querySelectorAll(".av1").forEach(bt=>bt.onclick=()=>{const x=pr.find(y=>y.id===bt.dataset.p);if(x)pinAsk(x,()=>enter(x.name||x.title,x.role,x.title))});
