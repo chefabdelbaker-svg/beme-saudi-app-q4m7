@@ -4,46 +4,55 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#12284c">
 <title>BEME Saudi — Management</title>
 <style>
-:root{--navy:#12284c;--gold:#BF9F5F;--ivory:#faf7f0;--ink:#1d2433;--mut:#6b7385;--line:#e6dfcf;--red:#b3392f;--green:#2f7d4f;--orange:#c9772b}
+:root{--navy:#12284c;--gold:#BF9F5F;--ivory:#faf7f0;--ink:#1d2433;--mut:#5d6578;--line:#e6dfcf;--red:#a3302a;--green:#2a7048;--orange:#8a4a0f}
 *{box-sizing:border-box}
 body{margin:0;font:15px/1.45 -apple-system,"Segoe UI",Roboto,sans-serif;background:var(--ivory);color:var(--ink)}
 h1,h2,h3{font-family:Georgia,"Times New Roman",serif;color:var(--navy);margin:0}
-header{position:sticky;top:0;z-index:5;background:#fff;border-bottom:3px solid var(--gold);display:flex;align-items:center;gap:8px;padding:8px 12px}
-header img{height:38px}
+header{position:sticky;top:0;z-index:5;background:#fff;border-bottom:3px solid var(--gold);display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:6px 10px}
+header img{height:34px}
 header .sp{flex:1}
 button,.btn{font:inherit;border:1px solid var(--navy);background:#fff;color:var(--navy);border-radius:8px;padding:8px 12px;cursor:pointer}
 button.pri{background:var(--navy);color:#fff}
-button.gold{background:var(--gold);border-color:var(--gold);color:#fff}
-button.sm{padding:4px 8px;font-size:13px}
+button.gold{background:var(--gold);border-color:var(--gold);color:var(--navy);font-weight:600}
+button.sm{padding:5px 9px;font-size:13px;min-height:32px}
 button.danger{border-color:var(--red);color:var(--red)}
+button:disabled{opacity:.45;cursor:not-allowed}
+:focus-visible{outline:3px solid var(--gold);outline-offset:1px}
+@media(pointer:coarse){button.sm{min-height:42px;min-width:42px}}
 main{max-width:1050px;margin:0 auto;padding:14px}
 .bar{display:flex;gap:8px;align-items:center;margin:0 0 12px;flex-wrap:wrap}
 .card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:10px}
 .grid{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
-.tile{background:#fff;border:1px solid var(--line);border-top:3px solid var(--gold);border-radius:12px;padding:14px;text-align:left;font-family:Georgia,serif;font-size:16px;color:var(--navy)}
-.tile small{display:block;font:12px -apple-system,sans-serif;color:var(--mut);margin-top:4px}
+.tile{background:#fff;border:1px solid var(--line);border-top:3px solid var(--gold);border-radius:12px;padding:16px 14px;text-align:left;font-family:Georgia,serif;font-size:16px;color:var(--navy)}
 .kpi{font:600 22px Georgia,serif;color:var(--navy)}
 .lbl{font-size:12px;color:var(--mut)}
 table{width:100%;border-collapse:collapse;font-size:14px}
 th,td{text-align:left;padding:7px 6px;border-bottom:1px solid var(--line);vertical-align:middle}
 th{font-size:12px;color:var(--mut);font-weight:600}
 .tw{overflow-x:auto}
+.tw td:last-child,.tw th:last-child{position:sticky;right:0;background:#fff;box-shadow:-6px 0 6px -6px rgba(0,0,0,.18)}
+.act{display:flex;gap:6px;flex-wrap:nowrap}
 .badge{display:inline-block;border-radius:20px;padding:2px 9px;font-size:12px;background:#eef1f7;color:var(--navy)}
 .badge.g{background:#e3f3ea;color:var(--green)}.badge.o{background:#fbeedd;color:var(--orange)}.badge.r{background:#f9e2df;color:var(--red)}
-.alert{border-left:4px solid var(--orange);background:#fff8ef;padding:8px 10px;margin-bottom:6px;border-radius:6px;font-size:14px}
+.alert{border-left:4px solid #c9772b;background:#fff8ef;padding:9px 10px;margin-bottom:6px;border-radius:6px;font-size:14px;cursor:pointer}
 .alert.r{border-color:var(--red);background:#fdf0ee}
-input,select,textarea{font:inherit;width:100%;padding:8px;border:1px solid #cfc8b6;border-radius:8px;background:#fff}
+input,select,textarea{font:inherit;font-size:16px;width:100%;padding:8px;border:1px solid #bdb59f;border-radius:8px;background:#fff}
 label{display:block;font-size:12px;color:var(--mut);margin:8px 0 3px}
-.modal{position:fixed;inset:0;background:rgba(18,40,76,.55);display:flex;align-items:flex-start;justify-content:center;overflow:auto;padding:16px;z-index:20}
+.modal{position:fixed;inset:0;background:rgba(18,40,76,.55);display:flex;align-items:flex-start;justify-content:center;overflow:auto;padding:12px;z-index:20}
 .modal .box{background:#fff;border-radius:14px;padding:16px;width:100%;max-width:520px;margin:auto}
+.foot{position:sticky;bottom:-16px;background:#fff;padding:10px 0 4px;margin-top:12px;border-top:1px solid var(--line);display:flex;gap:8px;flex-wrap:wrap}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .thumb{width:48px;height:48px;object-fit:cover;border-radius:8px;border:1px solid var(--line);background:#f1ede2}
 .login{max-width:420px;margin:7vh auto;text-align:center}
 .login img{width:230px}
 .note{font-size:12px;color:var(--mut)}
 .stages{display:flex;gap:6px;flex-wrap:wrap}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.toast{position:fixed;left:12px;right:12px;bottom:14px;background:var(--red);color:#fff;padding:12px;border-radius:10px;z-index:50;text-align:center}
 @media(max-width:560px){.row2{grid-template-columns:1fr}}
 </style>
 </head>
@@ -51,45 +60,61 @@ label{display:block;font-size:12px;color:var(--mut);margin:8px 0 3px}
 <div id="app"></div>
 <script>
 "use strict";
-/* ===== Texte (FR + EN) ===== */
+/* ===== Langue ===== */
+let LANG=localStorage.getItem("beme_lang")==="en"?"en":"fr";
+const L=(fr,en)=>LANG==="fr"?fr:en;
 const T={
 fr:{home:"Accueil",back:"Retour",clients:"Clients à contacter",quotes:"Devis",stock:"Stock",orders:"Commandes et livraisons",service:"Technique et SAV",planning:"Planning du staff",hr:"Dossier RH",accounting:"Comptabilité",dashboard:"Tableau de bord",
 role_direction:"Direction",role_commercial:"Commercial",role_stock:"Stock",role_orders:"Commandes et livraisons",role_tech:"Technique et SAV",role_planning:"Planning du staff",role_hr:"RH",role_accounting:"Comptabilité",role_staff:"Staff",
-login:"Entrer",name:"Votre nom",role:"Votre rôle",add:"Ajouter",edit:"Modifier",del:"Supprimer",save:"Enregistrer",cancel:"Annuler",alerts:"Alertes du jour",none:"Rien à signaler.",demo:"Mode démonstration : les données restent sur cet appareil (la base partagée sera branchée ensuite).",
-logout:"Changer de rôle",lang:"English",today:"Aujourd'hui",search:"Rechercher…",print:"Imprimer / PDF",toorder:"Créer la commande"},
+login:"Entrer",name:"Votre nom",role:"Votre rôle",add:"Ajouter",edit:"Modifier",save:"Enregistrer",cancel:"Annuler",alerts:"Alertes du jour",none:"Rien à signaler.",lang:"English",search:"Rechercher…",print:"Imprimer / PDF",toorder:"Créer la commande",logout:"Changer de rôle",
+demo:"Mode démonstration : les données restent sur cet appareil et ne sont pas partagées. La base commune sera branchée ensuite."},
 en:{home:"Home",back:"Back",clients:"Clients to contact",quotes:"Quotes",stock:"Stock",orders:"Orders & deliveries",service:"Technical & after-sales",planning:"Staff planning",hr:"HR files",accounting:"Accounting",dashboard:"Dashboard",
 role_direction:"Management",role_commercial:"Sales",role_stock:"Stock",role_orders:"Orders & deliveries",role_tech:"Technical & after-sales",role_planning:"Staff planning",role_hr:"HR",role_accounting:"Accounting",role_staff:"Staff",
-login:"Enter",name:"Your name",role:"Your role",add:"Add",edit:"Edit",del:"Delete",save:"Save",cancel:"Cancel",alerts:"Today's alerts",none:"Nothing to report.",demo:"Demo mode: data stays on this device (the shared database will be connected next).",
-logout:"Switch role",lang:"Français",today:"Today",search:"Search…",print:"Print / PDF",toorder:"Create order"}};
-let LANG=localStorage.getItem("beme_lang")||"fr";
-const t=k=>(T[LANG][k]||T.fr[k]||k);
+login:"Enter",name:"Your name",role:"Your role",add:"Add",edit:"Edit",save:"Save",cancel:"Cancel",alerts:"Today's alerts",none:"Nothing to report.",lang:"Français",search:"Search…",print:"Print / PDF",toorder:"Create order",logout:"Switch role",
+demo:"Demo mode: data stays on this device and is not shared. The shared database will be connected next."}};
+const t=k=>(T[LANG]&&T[LANG][k])||T.fr[k]||"";
 const ROLES=["direction","commercial","stock","orders","tech","planning","hr","accounting","staff"];
-/* ===== Droits : qui voit / qui modifie quoi ===== */
+const own=(o,k)=>Object.prototype.hasOwnProperty.call(o,k);
+/* ===== Droits (copie côté écran ; la vraie protection = Supabase RLS) ===== */
 const VIEW={clients:["direction","commercial"],quotes:["direction","commercial","accounting"],stock:["direction","commercial","stock","orders"],orders:["direction","commercial","stock","orders","accounting"],service:["direction","tech","orders"],planning:ROLES,hr:["direction","hr"],accounting:["direction","accounting"],dashboard:["direction"]};
-const EDIT={clients:["direction","commercial"],quotes:["direction","commercial"],stock:["direction","stock"],orders:["direction","orders","stock"],service:["direction","tech"],planning:["direction","planning"],hr:["direction","hr"],accounting:["direction","accounting"]};
+const EDIT={clients:["direction","commercial"],quotes:["direction","commercial"],stock:["direction","stock"],orders:["direction","orders","commercial"],service:["direction","tech"],planning:["direction","planning"],hr:["direction","hr"],accounting:["direction","accounting"]};
+const PG={clients:"clients",quotes:"quotes",stock:"stock",orders:"orders",service:"service",planning:"planning",hr:"hr",invoices:"accounting"};
 const SEE_COST=["direction","accounting"];
 const PAGES=["clients","quotes","stock","orders","service","planning","hr","accounting","dashboard"];
-/* ===== Données (mode démo local ; adaptateur Supabase à brancher) ===== */
-const uid=()=>Math.random().toString(36).slice(2,9);
-const today=()=>new Date().toISOString().slice(0,10);
-const addDays=(d,n)=>{const x=new Date(d);x.setDate(x.getDate()+n);return x.toISOString().slice(0,10)};
-function seed(){const d=today();return{fx:{SAR:1,EUR:4.1,AED:1.02},
-clients:[{id:uid(),name:"Hotel Narcissus bakery",contact:"Procurement",phone:"+966 5X XXX XXXX",city:"Riyadh",status:"prospect",next:d,notes:"Demande un four rotatif."}],
+const CURS=["SAR","EUR","AED"];
+let ME=null;try{const m=JSON.parse(sessionStorage.getItem("beme_me"));if(m&&typeof m.name==="string"&&ROLES.includes(m.role))ME={name:m.name.slice(0,60),role:m.role}}catch(e){}
+const can=(act,p)=>!!ME&&own(act==="view"?VIEW:EDIT,p)&&(act==="view"?VIEW:EDIT)[p].includes(ME.role);
+/* ===== Dates locales ===== */
+const pad=n=>String(n).padStart(2,"0");
+const ymd=d=>d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());
+const parseD=s=>{const m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(s||"");return m?new Date(+m[1],+m[2]-1,+m[3]):null};
+const today=()=>ymd(new Date());
+const addDays=(s,n)=>{const d=parseD(s)||new Date();d.setDate(d.getDate()+n);return ymd(d)};
+const daysTo=s=>{const d=parseD(s);if(!d)return null;const n=parseD(today());return Math.round((d-n)/864e5)};
+const fmtD=s=>{const d=parseD(s);return d?d.toLocaleDateString(LANG==="fr"?"fr-FR":"en-GB",{day:"numeric",month:"short",year:"numeric"}):""};
+/* ===== Données ===== */
+const uid=()=>Math.random().toString(36).slice(2,10)+Date.now().toString(36).slice(-3);
+const IDRE=/^[a-z0-9-]{1,40}$/;
+function seed(){const d=today();return{fx:{SAR:1,EUR:4.1,AED:1.02},qseq:0,
+clients:[{id:uid(),name:"Hotel bakery (demo)",contact:"Procurement",phone:"",city:"Riyadh",status:"prospect",next:d,notes:""}],
 quotes:[],stock:[
-{id:uid(),ref:"EX-001",brand:"Bongard",name:"Rotary oven",cond:"new",status:"in_stock",avail:"riyadh",price:85000,cost:62000,cur:"SAR",qty:1,serial:"",loc:"Riyadh warehouse",photo:""},
-{id:uid(),ref:"EX-002",brand:"Bongard",name:"Spiral mixer 80L",cond:"used",status:"in_transit",avail:"dubai",price:9000,cost:6500,cur:"EUR",qty:2,serial:"SN-0042",loc:"Dubai hub",photo:""}],
+{id:uid(),ref:"EX-001",brand:"Bongard",name:"Rotary oven (demo)",cond:"new",status:"in_stock",avail:"riyadh",price:85000,cost:62000,cur:"SAR",qty:1,serial:"",loc:"Riyadh warehouse",photo:""},
+{id:uid(),ref:"EX-002",brand:"Bongard",name:"Spiral mixer 80L (demo)",cond:"used",status:"in_transit",avail:"dubai",price:9000,cost:6500,cur:"EUR",qty:2,serial:"SN-0042",loc:"Dubai hub",photo:""}],
 orders:[],service:[],planning:[],hr:[],invoices:[]}}
-let DB;try{DB=JSON.parse(localStorage.getItem("beme_db"))}catch(e){}
-if(!DB||!DB.fx){DB=seed()}
-const persist=()=>localStorage.setItem("beme_db",JSON.stringify(DB));
-let ME=null;try{ME=JSON.parse(sessionStorage.getItem("beme_me"))}catch(e){}
-/* ===== Utilitaires ===== */
-const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const can=(act,p)=>ME&&(act==="view"?VIEW:EDIT)[p]&&(act==="view"?VIEW:EDIT)[p].includes(ME.role);
-const toSAR=(a,c)=>(+a||0)*(DB.fx[c||"SAR"]||1);
-const money=(a,c)=>(+a||0).toLocaleString("en-US",{maximumFractionDigits:0})+" "+(c||"SAR");
-const daysTo=d=>d?Math.round((new Date(d)-new Date(today()))/864e5):null;
-const $=s=>document.querySelector(s);
+const ENUMS={stock:{cond:"cond",status:"status",avail:"avail"},clients:{status:"cstatus"},quotes:{status:"qstatus"},orders:{stage:"stage"},service:{type:"stype",status:"sstatus"},invoices:{kind:"kind"}};
+const CURCOLL=["stock","quotes","orders","invoices"];
+function sanitize(d){
+ if(!d||typeof d!=="object")return null;
+ const out={fx:{SAR:1,EUR:4.1,AED:1.02},qseq:Math.max(0,parseInt(d.qseq)||0)};
+ ["EUR","AED"].forEach(c=>{const v=+(d.fx&&d.fx[c]);if(v>0&&isFinite(v))out.fx[c]=v});
+ ["clients","quotes","stock","orders","service","planning","hr","invoices"].forEach(k=>{
+  out[k]=(Array.isArray(d[k])?d[k]:[]).filter(r=>r&&typeof r==="object"&&IDRE.test(String(r.id))).map(r=>{
+   const o=Object.fromEntries(Object.entries(r).filter(([a])=>a!=="__proto__"&&a!=="constructor"));
+   if(ENUMS[k])Object.entries(ENUMS[k]).forEach(([f,g])=>{if(!own(OPT[g],o[f]))o[f]=Object.keys(OPT[g])[0]});
+   if(CURCOLL.includes(k)&&!CURS.includes(o.cur))o.cur="SAR";
+   if(k==="quotes"){o.items=(Array.isArray(o.items)?o.items:[]).map(i=>({stock:IDRE.test(String(i&&i.stock))?i.stock:"",desc:String(i&&i.desc||""),qty:+(i&&i.qty)||0,price:+(i&&i.price)||0}));o.vat=+o.vat||0}
+   return o})});
+ return out}
 /* ===== Libellés des listes ===== */
 const OPT={
 cond:{new:{fr:"Neuf",en:"New"},used:{fr:"Occasion",en:"Used"}},
@@ -102,155 +127,232 @@ stype:{install:{fr:"Installation",en:"Installation"},sav:{fr:"SAV",en:"After-sal
 sstatus:{open:{fr:"À faire",en:"To do"},done:{fr:"Terminé",en:"Done"}},
 kind:{customer:{fr:"Facture client",en:"Customer invoice"},supplier:{fr:"Facture fournisseur",en:"Supplier invoice"}},
 cur:{SAR:{fr:"SAR",en:"SAR"},EUR:{fr:"EUR",en:"EUR"},AED:{fr:"AED",en:"AED"}}};
-const lab=(g,v)=>OPT[g]&&OPT[g][v]?OPT[g][v][LANG]:(v||"");
+let DB;try{DB=sanitize(JSON.parse(localStorage.getItem("beme_db")))}catch(e){DB=null}
+if(!DB){const raw=localStorage.getItem("beme_db");if(raw){try{localStorage.setItem("beme_db_corrupt_"+Date.now(),raw)}catch(e){}}DB=sanitize(seed())}
+/* ===== Utilitaires ===== */
+const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const $=s=>document.querySelector(s);
+const lab=(g,v)=>esc(own(OPT,g)&&own(OPT[g],v)?OPT[g][v][LANG]:v);
 const opts=g=>Object.keys(OPT[g]).map(k=>[k,OPT[g][k][LANG]]);
-/* ===== Formulaire générique (fenêtre) ===== */
+const rate=c=>(DB.fx[CURS.includes(c)?c:"SAR"])||1;
+const toSAR=(a,c)=>(+a||0)*rate(c);
+const money=(a,c)=>(+a||0).toLocaleString("en-US",{maximumFractionDigits:2})+" "+esc(CURS.includes(c)?c:"SAR");
+function toast(m){const d=document.createElement("div");d.className="toast";d.textContent=m;document.body.appendChild(d);setTimeout(()=>d.remove(),5000)}
+function persist(){try{localStorage.setItem("beme_db",JSON.stringify(DB));return true}catch(e){toast(L("Stockage plein : modification NON enregistrée. Exportez une sauvegarde et supprimez des photos.","Storage full: change NOT saved. Export a backup and remove some photos."));return false}}
+const guard=p=>{if(!can("edit",p)){toast(L("Action non autorisée pour ce rôle.","Action not allowed for this role."));return false}return true};
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){const m=document.querySelectorAll(".modal");if(m.length)m[m.length-1].remove()}});
+/* ===== Formulaire générique ===== */
 function form(title,fields,vals,onSave){
  const m=document.createElement("div");m.className="modal";
  const v=Object.assign({},vals);
- let h=`<div class="box"><h3>${esc(title)}</h3><form id="f">`;
+ let h=`<div class="box"><h3>${esc(title)}</h3><form id="f" novalidate>`;
  fields.forEach(f=>{
-  h+=`<label>${esc(f.label)}</label>`;
+  h+=`<label>${esc(f.label)}${f.req?" *":""}</label>`;
   if(f.type==="select")h+=`<select name="${f.k}">${f.opts.map(o=>`<option value="${esc(o[0])}" ${v[f.k]==o[0]?"selected":""}>${esc(o[1])}</option>`).join("")}</select>`;
   else if(f.type==="textarea")h+=`<textarea name="${f.k}" rows="3">${esc(v[f.k]||"")}</textarea>`;
-  else if(f.type==="file")h+=`<input type="file" name="${f.k}" accept="image/*">${v[f.k]?`<img class="thumb" src="${esc(v[f.k])}" style="margin-top:6px">`:""}`;
-  else h+=`<input name="${f.k}" type="${f.type||"text"}" value="${esc(v[f.k]==null?"":v[f.k])}" ${f.step?`step="${f.step}"`:""}>`;
+  else if(f.type==="file")h+=`<input type="file" name="${f.k}" accept="image/*" capture="environment">${v[f.k]?`<img class="thumb" alt="" src="${esc(v[f.k])}" style="margin-top:6px">`:""}`;
+  else if(f.type==="number")h+=`<input name="${f.k}" type="number" step="any" min="0" inputmode="decimal" value="${esc(v[f.k]==null?"":v[f.k])}">`;
+  else h+=`<input name="${f.k}" type="${f.type||"text"}" value="${esc(v[f.k]==null?"":v[f.k])}">`;
  });
- h+=`<div class="bar" style="margin-top:14px"><button class="pri" type="submit">${t("save")}</button><button type="button" id="x">${t("cancel")}</button></div></form></div>`;
+ h+=`<div class="foot"><button class="pri" type="submit">${t("save")}</button><button type="button" id="x">${t("cancel")}</button></div></form></div>`;
  m.innerHTML=h;document.body.appendChild(m);
- $("#x").onclick=()=>m.remove();
- $("#f").onsubmit=async e=>{e.preventDefault();const o=Object.assign({},vals);
+ m.querySelector("#x").onclick=()=>m.remove();
+ m.querySelector("#f").onsubmit=async e=>{e.preventDefault();const o=Object.assign({},vals);
   for(const f of fields){const el=e.target.elements[f.k];
-   if(f.type==="file"){if(el.files[0])o[f.k]=await shrink(el.files[0])}
-   else o[f.k]=f.type==="number"?(+el.value||0):el.value}
+   if(f.type==="file"){if(el.files[0])o[f.k]=await shrink(el.files[0]);continue}
+   let val=f.type==="number"?(el.value===""?0:Math.max(0,+el.value||0)):el.value.trim();
+   if(f.req&&!val){el.focus();toast(L("Champ obligatoire : ","Required: ")+f.label);return}
+   o[f.k]=val}
   m.remove();onSave(o)};
 }
-function shrink(file){return new Promise(res=>{const r=new FileReader();r.onload=()=>{const i=new Image();i.onload=()=>{const s=Math.min(1,480/Math.max(i.width,i.height));const c=document.createElement("canvas");c.width=i.width*s;c.height=i.height*s;c.getContext("2d").drawImage(i,0,0,c.width,c.height);res(c.toDataURL("image/jpeg",.75))};i.src=r.result};r.readAsDataURL(file)})}
-function crud(coll,fields,title,rec){form(title,fields,rec||{id:uid()},o=>{const a=DB[coll];const i=a.findIndex(x=>x.id===o.id);if(i>=0)a[i]=o;else a.push(o);persist();render()})}
-function remove(coll,id){if(confirm("OK ?")){DB[coll]=DB[coll].filter(x=>x.id!==id);persist();render()}}
+function shrink(file){return new Promise(res=>{const r=new FileReader();r.onload=()=>{const i=new Image();i.onload=()=>{const s=Math.min(1,400/Math.max(i.width,i.height));const c=document.createElement("canvas");c.width=Math.round(i.width*s);c.height=Math.round(i.height*s);c.getContext("2d").drawImage(i,0,0,c.width,c.height);res(c.toDataURL("image/jpeg",.7))};i.onerror=()=>res("");i.src=r.result};r.readAsDataURL(file)})}
+function crud(coll,fields,title,rec){const p=PG[coll];if(!guard(p))return;form(title,fields,rec||{id:uid()},o=>{if(!guard(p))return;const a=DB[coll];const i=a.findIndex(x=>x.id===o.id);if(i>=0)a[i]=o;else a.push(o);persist();render()})}
+function remove(coll,id){const p=PG[coll];if(!guard(p))return;
+ if(coll==="clients"&&DB.quotes.some(q=>q.client===id))return toast(L("Ce client a des devis : suppression impossible.","This client has quotes: cannot delete."));
+ if(coll==="quotes"&&DB.orders.some(o=>o.quote===id))return toast(L("Ce devis a une commande : suppression impossible.","This quote has an order: cannot delete."));
+ if(confirm(L("Supprimer ?","Delete?"))){DB[coll]=DB[coll].filter(x=>x.id!==id);persist();render()}}
 const clientName=id=>{const c=DB.clients.find(x=>x.id===id);return c?c.name:"—"};
 const clientOpts=()=>DB.clients.map(c=>[c.id,c.name]);
+const Q=()=>(window.QS||"").toLowerCase();
+const hay=o=>JSON.stringify(Object.assign({},o,{photo:"",cost:"",items:undefined,id:"",history:undefined})).toLowerCase();
+const search=()=>`<input type="search" aria-label="${t("search")}" placeholder="${t("search")}" value="${esc(window.QS||"")}" oninput="window.QS=this.value;render(true)" style="margin-bottom:10px">`;
+const empty=(fn,p)=>`<p class="lbl" style="padding:10px">${L("Rien ici pour l'instant.","Nothing here yet.")} ${fn&&can("edit",p)?`<button class="sm gold" onclick="${fn}">+ ${t("add")}</button>`:""}</p>`;
+/* ===== Stock : réservé / disponible ===== */
+function reserved(s){let r=0;DB.quotes.forEach(q=>{if(q.status!=="accepted")return;const o=DB.orders.find(x=>x.quote===q.id);if(o&&(o.stage==="delivered"||o.stage==="installed"))return;q.items.forEach(i=>{if(i.stock===s.id)r+=+i.qty||0})});return r}
+const avail=s=>(+s.qty||0)-reserved(s);
 /* ===== Alertes (dans l'application uniquement) ===== */
 function alerts(){const a=[];
- if(can("view","clients"))DB.clients.forEach(c=>{const d=daysTo(c.next);if(c.next&&d<=0)a.push([d<0?"r":"o",`${LANG==="fr"?"Relance":"Follow-up"} : ${c.name} (${c.next})`])});
- if(can("view","hr"))DB.hr.forEach(h=>{[["iqama",h.iqama],["contract",h.contract]].forEach(([k,d])=>{const n=daysTo(d);if(d&&n<=60)a.push([n<0?"r":"o",`${h.name} — ${k==="iqama"?"Iqama":(LANG==="fr"?"Contrat":"Contract")} : ${d} (${n}j)`])})});
- if(can("view","accounting"))DB.invoices.forEach(i=>{const n=daysTo(i.due);if(!i.paid&&i.due&&n<=7)a.push([n<0?"r":"o",`${lab("kind",i.kind)} ${i.party} — ${money(i.amount,i.cur)} (${i.due})`])});
- if(can("view","service"))DB.service.forEach(s=>{const n=daysTo(s.warranty);if(s.warranty&&n>=0&&n<=30)a.push(["o",`${LANG==="fr"?"Garantie bientôt finie":"Warranty ending"} : ${clientName(s.client)} — ${s.equip} (${s.warranty})`])});
+ if(can("view","clients"))DB.clients.forEach(c=>{const d=daysTo(c.next);if(c.next&&d!==null&&d<=0)a.push([d<0?"r":"o",`${L("Relance","Follow-up")} : ${c.name} (${fmtD(c.next)})`,"clients"])});
+ if(can("view","quotes"))DB.quotes.forEach(q=>{const d=daysTo(q.valid);if(q.status==="sent"&&d!==null&&d<=3)a.push([d<0?"r":"o",`${L("Devis à relancer","Quote to chase")} : ${q.no} — ${clientName(q.client)} (${fmtD(q.valid)})`,"quotes"])});
+ if(can("view","hr"))DB.hr.forEach(h=>{[["Iqama",h.iqama],[L("Contrat","Contract"),h.contract]].forEach(([k,d])=>{const n=daysTo(d);if(d&&n!==null&&n<=60)a.push([n<0?"r":"o",`${h.name} — ${k} : ${fmtD(d)} (${n}${L("j","d")})`,"hr"])})});
+ if(can("view","accounting"))DB.invoices.forEach(i=>{const n=daysTo(i.due);if(!i.paid&&i.due&&n!==null&&n<=7)a.push([n<0?"r":"o",`${OPT.kind[i.kind][LANG]} ${i.party} — ${money(i.amount,i.cur).replace(/&[^;]+;/g,"")} (${fmtD(i.due)})`,"accounting"])});
+ if(can("view","service"))DB.service.forEach(s=>{const n=daysTo(s.warranty);if(s.warranty&&n!==null&&n>=0&&n<=30)a.push(["o",`${L("Garantie bientôt finie","Warranty ending")} : ${clientName(s.client)} — ${s.equip}`,"service"]);const m=daysTo(s.date);if(s.status==="open"&&m!==null&&m<=0)a.push([m<0?"r":"o",`${L("Intervention à faire","Job to do")} : ${clientName(s.client)} — ${s.equip} (${fmtD(s.date)})`,"service"])});
+ if(can("view","stock"))DB.stock.forEach(s=>{if(avail(s)<0)a.push(["r",`${L("Stock insuffisant","Over-sold")} : ${s.name} (${avail(s)})`,"stock"])});
  return a}
 /* ===== Pages ===== */
 const V={};
 V.home=()=>{const al=alerts();
  return `<h2>${t("home")}</h2><p class="lbl">${esc(ME.name)} · ${t("role_"+ME.role)}</p>
- <div class="card"><h3>${t("alerts")}</h3>${al.length?al.map(x=>`<div class="alert ${x[0]==="r"?"r":""}">${esc(x[1])}</div>`).join(""):`<p class="lbl">${t("none")}</p>`}</div>
+ <div class="card"><h3>${t("alerts")}</h3>${al.length?al.map(x=>`<div class="alert ${x[0]==="r"?"r":""}" onclick="go('${x[2]}')">${esc(x[1])}</div>`).join(""):`<p class="lbl">${t("none")}</p>`}</div>
  <div class="grid">${PAGES.filter(p=>can("view",p)).map(p=>`<button class="tile" onclick="go('${p}')">${t(p)}</button>`).join("")}</div>
  <p class="note" style="margin-top:14px">${t("demo")}</p>`};
-function head(p,addFn){return `<div class="bar"><h2 style="flex:1">${t(p)}</h2>${addFn&&can("edit",p)?`<button class="gold" onclick="${addFn}">+ ${t("add")}</button>`:""}</div>`}
-function acts(coll,id,p){return can("edit",p)?`<button class="sm" onclick="E_${coll}('${id}')">${t("edit")}</button> <button class="sm danger" onclick="remove('${coll}','${id}')">✕</button>`:""}
+const head=(p,fn)=>`<div class="bar"><h2 style="flex:1">${t(p)}</h2>${fn&&can("edit",p)?`<button class="gold" onclick="${fn}">+ ${t("add")}</button>`:""}</div>`;
+const acts=(coll,id,p,extra)=>can("edit",p)?`<div class="act">${extra||""}<button class="sm" onclick="E_${coll}('${esc(id)}')">${t("edit")}</button><button class="sm danger" aria-label="${L("Supprimer","Delete")}" onclick="remove('${coll}','${esc(id)}')">✕</button></div>`:"";
 /* Clients */
-const CF=()=>[{k:"name",label:LANG==="fr"?"Nom / société":"Name / company"},{k:"contact",label:"Contact"},{k:"phone",label:LANG==="fr"?"Téléphone":"Phone"},{k:"city",label:LANG==="fr"?"Ville":"City"},{k:"status",label:"Statut",type:"select",opts:opts("cstatus")},{k:"next",label:LANG==="fr"?"Prochaine relance":"Next follow-up",type:"date"},{k:"notes",label:"Notes / historique",type:"textarea"}];
+const CF=()=>[{k:"name",label:L("Nom / société","Name / company"),req:1},{k:"contact",label:"Contact"},{k:"phone",label:L("Téléphone","Phone")},{k:"city",label:L("Ville","City")},{k:"status",label:L("Statut","Status"),type:"select",opts:opts("cstatus")},{k:"next",label:L("Prochaine relance","Next follow-up"),type:"date"},{k:"notes",label:L("Notes / historique","Notes / history"),type:"textarea"}];
 window.A_clients=()=>crud("clients",CF(),t("add"));window.E_clients=id=>crud("clients",CF(),t("edit"),DB.clients.find(x=>x.id===id));
-V.clients=()=>{const q=(window.Q||"").toLowerCase();const L=DB.clients.filter(c=>JSON.stringify(c).toLowerCase().includes(q)).sort((a,b)=>(a.next||"9")>(b.next||"9")?1:-1);
- return head("clients","A_clients()")+search()+`<div class="card tw"><table><tr><th>${LANG==="fr"?"Client":"Client"}</th><th>Statut</th><th>${LANG==="fr"?"Relance":"Follow-up"}</th><th>Notes</th><th></th></tr>${L.map(c=>{const n=daysTo(c.next);return `<tr><td><b>${esc(c.name)}</b><br><span class="lbl">${esc(c.contact)} · ${esc(c.phone)} · ${esc(c.city)}</span></td><td><span class="badge">${lab("cstatus",c.status)}</span></td><td>${c.next?`<span class="badge ${n<0?"r":n===0?"o":""}">${esc(c.next)}</span>`:""}</td><td>${esc(c.notes)}</td><td>${acts("clients",c.id,"clients")}</td></tr>`}).join("")}</table></div>`};
-function search(){return `<input placeholder="${t("search")}" value="${esc(window.Q||"")}" oninput="window.Q=this.value;render(true)" style="margin-bottom:10px">`}
+window.doneFollow=id=>{const c=DB.clients.find(x=>x.id===id);if(!guard("clients"))return;const n=prompt(L("Prochaine relance (AAAA-MM-JJ) :","Next follow-up (YYYY-MM-DD):"),addDays(today(),7));if(n===null)return;c.next=parseD(n)?n:"";persist();render()};
+V.clients=()=>{const q=Q();const Ls=DB.clients.filter(c=>hay(c).includes(q)).sort((a,b)=>(a.next||"9")>(b.next||"9")?1:-1);
+ return head("clients","A_clients()")+search()+(Ls.length?`<div class="card tw"><table><tr><th>Client</th><th>${L("Statut","Status")}</th><th>${L("Relance","Follow-up")}</th><th>Notes</th><th></th></tr>${Ls.map(c=>{const n=daysTo(c.next);return `<tr><td><b>${esc(c.name)}</b><br><span class="lbl">${esc(c.contact)} · ${esc(c.phone)} · ${esc(c.city)}</span></td><td><span class="badge">${lab("cstatus",c.status)}</span></td><td>${c.next?`<span class="badge ${n<0?"r":n===0?"o":""}">${esc(fmtD(c.next))}</span>`:""}</td><td>${esc(c.notes)}</td><td>${acts("clients",c.id,"clients",`<button class="sm gold" onclick="doneFollow('${esc(c.id)}')">✓ ${L("Fait","Done")}</button>`)}</td></tr>`}).join("")}</table></div>`:empty("A_clients()","clients"))};
 /* Stock */
-const SF=()=>[{k:"photo",label:"Photo",type:"file"},{k:"ref",label:LANG==="fr"?"Référence":"Reference"},{k:"brand",label:LANG==="fr"?"Marque":"Brand"},{k:"name",label:LANG==="fr"?"Désignation":"Name"},{k:"cond",label:LANG==="fr"?"État":"Condition",type:"select",opts:opts("cond")},{k:"status",label:"Statut",type:"select",opts:opts("status")},{k:"avail",label:LANG==="fr"?"Disponibilité":"Availability",type:"select",opts:opts("avail")},{k:"cur",label:LANG==="fr"?"Monnaie":"Currency",type:"select",opts:opts("cur")},{k:"price",label:LANG==="fr"?"Prix de vente":"Sale price",type:"number"}].concat(SEE_COST.includes(ME.role)?[{k:"cost",label:LANG==="fr"?"Prix d'achat":"Cost price",type:"number"}]:[]).concat([{k:"qty",label:LANG==="fr"?"Quantité":"Quantity",type:"number"},{k:"serial",label:LANG==="fr"?"N° de série":"Serial no."},{k:"loc",label:LANG==="fr"?"Emplacement":"Location"}]);
-window.A_stock=()=>crud("stock",SF(),t("add"));window.E_stock=id=>crud("stock",SF(),t("edit"),DB.stock.find(x=>x.id===id));
-V.stock=()=>{const q=(window.Q||"").toLowerCase();const L=DB.stock.filter(s=>JSON.stringify(Object.assign({},s,{photo:""})).toLowerCase().includes(q));const cost=SEE_COST.includes(ME.role);
- return head("stock","A_stock()")+search()+`<div class="card tw"><table><tr><th></th><th>${LANG==="fr"?"Équipement":"Equipment"}</th><th>${LANG==="fr"?"État":"Condition"}</th><th>${LANG==="fr"?"Disponibilité":"Availability"}</th><th>${LANG==="fr"?"Prix":"Price"}</th>${cost?`<th>${LANG==="fr"?"Achat":"Cost"}</th>`:""}<th>Qty</th><th>${LANG==="fr"?"Emplacement":"Location"}</th><th></th></tr>${L.map(s=>`<tr><td>${s.photo?`<img class="thumb" src="${esc(s.photo)}">`:`<div class="thumb"></div>`}</td><td><b>${esc(s.name)}</b><br><span class="lbl">${esc(s.ref)} · ${esc(s.brand)}${s.serial?" · S/N "+esc(s.serial):""}</span></td><td><span class="badge ${s.cond==="new"?"g":"o"}">${lab("cond",s.cond)}</span><br><span class="badge">${lab("status",s.status)}</span></td><td>${lab("avail",s.avail)}</td><td>${money(s.price,s.cur)}</td>${cost?`<td>${money(s.cost,s.cur)}</td>`:""}<td>${esc(s.qty)}</td><td>${esc(s.loc)}</td><td>${acts("stock",s.id,"stock")}</td></tr>`).join("")}</table></div>`};
+const SF=()=>{const d=ME.role==="direction";return [{k:"photo",label:"Photo",type:"file"},{k:"ref",label:L("Référence","Reference"),req:1},{k:"brand",label:L("Marque","Brand")},{k:"name",label:L("Désignation","Name"),req:1},{k:"cond",label:L("État","Condition"),type:"select",opts:opts("cond")},{k:"status",label:L("Statut","Status"),type:"select",opts:opts("status")},{k:"avail",label:L("Disponibilité","Availability"),type:"select",opts:opts("avail")},{k:"cur",label:L("Monnaie","Currency"),type:"select",opts:opts("cur")}].concat(d?[{k:"price",label:L("Prix de vente","Sale price"),type:"number"},{k:"cost",label:L("Prix d'achat","Cost price"),type:"number"}]:[]).concat([{k:"qty",label:L("Quantité","Quantity"),type:"number"},{k:"serial",label:L("N° de série","Serial no.")},{k:"loc",label:L("Emplacement","Location")}])};
+window.A_stock=()=>crud("stock",SF(),t("add"),{id:uid(),cond:"new",status:"in_stock",avail:"riyadh",cur:"SAR",price:0,cost:0,qty:1});window.E_stock=id=>crud("stock",SF(),t("edit"),DB.stock.find(x=>x.id===id));
+window.adj=(id,n)=>{if(!guard("stock"))return;const s=DB.stock.find(x=>x.id===id);s.qty=Math.max(0,(+s.qty||0)+n);persist();render()};
+window.SFa=window.SFa||"";window.SFc=window.SFc||"";
+V.stock=()=>{const q=Q();const cost=SEE_COST.includes(ME.role);
+ const Ls=DB.stock.filter(s=>hay(s).includes(q)&&(!SFa||s.avail===SFa)&&(!SFc||s.cond===SFc)).sort((a,b)=>a.name>b.name?1:-1);
+ const chip=(v,cur,k,txt)=>`<button class="sm ${cur===v?"pri":""}" onclick="${k}='${v}';render()">${txt}</button>`;
+ return head("stock","A_stock()")+search()+`<div class="chips">${chip("",SFa,"SFa",L("Tout","All"))}${Object.keys(OPT.avail).map(k=>chip(k,SFa,"SFa",OPT.avail[k][LANG])).join("")}</div><div class="chips">${chip("",SFc,"SFc",L("Neuf + occasion","New + used"))}${Object.keys(OPT.cond).map(k=>chip(k,SFc,"SFc",OPT.cond[k][LANG])).join("")}</div>`+
+ (Ls.length?`<div class="card tw"><table><tr><th></th><th>${L("Équipement","Equipment")}</th><th>${L("État","Condition")}</th><th>${L("Disponibilité","Availability")}</th><th>${L("Prix","Price")}</th>${cost?`<th>${L("Achat","Cost")}</th>`:""}<th>Qty</th><th>${L("Emplacement","Location")}</th><th></th></tr>${Ls.map(s=>{const r=reserved(s),a=(+s.qty||0)-r;return `<tr><td>${s.photo?`<img class="thumb" alt="" src="${esc(s.photo)}">`:`<div class="thumb"></div>`}</td><td><b>${esc(s.name)}</b><br><span class="lbl">${esc(s.ref)} · ${esc(s.brand)}${s.serial?" · S/N "+esc(s.serial):""}</span></td><td><span class="badge ${s.cond==="new"?"g":"o"}">${lab("cond",s.cond)}</span><br><span class="badge">${lab("status",s.status)}</span></td><td>${lab("avail",s.avail)}</td><td>${money(s.price,s.cur)}</td>${cost?`<td>${money(s.cost,s.cur)}</td>`:""}<td><b>${esc(s.qty)}</b>${r?`<br><span class="badge o">${L("réservé","reserved")} ${r}</span><br><span class="badge ${a<0?"r":"g"}">${L("dispo","avail.")} ${a}</span>`:""}</td><td>${esc(s.loc)}</td><td>${acts("stock",s.id,"stock",`<button class="sm" aria-label="-1" onclick="adj('${esc(s.id)}',-1)">−</button><button class="sm" aria-label="+1" onclick="adj('${esc(s.id)}',1)">+</button>`)}</td></tr>`}).join("")}</table></div>`:empty("A_stock()","stock"))};
 /* Devis */
-function qTotal(q){return (q.items||[]).reduce((a,i)=>a+(+i.qty||0)*(+i.price||0),0)}
-window.A_quotes=()=>quoteForm({id:uid(),client:DB.clients[0]&&DB.clients[0].id,cur:"SAR",status:"draft",date:today(),valid:addDays(today(),30),items:[{desc:"",qty:1,price:0}],notes:""});
+const qSub=q=>(q.items||[]).reduce((a,i)=>a+(+i.qty||0)*(+i.price||0),0);
+const qTotal=q=>qSub(q)*(1+(+q.vat||0)/100);
+const qSAR=q=>{const r=q.fx&&q.fx[q.cur]?q.fx[q.cur]:rate(q.cur);return qTotal(q)*r};
+const r2=n=>Math.round(n*100)/100;
+window.A_quotes=()=>quoteForm({id:uid(),client:DB.clients[0]&&DB.clients[0].id,cur:"SAR",status:"draft",date:today(),valid:addDays(today(),30),items:[{stock:"",desc:"",qty:1,price:0}],notes:"",terms:"",vat:0});
 window.E_quotes=id=>quoteForm(JSON.parse(JSON.stringify(DB.quotes.find(x=>x.id===id))));
 function quoteForm(q){
+ if(!guard("quotes"))return;
  const m=document.createElement("div");m.className="modal";document.body.appendChild(m);
- const draw=()=>{m.innerHTML=`<div class="box" style="max-width:640px"><h3>${LANG==="fr"?"Devis":"Quote"} ${esc(q.no||"")}</h3>
- <label>Client</label><select id="qc">${clientOpts().map(o=>`<option value="${o[0]}" ${q.client===o[0]?"selected":""}>${esc(o[1])}</option>`).join("")}</select>
- <div class="row2"><div><label>${LANG==="fr"?"Monnaie":"Currency"}</label><select id="qm">${opts("cur").map(o=>`<option ${q.cur===o[0]?"selected":""} value="${o[0]}">${o[1]}</option>`).join("")}</select></div>
- <div><label>Statut</label><select id="qs">${opts("qstatus").map(o=>`<option ${q.status===o[0]?"selected":""} value="${o[0]}">${o[1]}</option>`).join("")}</select></div></div>
- <div class="row2"><div><label>Date</label><input id="qd" type="date" value="${esc(q.date)}"></div><div><label>${LANG==="fr"?"Valable jusqu'au":"Valid until"}</label><input id="qv" type="date" value="${esc(q.valid)}"></div></div>
- <label>${LANG==="fr"?"Lignes":"Lines"}</label>
- ${q.items.map((it,i)=>`<div class="card" style="padding:8px"><select onchange="qPick(${i},this.value)"><option value="">${LANG==="fr"?"— choisir dans le stock —":"— pick from stock —"}</option>${DB.stock.map(s=>`<option value="${s.id}">${esc(s.ref+" · "+s.name)}</option>`).join("")}</select>
- <input placeholder="Description" value="${esc(it.desc)}" onchange="qSet(${i},'desc',this.value)" style="margin-top:6px"><div class="row2"><div><label>Qty</label><input type="number" value="${esc(it.qty)}" onchange="qSet(${i},'qty',this.value)"></div><div><label>${LANG==="fr"?"Prix unitaire":"Unit price"}</label><input type="number" value="${esc(it.price)}" onchange="qSet(${i},'price',this.value)"></div></div><button type="button" class="sm danger" onclick="qDel(${i})" style="margin-top:6px">✕</button></div>`).join("")}
- <button type="button" onclick="qAdd()">+ ${LANG==="fr"?"Ligne":"Line"}</button>
+ const pull=()=>{const g=i=>m.querySelector(i);if(!g("#qc"))return;q.client=g("#qc").value;q.status=g("#qs").value;q.date=g("#qd").value;q.valid=g("#qv").value;q.notes=g("#qn").value;q.terms=g("#qt2").value;q.vat=Math.max(0,+g("#qvat").value||0)};
+ const tot=()=>{const e=m.querySelector("#qtot");if(e)e.innerHTML=`${L("Sous-total","Subtotal")}: ${money(qSub(q),q.cur)}${q.vat?`<br>${L("TVA","VAT")} ${esc(q.vat)}%<br>`:"<br>"}<span class="kpi">${money(qTotal(q),q.cur)}</span>`};
+ const draw=()=>{
+ m.innerHTML=`<div class="box" style="max-width:640px"><h3>${L("Devis","Quote")} ${esc(q.no||"")}</h3>
+ <label>Client</label><select id="qc">${clientOpts().map(o=>`<option value="${esc(o[0])}" ${q.client===o[0]?"selected":""}>${esc(o[1])}</option>`).join("")}</select>
+ <div class="row2"><div><label>${L("Monnaie","Currency")}</label><select id="qm">${opts("cur").map(o=>`<option ${q.cur===o[0]?"selected":""} value="${o[0]}">${o[1]}</option>`).join("")}</select></div>
+ <div><label>${L("Statut","Status")}</label><select id="qs">${opts("qstatus").map(o=>`<option ${q.status===o[0]?"selected":""} value="${o[0]}">${o[1]}</option>`).join("")}</select></div></div>
+ <div class="row2"><div><label>Date</label><input id="qd" type="date" value="${esc(q.date)}"></div><div><label>${L("Valable jusqu'au","Valid until")}</label><input id="qv" type="date" value="${esc(q.valid)}"></div></div>
+ <label>${L("Lignes","Lines")}</label>
+ ${q.items.map((it,i)=>{const s=DB.stock.find(x=>x.id===it.stock);const warn=s?(avail(s)<(+it.qty||0)||s.avail!=="riyadh"?`<div class="note" style="color:var(--orange)">⚠ ${OPT.avail[s.avail][LANG]} · ${L("dispo","avail.")} ${avail(s)}</div>`:""):"";return `<div class="card" style="padding:8px"><select data-i="${i}" class="qp"><option value="">${L("— choisir dans le stock —","— pick from stock —")}</option>${DB.stock.map(x=>`<option value="${esc(x.id)}" ${it.stock===x.id?"selected":""}>${esc(x.ref+" · "+x.name)}</option>`).join("")}</select>${warn}
+ <input class="qf" data-i="${i}" data-k="desc" placeholder="Description" value="${esc(it.desc)}" style="margin-top:6px"><div class="row2"><div><label>Qty</label><input class="qf" data-i="${i}" data-k="qty" type="number" step="any" min="0" inputmode="decimal" value="${esc(it.qty)}"></div><div><label>${L("Prix unitaire","Unit price")}</label><input class="qf" data-i="${i}" data-k="price" type="number" step="any" min="0" inputmode="decimal" value="${esc(it.price)}"></div></div><button type="button" class="sm danger qd" data-i="${i}" aria-label="${L("Supprimer la ligne","Delete line")}" style="margin-top:6px">✕</button></div>`}).join("")}
+ <button type="button" id="qa">+ ${L("Ligne","Line")}</button>
+ <div class="row2"><div><label>${L("TVA (%)","VAT (%)")}</label><input id="qvat" type="number" step="any" min="0" inputmode="decimal" value="${esc(q.vat||0)}"></div><div></div></div>
+ <label>${L("Conditions (paiement, livraison, garantie)","Terms (payment, delivery, warranty)")}</label><textarea id="qt2" rows="3">${esc(q.terms||"")}</textarea>
  <label>Notes</label><textarea id="qn" rows="2">${esc(q.notes)}</textarea>
- <p class="kpi">${money(qTotal(q),q.cur)}</p>
- <div class="bar"><button class="pri" id="qsave">${t("save")}</button><button id="qprint">${t("print")}</button><button id="qx">${t("cancel")}</button></div></div>`;
- $("#qx").onclick=()=>m.remove();$("#qsave").onclick=()=>{pull();save();m.remove()};$("#qprint").onclick=()=>{pull();save();printQuote(q)}};
- const pull=()=>{q.client=$("#qc").value;q.cur=$("#qm").value;q.status=$("#qs").value;q.date=$("#qd").value;q.valid=$("#qv").value;q.notes=$("#qn").value};
- const save=()=>{if(!q.no)q.no="BEME-"+new Date().getFullYear()+"-"+String(DB.quotes.length+1).padStart(3,"0");const i=DB.quotes.findIndex(x=>x.id===q.id);if(i>=0)DB.quotes[i]=q;else DB.quotes.push(q);persist();render()};
- window.qSet=(i,k,v)=>{q.items[i][k]=v;pull();draw()};window.qAdd=()=>{pull();q.items.push({desc:"",qty:1,price:0});draw()};window.qDel=i=>{pull();q.items.splice(i,1);if(!q.items.length)q.items.push({desc:"",qty:1,price:0});draw()};
- window.qPick=(i,id)=>{const s=DB.stock.find(x=>x.id===id);if(!s)return;pull();q.items[i]={desc:s.name+" ("+s.ref+")",qty:1,price:toSAR(s.price,s.cur)/(DB.fx[q.cur]||1)};draw()};
+ <p id="qtot"></p>
+ <div class="foot"><button class="pri" id="qsave">${t("save")}</button><button id="qprint">${t("print")}</button><button id="qx">${t("cancel")}</button></div></div>`;
+ tot();
+ m.querySelector("#qx").onclick=()=>m.remove();
+ m.querySelector("#qsave").onclick=()=>{pull();if(save())m.remove()};
+ m.querySelector("#qprint").onclick=()=>{pull();if(save())printQuote(q)};
+ m.querySelector("#qm").onchange=e=>{pull();const o=q.cur,n=e.target.value;q.items.forEach(i=>{i.price=r2((+i.price||0)*rate(o)/rate(n))});q.cur=n;draw()};
+ m.querySelector("#qa").onclick=()=>{pull();q.items.push({stock:"",desc:"",qty:1,price:0});draw()};
+ m.querySelectorAll(".qd").forEach(b=>b.onclick=()=>{pull();q.items.splice(+b.dataset.i,1);if(!q.items.length)q.items.push({stock:"",desc:"",qty:1,price:0});draw()});
+ m.querySelectorAll(".qf").forEach(el=>el.oninput=()=>{const it=q.items[+el.dataset.i],k=el.dataset.k;it[k]=k==="desc"?el.value:Math.max(0,+el.value||0);if(k!=="desc")tot()});
+ m.querySelector("#qvat").oninput=e=>{q.vat=Math.max(0,+e.target.value||0);tot()};
+ m.querySelectorAll(".qp").forEach(sel=>sel.onchange=()=>{const s=DB.stock.find(x=>x.id===sel.value);pull();const it=q.items[+sel.dataset.i];if(s){it.stock=s.id;it.desc=s.name+" ("+s.ref+")";it.price=r2(toSAR(s.price,s.cur)/rate(q.cur))}else it.stock="";draw()});
+ };
+ const save=()=>{if(!guard("quotes"))return false;
+  if(!q.no){DB.qseq=(DB.qseq||0)+1;q.no="BEME-"+new Date().getFullYear()+"-"+String(DB.qseq).padStart(3,"0")}
+  if(q.status==="accepted"&&!q.fx)q.fx={EUR:DB.fx.EUR,AED:DB.fx.AED,SAR:1};
+  if(q.status!=="accepted")delete q.fx;
+  const i=DB.quotes.findIndex(x=>x.id===q.id);if(i>=0)DB.quotes[i]=q;else DB.quotes.push(q);
+  const o=DB.orders.find(x=>x.quote===q.id);if(o){o.amount=qTotal(q);o.cur=q.cur;o.client=q.client}
+  const ok=persist();render();return ok};
  draw()}
-/* Devis imprimable — en anglais, avec le logo BEME */
 function printQuote(q){const c=DB.clients.find(x=>x.id===q.client)||{};const logo=new URL("assets/beme-logo.png",location.href).href;
- const rows=q.items.map((it,i)=>`<tr><td>${i+1}</td><td>${esc(it.desc)}</td><td style="text-align:right">${esc(it.qty)}</td><td style="text-align:right">${money(it.price,q.cur)}</td><td style="text-align:right">${money((+it.qty||0)*(+it.price||0),q.cur)}</td></tr>`).join("");
- const w=window.open("","_blank");if(!w){alert("Pop-up bloqué / blocked");return}
- w.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8"><title>${esc(q.no)}</title><style>body{font:14px/1.5 Arial,sans-serif;color:#1d2433;margin:34px}h1{font:600 26px Georgia,serif;color:#12284c;margin:0}table{width:100%;border-collapse:collapse;margin-top:18px}th{background:#12284c;color:#fff;text-align:left;padding:8px}td{padding:8px;border-bottom:1px solid #ddd}.top{display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid #BF9F5F;padding-bottom:12px}.tot{text-align:right;font:600 20px Georgia,serif;color:#12284c;margin-top:14px}.s{color:#666;font-size:12px;margin-top:30px}@media print{button{display:none}}</style></head><body><div class="top"><img src="${logo}" style="height:90px"><div style="text-align:right"><h1>QUOTATION</h1><div>No. ${esc(q.no)}<br>Date: ${esc(q.date)}<br>Valid until: ${esc(q.valid)}</div></div></div>
+ const rows=q.items.map((it,i)=>`<tr><td>${i+1}</td><td>${esc(it.desc)}</td><td class="r">${esc(it.qty)}</td><td class="r">${money(it.price,q.cur)}</td><td class="r">${money((+it.qty||0)*(+it.price||0),q.cur)}</td></tr>`).join("");
+ const html=`<!DOCTYPE html><html><head><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src https: http: data: file:; style-src 'unsafe-inline'"><title>${esc(q.no)}</title><style>body{font:14px/1.5 Arial,sans-serif;color:#1d2433;margin:30px}h1{font:600 26px Georgia,serif;color:#12284c;margin:0}table{width:100%;border-collapse:collapse;margin-top:18px}th{background:#12284c;color:#fff;text-align:left;padding:8px}td{padding:8px;border-bottom:1px solid #ddd}.r{text-align:right}th.r{text-align:right}.top{display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid #BF9F5F;padding-bottom:12px}.tot{text-align:right;margin-top:14px}.tot b{font:600 20px Georgia,serif;color:#12284c}.s{color:#666;font-size:12px;margin-top:26px;white-space:pre-wrap}@media print{button{display:none}}</style></head><body><div class="top"><img src="${esc(logo)}" style="height:90px" alt="BEME"><div style="text-align:right"><h1>QUOTATION</h1><div>No. ${esc(q.no)}<br>Date: ${esc(q.date)}<br>Valid until: ${esc(q.valid)}</div></div></div>
  <p><b>To:</b> ${esc(c.name)}<br>${esc(c.contact||"")} ${esc(c.city||"")}</p>
- <table><tr><th>#</th><th>Description</th><th style="text-align:right">Qty</th><th style="text-align:right">Unit price</th><th style="text-align:right">Total</th></tr>${rows}</table>
- <div class="tot">Total: ${money(qTotal(q),q.cur)}</div>
- ${q.notes?`<p><b>Notes:</b> ${esc(q.notes)}</p>`:""}
- <p class="s">BEME Saudi — Your partner in culinary excellence. Prices exclude VAT unless stated. This quotation is valid until the date shown above.</p>
- <button onclick="print()">Print / Save as PDF</button></body></html>`);w.document.close()}
-V.quotes=()=>{const L=DB.quotes.slice().reverse();
- return head("quotes","A_quotes()")+`<div class="card tw"><table><tr><th>No.</th><th>Client</th><th>Date</th><th>Total</th><th>Statut</th><th></th></tr>${L.map(q=>`<tr><td><b>${esc(q.no)}</b></td><td>${esc(clientName(q.client))}</td><td>${esc(q.date)}</td><td>${money(qTotal(q),q.cur)}</td><td><span class="badge ${q.status==="accepted"?"g":q.status==="refused"?"r":""}">${lab("qstatus",q.status)}</span></td><td>${can("edit","quotes")?`<button class="sm" onclick="E_quotes('${q.id}')">${t("edit")}</button> `:""}${q.status==="accepted"&&can("edit","orders")&&!DB.orders.some(o=>o.quote===q.id)?`<button class="sm gold" onclick="toOrder('${q.id}')">${t("toorder")}</button> `:""}${can("edit","quotes")?`<button class="sm danger" onclick="remove('quotes','${q.id}')">✕</button>`:""}</td></tr>`).join("")}</table></div>`};
-window.toOrder=id=>{const q=DB.quotes.find(x=>x.id===id);DB.orders.push({id:uid(),quote:q.id,client:q.client,no:q.no,amount:qTotal(q),cur:q.cur,stage:"ordered",date:today()});persist();go("orders")};
+ <table><tr><th>#</th><th>Description</th><th class="r">Qty</th><th class="r">Unit price</th><th class="r">Total</th></tr>${rows}</table>
+ <div class="tot">Subtotal: ${money(qSub(q),q.cur)}<br>${q.vat?`VAT ${esc(q.vat)}%: ${money(qSub(q)*q.vat/100,q.cur)}<br>`:""}<b>Total: ${money(qTotal(q),q.cur)}</b></div>
+ ${q.terms?`<p class="s"><b>Terms:</b>\n${esc(q.terms)}</p>`:""}${q.notes?`<p class="s"><b>Notes:</b> ${esc(q.notes)}</p>`:""}
+ <p class="s">Prepared by: ${esc(ME.name)}<br>BEME Saudi — Your partner in culinary excellence</p><button id="p">Print / Save as PDF</button></body></html>`;
+ const url=URL.createObjectURL(new Blob([html],{type:"text/html"}));const w=window.open(url,"_blank");
+ if(!w){toast(L("Fenêtre bloquée : autorisez les pop-ups.","Pop-up blocked: allow pop-ups."));return}
+ w.addEventListener("load",()=>{const b=w.document.getElementById("p");if(b)b.addEventListener("click",()=>w.print());setTimeout(()=>URL.revokeObjectURL(url),60000)})}
+V.quotes=()=>{const q=Q();const Ls=DB.quotes.filter(x=>(hay(x)+clientName(x.client).toLowerCase()).includes(q)).slice().reverse();
+ return head("quotes","A_quotes()")+search()+(Ls.length?`<div class="card tw"><table><tr><th>No.</th><th>Client</th><th>Date</th><th>Total</th><th>${L("Statut","Status")}</th><th></th></tr>${Ls.map(x=>`<tr><td><b>${esc(x.no)}</b></td><td>${esc(clientName(x.client))}</td><td>${esc(fmtD(x.date))}</td><td>${money(qTotal(x),x.cur)}</td><td><span class="badge ${x.status==="accepted"?"g":x.status==="refused"?"r":""}">${lab("qstatus",x.status)}</span></td><td>${acts("quotes",x.id,"quotes",x.status==="accepted"&&can("edit","orders")&&!DB.orders.some(o=>o.quote===x.id)?`<button class="sm gold" onclick="toOrder('${esc(x.id)}')">${t("toorder")}</button>`:"")}</td></tr>`).join("")}</table></div>`:empty("A_quotes()","quotes"))};
+window.toOrder=id=>{if(!guard("orders"))return;const q=DB.quotes.find(x=>x.id===id);if(!q||q.status!=="accepted"||DB.orders.some(o=>o.quote===id))return;DB.orders.push({id:uid(),quote:q.id,client:q.client,no:q.no,amount:qTotal(q),cur:q.cur,stage:"ordered",date:today(),eta:"",tracking:"",deposit:0,notes:"",history:[{stage:"ordered",date:today(),by:ME.name}]});persist();go("orders")};
 /* Commandes */
-window.setStage=(id,s)=>{const o=DB.orders.find(x=>x.id===id);o.stage=s;persist();render()};
-V.orders=()=>{const st=Object.keys(OPT.stage);
- return `<div class="bar"><h2 style="flex:1">${t("orders")}</h2></div><p class="lbl">${LANG==="fr"?"Devis → commande → transit → livraison → installation":"Quote → order → transit → delivery → installation"}</p>
- ${DB.orders.length?DB.orders.slice().reverse().map(o=>`<div class="card"><b>${esc(o.no)}</b> · ${esc(clientName(o.client))} · ${money(o.amount,o.cur)}<div class="stages" style="margin-top:8px">${st.map(s=>`<button class="sm ${o.stage===s?"pri":""}" ${can("edit","orders")?`onclick="setStage('${o.id}','${s}')"`:"disabled"}>${lab("stage",s)}</button>`).join("")}</div>${can("edit","orders")?`<button class="sm danger" style="margin-top:8px" onclick="remove('orders','${o.id}')">✕</button>`:""}</div>`).join(""):`<p class="lbl">${LANG==="fr"?"Aucune commande. Acceptez un devis pour en créer une.":"No orders yet. Accept a quote to create one."}</p>`}`};
+window.setStage=(id,s)=>{if(!guard("orders"))return;const o=DB.orders.find(x=>x.id===id);if(!o||!own(OPT.stage,s)||o.stage===s)return;if(!confirm(L("Passer à « ","Move to \"")+OPT.stage[s][LANG]+L(" » ?","\"?")))return;const out=s==="delivered"||s==="installed";
+ if(out&&!o.stockOut){const q=DB.quotes.find(x=>x.id===o.quote);if(q)q.items.forEach(i=>{const st=DB.stock.find(x=>x.id===i.stock);if(st)st.qty=Math.max(0,(+st.qty||0)-(+i.qty||0))});o.stockOut=true}
+ else if(!out&&o.stockOut){const q=DB.quotes.find(x=>x.id===o.quote);if(q)q.items.forEach(i=>{const st=DB.stock.find(x=>x.id===i.stock);if(st)st.qty=(+st.qty||0)+(+i.qty||0)});o.stockOut=false}
+ o.stage=s;(o.history=o.history||[]).push({stage:s,date:today(),by:ME.name});persist();render()};
+const OF=()=>[{k:"amount",label:L("Montant","Amount"),type:"number"},{k:"cur",label:L("Monnaie","Currency"),type:"select",opts:opts("cur")},{k:"deposit",label:L("Acompte reçu","Deposit received"),type:"number"},{k:"eta",label:L("Livraison prévue","Expected delivery"),type:"date"},{k:"tracking",label:L("N° de suivi / transporteur","Tracking / carrier")},{k:"notes",label:"Notes",type:"textarea"}];
+window.E_orders=id=>crud("orders",OF(),t("edit"),DB.orders.find(x=>x.id===id));
+V.orders=()=>{const st=Object.keys(OPT.stage);const q=Q();const Ls=DB.orders.filter(o=>(hay(o)+clientName(o.client).toLowerCase()).includes(q)).slice().reverse();
+ return `<div class="bar"><h2 style="flex:1">${t("orders")}</h2></div><p class="lbl">${L("Devis → commande → transit → livraison → installation","Quote → order → transit → delivery → installation")}</p>${search()}
+ ${Ls.length?Ls.map(o=>{const h=(o.history||[]).slice(-1)[0];return `<div class="card"><b>${esc(o.no)}</b> · ${esc(clientName(o.client))} · ${money(o.amount,o.cur)}${o.deposit?` <span class="badge g">${L("acompte","deposit")} ${money(o.deposit,o.cur)}</span>`:""}<div class="lbl">${o.eta?L("Prévu : ","ETA: ")+esc(fmtD(o.eta))+" · ":""}${esc(o.tracking)}${h?` · ${L("dernier changement","last change")} ${esc(fmtD(h.date))} (${esc(h.by)})`:""}</div><div class="stages" style="margin-top:8px">${st.map(s=>`<button class="sm ${o.stage===s?"pri":""}" ${can("edit","orders")?`onclick="setStage('${esc(o.id)}','${s}')"`:"disabled"}>${lab("stage",s)}</button>`).join("")}</div>${acts("orders",o.id,"orders")}</div>`}).join(""):`<p class="lbl">${L("Aucune commande. Acceptez un devis pour en créer une.","No orders yet. Accept a quote to create one.")}</p>`}`};
 /* SAV */
-const VF=()=>[{k:"client",label:"Client",type:"select",opts:clientOpts()},{k:"type",label:"Type",type:"select",opts:opts("stype")},{k:"equip",label:LANG==="fr"?"Équipement":"Equipment"},{k:"serial",label:LANG==="fr"?"N° de série":"Serial no."},{k:"date",label:"Date",type:"date"},{k:"warranty",label:LANG==="fr"?"Fin de garantie":"Warranty end",type:"date"},{k:"tech",label:LANG==="fr"?"Technicien":"Technician"},{k:"status",label:"Statut",type:"select",opts:opts("sstatus")},{k:"notes",label:"Notes",type:"textarea"}];
-window.A_service=()=>crud("service",VF(),t("add"));window.E_service=id=>crud("service",VF(),t("edit"),DB.service.find(x=>x.id===id));
-V.service=()=>head("service","A_service()")+`<div class="card tw"><table><tr><th>Client</th><th>${LANG==="fr"?"Équipement":"Equipment"}</th><th>Type</th><th>Date</th><th>${LANG==="fr"?"Garantie":"Warranty"}</th><th>${LANG==="fr"?"Tech.":"Tech"}</th><th></th></tr>${DB.service.map(s=>{const n=daysTo(s.warranty);return `<tr><td>${esc(clientName(s.client))}</td><td>${esc(s.equip)}<br><span class="lbl">${esc(s.serial)}</span></td><td><span class="badge">${lab("stype",s.type)}</span><br><span class="badge ${s.status==="done"?"g":"o"}">${lab("sstatus",s.status)}</span></td><td>${esc(s.date)}</td><td>${s.warranty?`<span class="badge ${n<0?"r":n<=30?"o":"g"}">${esc(s.warranty)}</span>`:""}</td><td>${esc(s.tech)}</td><td>${acts("service",s.id,"service")}</td></tr>`}).join("")}</table></div>`;
+const VF=()=>[{k:"client",label:"Client",type:"select",opts:clientOpts()},{k:"type",label:"Type",type:"select",opts:opts("stype")},{k:"equip",label:L("Équipement","Equipment"),req:1},{k:"serial",label:L("N° de série","Serial no.")},{k:"address",label:L("Adresse du site","Site address")},{k:"map",label:L("Lien carte (optionnel)","Map link (optional)")},{k:"date",label:L("Date prévue","Planned date"),type:"date"},{k:"warranty",label:L("Fin de garantie","Warranty end"),type:"date"},{k:"tech",label:L("Technicien","Technician")},{k:"status",label:L("Statut","Status"),type:"select",opts:opts("sstatus")},{k:"notes",label:L("Rapport / notes","Report / notes"),type:"textarea"}];
+window.A_service=()=>crud("service",VF(),t("add"),{id:uid(),type:"install",status:"open",date:today(),client:DB.clients[0]&&DB.clients[0].id});window.E_service=id=>crud("service",VF(),t("edit"),DB.service.find(x=>x.id===id));
+window.svcDone=id=>{if(!guard("service"))return;const s=DB.service.find(x=>x.id===id);s.status=s.status==="done"?"open":"done";persist();render()};
+window.MINE=window.MINE||false;
+const safeUrl=u=>/^https:\/\//i.test(u||"")?u:"";
+V.service=()=>{const q=Q();let Ls=DB.service.filter(s=>(hay(s)+clientName(s.client).toLowerCase()).includes(q)).sort((a,b)=>(a.date||"9")>(b.date||"9")?1:-1);if(MINE)Ls=Ls.filter(s=>(s.tech||"").toLowerCase()===ME.name.toLowerCase());
+ return head("service","A_service()")+search()+`<div class="chips"><button class="sm ${MINE?"pri":""}" onclick="MINE=!MINE;render()">${L("Mes interventions","My jobs")}</button></div>`+(Ls.length?`<div class="card tw"><table><tr><th>Client</th><th>${L("Équipement","Equipment")}</th><th>Type</th><th>Date</th><th>${L("Garantie","Warranty")}</th><th>${L("Tech.","Tech")}</th><th></th></tr>${Ls.map(s=>{const n=daysTo(s.warranty);return `<tr><td>${esc(clientName(s.client))}${s.address?`<br><span class="lbl">${esc(s.address)}</span>`:""}${safeUrl(s.map)?`<br><a href="${esc(safeUrl(s.map))}" target="_blank" rel="noopener noreferrer">${L("Carte","Map")}</a>`:""}</td><td>${esc(s.equip)}<br><span class="lbl">${esc(s.serial)}</span></td><td><span class="badge">${lab("stype",s.type)}</span><br><span class="badge ${s.status==="done"?"g":"o"}">${lab("sstatus",s.status)}</span></td><td>${esc(fmtD(s.date))}</td><td>${s.warranty?`<span class="badge ${n<0?"r":n<=30?"o":"g"}">${esc(fmtD(s.warranty))}</span>`:""}</td><td>${esc(s.tech)}</td><td>${acts("service",s.id,"service",`<button class="sm gold" onclick="svcDone('${esc(s.id)}')">${s.status==="done"?"↺":"✓"}</button>`)}</td></tr>`}).join("")}</table></div>`:empty("A_service()","service"))};
 /* Planning */
-const PF=()=>[{k:"person",label:LANG==="fr"?"Personne":"Person"},{k:"date",label:"Date",type:"date"},{k:"title",label:LANG==="fr"?"Tâche / mission":"Task / mission"}];
-window.A_planning=()=>crud("planning",PF(),t("add"));window.E_planning=id=>crud("planning",PF(),t("edit"),DB.planning.find(x=>x.id===id));
-V.planning=()=>{let L=DB.planning.slice().sort((a,b)=>a.date>b.date?1:-1);if(ME.role==="staff")L=L.filter(p=>(p.person||"").toLowerCase()===ME.name.toLowerCase());
- return head("planning","A_planning()")+`<div class="card tw"><table><tr><th>Date</th><th>${LANG==="fr"?"Personne":"Person"}</th><th>${LANG==="fr"?"Mission":"Task"}</th><th></th></tr>${L.map(p=>`<tr><td>${esc(p.date)}</td><td>${esc(p.person)}</td><td>${esc(p.title)}</td><td>${acts("planning",p.id,"planning")}</td></tr>`).join("")}</table></div>`};
+const PF=()=>[{k:"person",label:L("Personne","Person"),req:1},{k:"date",label:"Date",type:"date"},{k:"title",label:L("Mission","Task"),req:1}];
+window.A_planning=()=>crud("planning",PF(),t("add"),{id:uid(),date:today()});window.E_planning=id=>crud("planning",PF(),t("edit"),DB.planning.find(x=>x.id===id));
+V.planning=()=>{let Ls=DB.planning.slice().sort((a,b)=>a.date>b.date?1:-1);if(ME.role==="staff")Ls=Ls.filter(p=>(p.person||"").toLowerCase()===ME.name.toLowerCase());
+ return head("planning","A_planning()")+(Ls.length?`<div class="card tw"><table><tr><th>Date</th><th>${L("Personne","Person")}</th><th>${L("Mission","Task")}</th><th></th></tr>${Ls.map(p=>`<tr><td>${esc(fmtD(p.date))}</td><td>${esc(p.person)}</td><td>${esc(p.title)}</td><td>${acts("planning",p.id,"planning")}</td></tr>`).join("")}</table></div>`:empty("A_planning()","planning"))};
 /* RH */
-const HF=()=>[{k:"name",label:LANG==="fr"?"Nom":"Name"},{k:"post",label:LANG==="fr"?"Poste":"Position"},{k:"iqama",label:LANG==="fr"?"Expiration iqama":"Iqama expiry",type:"date"},{k:"contract",label:LANG==="fr"?"Fin de contrat":"Contract end",type:"date"},{k:"leave",label:LANG==="fr"?"Jours de congé restants":"Leave days left",type:"number"},{k:"notes",label:"Notes",type:"textarea"}];
+const HF=()=>[{k:"name",label:L("Nom","Name"),req:1},{k:"post",label:L("Poste","Position")},{k:"iqama",label:L("Expiration iqama","Iqama expiry"),type:"date"},{k:"contract",label:L("Fin de contrat","Contract end"),type:"date"},{k:"leave",label:L("Jours de congé restants","Leave days left"),type:"number"},{k:"notes",label:"Notes",type:"textarea"}];
 window.A_hr=()=>crud("hr",HF(),t("add"));window.E_hr=id=>crud("hr",HF(),t("edit"),DB.hr.find(x=>x.id===id));
-V.hr=()=>head("hr","A_hr()")+`<div class="card tw"><table><tr><th>${LANG==="fr"?"Nom":"Name"}</th><th>Iqama</th><th>${LANG==="fr"?"Contrat":"Contract"}</th><th>${LANG==="fr"?"Congés":"Leave"}</th><th></th></tr>${DB.hr.map(h=>{const a=daysTo(h.iqama),b=daysTo(h.contract);return `<tr><td><b>${esc(h.name)}</b><br><span class="lbl">${esc(h.post)}</span></td><td>${h.iqama?`<span class="badge ${a<0?"r":a<=60?"o":"g"}">${esc(h.iqama)}</span>`:""}</td><td>${h.contract?`<span class="badge ${b<0?"r":b<=60?"o":"g"}">${esc(h.contract)}</span>`:""}</td><td>${esc(h.leave)}</td><td>${acts("hr",h.id,"hr")}</td></tr>`}).join("")}</table></div>`;
+V.hr=()=>head("hr","A_hr()")+(DB.hr.length?`<div class="card tw"><table><tr><th>${L("Nom","Name")}</th><th>Iqama</th><th>${L("Contrat","Contract")}</th><th>${L("Congés","Leave")}</th><th></th></tr>${DB.hr.slice().sort((a,b)=>a.name>b.name?1:-1).map(h=>{const a=daysTo(h.iqama),b=daysTo(h.contract);return `<tr><td><b>${esc(h.name)}</b><br><span class="lbl">${esc(h.post)}</span></td><td>${h.iqama?`<span class="badge ${a<0?"r":a<=60?"o":"g"}">${esc(fmtD(h.iqama))}</span>`:""}</td><td>${h.contract?`<span class="badge ${b<0?"r":b<=60?"o":"g"}">${esc(fmtD(h.contract))}</span>`:""}</td><td>${esc(h.leave)}</td><td>${acts("hr",h.id,"hr")}</td></tr>`}).join("")}</table></div>`:empty("A_hr()","hr"));
 /* Comptabilité */
-const IF=()=>[{k:"kind",label:"Type",type:"select",opts:opts("kind")},{k:"party",label:LANG==="fr"?"Client / fournisseur":"Client / supplier"},{k:"cur",label:LANG==="fr"?"Monnaie":"Currency",type:"select",opts:opts("cur")},{k:"amount",label:LANG==="fr"?"Montant":"Amount",type:"number"},{k:"issued",label:LANG==="fr"?"Date de facture":"Issue date",type:"date"},{k:"due",label:LANG==="fr"?"Échéance":"Due date",type:"date"},{k:"paid",label:LANG==="fr"?"Payée ?":"Paid?",type:"select",opts:[["",LANG==="fr"?"Non":"No"],["1",LANG==="fr"?"Oui":"Yes"]]}];
-window.A_invoices=()=>crud("invoices",IF(),t("add"));window.E_invoices=id=>crud("invoices",IF(),t("edit"),DB.invoices.find(x=>x.id===id));
-V.accounting=()=>head("accounting","A_invoices()")+`<div class="card tw"><table><tr><th>Type</th><th>${LANG==="fr"?"Tiers":"Party"}</th><th>${LANG==="fr"?"Montant":"Amount"}</th><th>${LANG==="fr"?"Échéance":"Due"}</th><th></th></tr>${DB.invoices.map(i=>{const n=daysTo(i.due);return `<tr><td><span class="badge">${lab("kind",i.kind)}</span></td><td>${esc(i.party)}</td><td>${money(i.amount,i.cur)}</td><td>${i.paid?`<span class="badge g">${LANG==="fr"?"Payée":"Paid"}</span>`:i.due?`<span class="badge ${n<0?"r":n<=7?"o":""}">${esc(i.due)}</span>`:""}</td><td>${acts("invoices",i.id,"accounting")}</td></tr>`}).join("")}</table></div>`;
+const IF=()=>[{k:"kind",label:"Type",type:"select",opts:opts("kind")},{k:"party",label:L("Client / fournisseur","Client / supplier"),req:1},{k:"cur",label:L("Monnaie","Currency"),type:"select",opts:opts("cur")},{k:"amount",label:L("Montant","Amount"),type:"number"},{k:"issued",label:L("Date de facture","Issue date"),type:"date"},{k:"due",label:L("Échéance","Due date"),type:"date"},{k:"paid",label:L("Payée ?","Paid?"),type:"select",opts:[["",L("Non","No")],["1",L("Oui","Yes")]]}];
+window.A_invoices=()=>crud("invoices",IF(),t("add"),{id:uid(),kind:"customer",cur:"SAR"});window.E_invoices=id=>crud("invoices",IF(),t("edit"),DB.invoices.find(x=>x.id===id));
+V.accounting=()=>head("accounting","A_invoices()")+(DB.invoices.length?`<div class="card tw"><table><tr><th>Type</th><th>${L("Tiers","Party")}</th><th>${L("Montant","Amount")}</th><th>${L("Échéance","Due")}</th><th></th></tr>${DB.invoices.slice().sort((a,b)=>(!!a.paid-!!b.paid)||((a.due||"9")>(b.due||"9")?1:-1)).map(i=>{const n=daysTo(i.due);return `<tr><td><span class="badge">${lab("kind",i.kind)}</span></td><td>${esc(i.party)}</td><td>${money(i.amount,i.cur)}</td><td>${i.paid?`<span class="badge g">${L("Payée","Paid")}</span>`:i.due?`<span class="badge ${n<0?"r":n<=7?"o":""}">${esc(fmtD(i.due))}</span>`:""}</td><td>${acts("invoices",i.id,"accounting")}</td></tr>`}).join("")}</table></div>`:empty("A_invoices()","accounting"));
 /* Tableau de bord (SAR + conversion) */
+window.fxSet=(c,v)=>{if(ME.role!=="direction")return;const n=+v;if(!(n>0)||!isFinite(n)){toast(L("Taux invalide.","Invalid rate."));render();return}DB.fx[c]=n;persist();render()};
+window.exportDB=()=>{if(ME.role!=="direction")return;const b=new Blob([JSON.stringify(DB)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="beme-backup-"+today()+".json";a.click();localStorage.setItem("beme_lastbackup",today())};
+window.importDB=inp=>{if(ME.role!=="direction")return;const f=inp.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=sanitize(JSON.parse(r.result));if(!d)throw 0;if(!confirm(L("Remplacer toutes les données par cette sauvegarde ?","Replace all data with this backup?")))return;DB=d;persist();render()}catch(e){toast(L("Fichier invalide.","Invalid file."))}};r.readAsText(f)};
+window.resetDB=()=>{if(ME.role!=="direction")return;if(prompt(L("Tapez RESET pour effacer toutes les données :","Type RESET to erase all data:"))==="RESET"){DB=sanitize(seed());persist();render()}};
 V.dashboard=()=>{
- const acc=DB.quotes.filter(q=>q.status==="accepted");const sales=acc.reduce((a,q)=>a+toSAR(qTotal(q),q.cur),0);
+ const acc=DB.quotes.filter(q=>q.status==="accepted");const sales=acc.reduce((a,q)=>a+qSAR(q),0);
+ const pipe=DB.quotes.filter(q=>q.status==="draft"||q.status==="sent").reduce((a,q)=>a+toSAR(qTotal(q),q.cur),0);
  const unpaid=DB.invoices.filter(i=>i.kind==="customer"&&!i.paid).reduce((a,i)=>a+toSAR(i.amount,i.cur),0);
- const stockVal=DB.stock.reduce((a,s)=>a+toSAR(s.price,s.cur)*(+s.qty||0),0);
- const stockCost=DB.stock.reduce((a,s)=>a+toSAR(s.cost,s.cur)*(+s.qty||0),0);
- const al=alerts();
- const conv=v=>`<span class="lbl">≈ ${(v/DB.fx.EUR).toLocaleString("en-US",{maximumFractionDigits:0})} EUR · ${(v/DB.fx.AED).toLocaleString("en-US",{maximumFractionDigits:0})} AED</span>`;
- const k=(l,v,x)=>`<div class="card"><div class="lbl">${l}</div><div class="kpi">${money(v,"SAR")}</div>${conv(v)}${x||""}</div>`;
+ const onhand=DB.stock.filter(s=>s.avail!=="toorder"&&s.status!=="in_transit"),incoming=DB.stock.filter(s=>s.avail==="toorder"||s.status==="in_transit");
+ const val=(a,f)=>a.reduce((x,s)=>x+toSAR(s[f],s.cur)*(+s.qty||0),0);
+ const al=alerts();const lb=localStorage.getItem("beme_lastbackup");
+ const conv=v=>`<span class="lbl">≈ ${(v/rate("EUR")).toLocaleString("en-US",{maximumFractionDigits:0})} EUR · ${(v/rate("AED")).toLocaleString("en-US",{maximumFractionDigits:0})} AED</span>`;
+ const k=(l,v)=>`<div class="card"><div class="lbl">${l}</div><div class="kpi">${money(v,"SAR")}</div>${conv(v)}</div>`;
+ const stg=Object.keys(OPT.stage).map(s=>`${OPT.stage[s][LANG]}: <b>${DB.orders.filter(o=>o.stage===s).length}</b>`).join(" · ");
  return `<div class="bar"><h2 style="flex:1">${t("dashboard")}</h2></div><div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(230px,1fr))">
- ${k(LANG==="fr"?"Ventes (devis acceptés)":"Sales (accepted quotes)",sales)}
- ${k(LANG==="fr"?"Impayés clients":"Customer unpaid",unpaid)}
- ${k(LANG==="fr"?"Valeur du stock (vente)":"Stock value (sale)",stockVal)}
- ${k(LANG==="fr"?"Marge potentielle du stock":"Potential stock margin",stockVal-stockCost)}
- <div class="card"><div class="lbl">${LANG==="fr"?"Alertes":"Alerts"}</div><div class="kpi">${al.length}</div></div></div>
- <div class="card"><h3>${LANG==="fr"?"Taux de conversion (modifiables)":"Exchange rates (editable)"}</h3><p class="lbl">${LANG==="fr"?"1 unité = … SAR. À vérifier et mettre à jour par la Direction.":"1 unit = … SAR. To be checked and updated by Management."}</p>
- <div class="row2"><div><label>1 EUR</label><input type="number" step="0.01" value="${DB.fx.EUR}" onchange="DB.fx.EUR=+this.value||1;persist();render()"></div><div><label>1 AED</label><input type="number" step="0.01" value="${DB.fx.AED}" onchange="DB.fx.AED=+this.value||1;persist();render()"></div></div></div>
- <div class="card"><button class="danger sm" onclick="if(confirm('Reset demo data ?')){DB=seed();persist();render()}">Reset demo data</button></div>`};
+ ${k(L("Ventes (devis acceptés)","Sales (accepted quotes)"),sales)}
+ ${k(L("Devis en cours (brouillon + envoyés)","Open quotes (draft + sent)"),pipe)}
+ ${k(L("Impayés clients","Customer unpaid"),unpaid)}
+ ${k(L("Stock sur place (valeur de vente)","On-hand stock (sale value)"),val(onhand,"price"))}
+ ${k(L("Marge potentielle du stock sur place","Potential margin, on-hand stock"),val(onhand,"price")-val(onhand,"cost"))}
+ ${k(L("Stock en transit / à commander","Incoming / to-order stock"),val(incoming,"price"))}
+ <div class="card"><div class="lbl">${L("Alertes","Alerts")}</div><div class="kpi">${al.length}</div></div></div>
+ <div class="card"><div class="lbl">${L("Commandes par étape","Orders by stage")}</div><p>${stg}</p></div>
+ <div class="card"><h3>${L("Taux de conversion (modifiables)","Exchange rates (editable)")}</h3><p class="lbl">${L("1 unité = … SAR. À vérifier et mettre à jour par la Direction. Les devis acceptés gardent le taux du jour d'acceptation.","1 unit = … SAR. To be checked and updated by Management. Accepted quotes keep the rate of the day they were accepted.")}</p>
+ <div class="row2"><div><label>1 EUR</label><input type="number" step="any" min="0.0001" inputmode="decimal" value="${esc(DB.fx.EUR)}" onchange="fxSet('EUR',this.value)"></div><div><label>1 AED</label><input type="number" step="any" min="0.0001" inputmode="decimal" value="${esc(DB.fx.AED)}" onchange="fxSet('AED',this.value)"></div></div></div>
+ <div class="card"><h3>${L("Sauvegarde des données","Data backup")}</h3><p class="lbl">${L("Dernière sauvegarde : ","Last backup: ")}${lb?esc(fmtD(lb)):L("jamais","never")}</p>
+ <div class="bar"><button onclick="exportDB()">${L("Exporter (JSON)","Export (JSON)")}</button><label class="btn" style="margin:0">${L("Importer","Import")}<input type="file" accept="application/json" style="display:none" onchange="importDB(this)"></label><button class="danger sm" onclick="resetDB()">${L("Tout effacer","Erase all")}</button></div></div>`};
 /* ===== Navigation, connexion, rendu ===== */
-window.go=p=>{location.hash="#"+p};
-window.render=(keep)=>{
- const app=$("#app");
+let NAV=[];
+window.go=p=>{window.QS="";location.hash="#"+p};
+window.goBack=()=>{const prev=NAV.length>1?NAV[NAV.length-2]:"home";NAV.length=Math.max(NAV.length-2,0);go(prev)};
+function render(keep){
+ const app=$("#app");document.documentElement.lang=LANG;
  if(!ME){app.innerHTML=`<div class="login card"><img src="assets/beme-logo.png" alt="BEME"><h2 style="margin:10px 0">Management</h2>
-  <label>${t("name")}</label><input id="ln" value="">
-  <label>${t("role")}</label><select id="lr">${ROLES.map(r=>`<option value="${r}">${t("role_"+r)}</option>`).join("")}</select>
+  <label for="ln">${t("name")}</label><input id="ln" maxlength="60" autocomplete="name">
+  <label for="lr">${t("role")}</label><select id="lr">${ROLES.map(r=>`<option value="${r}">${t("role_"+r)}</option>`).join("")}</select>
   <div class="bar" style="margin-top:14px;justify-content:center"><button class="pri" id="lgo">${t("login")}</button><button id="llang">${t("lang")}</button></div><p class="note">${t("demo")}</p></div>`;
-  $("#lgo").onclick=()=>{const n=$("#ln").value.trim();if(!n){$("#ln").focus();return}ME={name:n,role:$("#lr").value};sessionStorage.setItem("beme_me",JSON.stringify(ME));render()};
+  $("#lgo").onclick=()=>{const n=$("#ln").value.trim();if(!n){$("#ln").focus();return}ME={name:n,role:$("#lr").value};sessionStorage.setItem("beme_me",JSON.stringify(ME));NAV=[];render()};
   $("#llang").onclick=()=>{LANG=LANG==="fr"?"en":"fr";localStorage.setItem("beme_lang",LANG);render()};return}
- let p=location.hash.slice(1)||"home";if(p!=="home"&&!can("view",p))p="home";
+ let p=location.hash.slice(1)||"home";if(!(p==="home"||(PAGES.includes(p)&&can("view",p))))p="home";
+ if(NAV[NAV.length-1]!==p)NAV.push(p);
  const foc=keep&&document.activeElement&&document.activeElement.tagName==="INPUT"?document.activeElement.selectionStart:null;
- app.innerHTML=`<header><img src="assets/beme-logo.png" alt="BEME"><button class="sm" onclick="history.back()">← ${t("back")}</button><button class="sm pri" onclick="window.Q='';go('home')">⌂ ${t("home")}</button><span class="sp"></span><button class="sm" onclick="LANG=LANG==='fr'?'en':'fr';localStorage.setItem('beme_lang',LANG);render()">${t("lang")}</button><button class="sm" onclick="ME=null;sessionStorage.removeItem('beme_me');render()">${t("logout")}</button></header><main>${V[p]()}</main>`;
- if(foc!==null){const i=document.querySelector("main input");if(i){i.focus();i.setSelectionRange(foc,foc)}}
-};
-window.addEventListener("hashchange",()=>{window.Q="";render()});
+ const home=p==="home";
+ app.innerHTML=`<header><img src="assets/beme-logo.png" alt="BEME"><button class="sm" ${home?"disabled":""} onclick="goBack()">← ${t("back")}</button><button class="sm pri" ${home?"disabled":""} onclick="go('home')">⌂ ${t("home")}</button><span class="sp"></span><button class="sm" onclick="LANG=LANG==='fr'?'en':'fr';localStorage.setItem('beme_lang',LANG);render()">${t("lang")}</button><button class="sm" onclick="ME=null;NAV=[];sessionStorage.removeItem('beme_me');render()">${t("logout")}</button></header><main>${V[p]()}</main>`;
+ if(foc!==null){const i=document.querySelector("main input[type=search]");if(i){i.focus();i.setSelectionRange(foc,foc)}}
+}
+window.addEventListener("hashchange",()=>render());
 render();
 </script>
 </body>
