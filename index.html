@@ -124,7 +124,6 @@ label{display:block;font-size:12px;color:var(--mut);margin:10px 0 4px;font-weigh
 .lg-d .ttl{text-align:center;color:#fff;font:800 clamp(22px,6vw,30px) var(--sans);letter-spacing:.16em;text-shadow:0 2px 12px rgba(0,0,0,.7)}.lg-d .ttl span{color:var(--gold)}.lg-d .bg{margin:6px 0 12px!important}.lg-d .bot p.mut{margin:2px 0 0!important}
 @media(max-width:600px){.lg-d .ttl{font-size:21px;letter-spacing:.12em}}
 .login .av1 .c{background:radial-gradient(circle at 30% 25%,#27508f,#10264d 70%);color:var(--gold);border:2px solid var(--gold);box-shadow:0 6px 16px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.18)}.login .av1 .c svg{width:30px;height:30px}
-.login.lg-a{background:linear-gradient(180deg,rgba(12,32,68,.94) 0,rgba(14,38,80,.8) 30%,rgba(9,26,56,.82) 70%,rgba(9,26,56,.94)),url(assets/img/gamme-panorama.jpg) center 20%/cover}
 .lg-a .ttl{text-align:center;color:#fff;font:800 clamp(21px,6vw,30px) var(--sans);letter-spacing:.14em;margin:2px 0 4px}.lg-a .ttl span{color:var(--gold)}.lg-a .sal span{color:var(--gold)}.lg-a .sal{margin:0 0 6px}
 .lg-a img.lg{width:min(150px,40vw)}
 
@@ -539,7 +538,7 @@ const avIcon=x=>{const t=((x.title||"")+" "+(x.name||"")).toLowerCase();const by
 function render(keep){
  const app=$("#app");document.documentElement.lang=LANG;document.body.classList.toggle("lg",!ME);
  if(!ME){const pr=DB.profiles;
-  const V=new URLSearchParams(location.search).get("l");const lv=V==="b"||V==="c"||V==="d"?V:"a";
+  const V=new URLSearchParams(location.search).get("l");const lv=V==="a"||V==="b"||V==="c"||V==="d"?V:(matchMedia("(min-width:900px)").matches?"d":"a");
   const head1=`<img class="lg" src="assets/beme-logo-white.svg" alt="BEME"><div class="tag">YOUR PARTNER IN CULINARY EXCELLENCE</div><div class="tag ar">شريككم في التميز في فنون الطهي</div><div class="kick" style="text-align:center;margin-top:18px">BEME RIYAD · OPERATIONS</div><div class="sal">السلام عليكم<span>Salam alaikum</span></div><h2 style="color:#fff;text-align:center;font:800 24px var(--sans);margin:0 0 6px">${L("Qui êtes-vous ?","Who are you?")}</h2>`;
   const avs=`<div class="avs">${pr.map(x=>`<button class="av1" data-p="${esc(x.id)}"><span class="c">${avIcon(x)}</span><b>${esc(x.title)}</b><small>${esc(x.name||"")}</small></button>`).join("")}</div>`;
   const rest=`<details style="margin-top:6px"><summary class="mut" style="cursor:pointer;min-height:36px">${L("Autre profil","Other profile")}</summary><label for="ln">${t("name")}</label><input id="ln" maxlength="60" autocomplete="name"><label for="lr">${t("role")}</label><select id="lr">${ROLES.map(r=>`<option value="${r}">${t("role_"+r)}</option>`).join("")}</select><button class="btn gold" style="width:100%;margin-top:12px" id="lgo">${t("login")}</button></details>
@@ -570,6 +569,7 @@ function render(keep){
 }
 window.addEventListener("hashchange",()=>render());
 render();
+matchMedia("(min-width:900px)").addEventListener("change",()=>{if(!ME)render()});
 </script>
 </body>
 </html>
