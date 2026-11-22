@@ -347,6 +347,11 @@ html:has(.login)::-webkit-scrollbar,.login::-webkit-scrollbar{width:8px;backgrou
 .chips-row{-webkit-mask-image:linear-gradient(90deg,#000 92%,transparent);mask-image:linear-gradient(90deg,#000 92%,transparent)}
 @media(max-width:520px){.oth .or{flex-direction:column;gap:2px}.oth .or em{text-align:left}}
 .pmore,.btn.sm,.ib2,[onclick*="openAct"],.lnk{min-height:44px}
+/* v36 drapeaux */
+.login .lgsw{display:inline-flex;gap:4px;padding:4px;border:1px solid rgba(191,159,95,.55);border-radius:999px;background:rgba(0,0,0,.55)}
+.login .lgsw button{min-width:48px;min-height:44px;border:2px solid transparent;border-radius:999px;background:transparent;display:flex;align-items:center;justify-content:center;opacity:.55;padding:0}
+.login .lgsw button.on{opacity:1;border-color:#BF9F5F;background:rgba(191,159,95,.18)}
+.login .lgsw svg{border-radius:3px;box-shadow:0 0 0 1px rgba(255,255,255,.25)}
 </style>
 </head>
 <body>
@@ -920,7 +925,7 @@ function render(keep){
   const VV=(new URLSearchParams(location.search).get("v")||"1").replace(/[^123]/g,"")||"1";const head1=`<img class="lg" src="assets/beme-logo-white.svg" alt="BEME"><div class="tag">YOUR PARTNER IN CULINARY EXCELLENCE</div><div class="tag ar">شريككم في التميز في فنون الطهي</div><div class="kick" style="text-align:center;margin-top:18px">BEME KSA · OPERATIONS</div><div class="sal">السلام عليكم<span>Salam alaikum</span></div><h2 style="color:#fff;text-align:center;font:800 24px var(--sans);margin:0 0 6px">${L("Qui êtes-vous ?","Who are you?")}</h2>`;
   const avs=`<div class="avs">${pr.map(x=>`<button class="av1" data-p="${esc(x.id)}" aria-label="${esc(x.title+(x.name?", "+x.name:""))}"><span class="c">${avIcon(x)}</span><b>${esc(x.title)}</b><small>${esc(x.name||t("role_"+x.role))}</small></button>`).join("")}</div>`;
   const rest=`
-  <div style="text-align:center;margin-top:14px"><button class="btn sm" style="background:transparent;color:#fff;border-color:rgba(255,255,255,.5)" id="llang">${t("lang")}</button></div><p class="mut" style="margin-top:14px;font-size:12px;text-align:center">${t("demo")}</p>`;
+  <div style="text-align:center;margin-top:14px"><div class="lgsw" role="group" aria-label="Language"><button type="button" data-lg="fr" class="${LANG==="fr"?"on":""}" aria-label="Français" aria-pressed="${LANG==="fr"}"><svg viewBox="0 0 30 20" width="26" height="17" aria-hidden="true"><rect width="10" height="20" fill="#1f3c9c"/><rect x="10" width="10" height="20" fill="#fff"/><rect x="20" width="10" height="20" fill="#d62b3a"/></svg></button><button type="button" data-lg="en" class="${LANG==="en"?"on":""}" aria-label="English" aria-pressed="${LANG==="en"}"><svg viewBox="0 0 60 40" width="26" height="17" aria-hidden="true"><rect width="60" height="40" fill="#1f3c7a"/><path d="M0 0L60 40M60 0L0 40" stroke="#fff" stroke-width="8"/><path d="M0 0L60 40M60 0L0 40" stroke="#d62b3a" stroke-width="3"/><path d="M30 0V40M0 20H60" stroke="#fff" stroke-width="13"/><path d="M30 0V40M0 20H60" stroke="#d62b3a" stroke-width="7"/></svg></button></div></div><p class="mut" style="margin-top:14px;font-size:12px;text-align:center">${t("demo")}</p>`;
   const core=head1+avs+rest;
   const bg="";
   const core2=`<img class="lg" src="assets/beme-logo-white.svg" alt="BEME"><div class="ttl">BEME KSA<span> · ${L("OPÉRATIONS","OPERATIONS")}</span></div>`+`<div class="sal">السلام عليكم<span>Salam alaikum</span></div>`+avs+rest;
@@ -933,7 +938,7 @@ function render(keep){
   document.querySelectorAll(".dvs button").forEach(b=>b.onclick=()=>{try{localStorage.setItem("beme_dev",b.dataset.d)}catch(e){}location.reload()});
   const enter=(name,role,title)=>{ME={name:name.slice(0,60),role,title:title||""};sessionStorage.setItem("beme_me",JSON.stringify(ME));NAV=[];render()};
   document.querySelectorAll(".av1").forEach(bt=>bt.onclick=()=>{const x=pr.find(y=>y.id===bt.dataset.p);if(x)pinAsk(x,()=>enter(x.name||x.title,x.role,x.title))});
-    $("#llang").onclick=()=>{LANG=LANG==="fr"?"en":"fr";localStorage.setItem("beme_lang",LANG);render()};return}
+    document.querySelectorAll(".lgsw button").forEach(b=>b.onclick=()=>{LANG=b.dataset.lg;localStorage.setItem("beme_lang",LANG);render()});return}
  let p=location.hash.slice(1)||"home";if(!(p==="home"||(PAGES.includes(p)&&can("view",p))))p="home";
  if(NAV[NAV.length-1]!==p)NAV.push(p);
  const foc=keep&&document.activeElement&&document.activeElement.tagName==="INPUT"?document.activeElement.selectionStart:null;
