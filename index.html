@@ -134,6 +134,13 @@ label{display:block;font-size:12px;color:var(--mut);margin:10px 0 4px;font-weigh
 .rc3 .btn.sm,.rc .btn.sm,.sc .btn.sm{border:0;background:transparent;color:var(--mut);min-width:40px;min-height:36px;padding:0 8px;font-size:20px;letter-spacing:2px;box-shadow:none}
 .hello{min-height:230px;background:linear-gradient(100deg,rgba(10,22,44,.8) 30%,rgba(10,22,44,.15)),url(assets/img/hero-oven.jpg) right center/cover}
 @media(min-width:900px){main{max-width:1240px!important;padding:92px 40px 40px!important}.lst{display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:12px;align-items:start}}
+
+/* v18 palette: BEME blue instead of near-black; phone hero holds the brand */
+.login.lg-a{background:linear-gradient(180deg,#16356b,#0e2347 60%,#0b1c3b)!important}
+.lg-a .ph{min-height:300px!important;align-items:flex-end;justify-content:center;text-align:center;background:linear-gradient(180deg,rgba(14,35,71,.25),rgba(14,35,71,.55) 55%,#16356b),url(assets/img/hero-oven.jpg) center 25%/cover!important}
+.lg-a .cap{width:100%;display:flex;flex-direction:column;align-items:center}.lg-a .cap .bg{justify-content:center!important}
+.login.lg-d{background-color:#0f2650!important;background-blend-mode:lighten}
+.lg-d .bot{background:linear-gradient(180deg,rgba(23,53,106,0),rgba(18,42,86,.94) 30%)!important}
 </style>
 </head>
 <body>
@@ -670,7 +677,7 @@ function render(keep){
   const core2=`<img class="lg" src="assets/beme-logo-white.svg" alt="BEME"><div class="ttl">BEME RIYAD<span> · ${L("OPÉRATIONS","OPERATIONS")}</span></div>`+`<div class="sal">السلام عليكم<span>Salam alaikum</span></div>`+avs+rest;
   const topD=`<div class="top"><img class="lg" src="assets/beme-logo-white.svg" alt="BEME"></div>`;const salD=`<div class="sal">السلام عليكم<span>Salam alaikum</span></div>`;
   let dv="";try{dv=localStorage.getItem("beme_dev")||""}catch(e){}const dvb=`<div class="dvs" role="group" aria-label="${L("Affichage","Display")}"><button data-d="m" class="${dv==="m"||(!dv&&!matchMedia("(min-width:900px)").matches)?"on":""}">${L("Téléphone","Phone")}</button><button data-d="l" class="${dv==="l"||(!dv&&matchMedia("(min-width:900px)").matches)?"on":""}">${L("Ordinateur","Laptop")}</button></div>`;
-  app.innerHTML=dvb+(lv==="d"?`<div class="login lg-d">${topD}<div class="mid"></div><div class="bot"><div class="ttl">BEME RIYAD<span> · ${L("OPÉRATIONS","OPERATIONS")}</span></div>${bg}${salD}${avs}${rest}</div></div>`:lv==="a"?`<div class="login lg-a"><div class="ph"><div class="cap"><div class="kick">${L("BRANCHE DE RIYAD","RIYADH BRANCH")}</div><h1>${L("Four, froid, fermentation,<br>laboratoire complet : Bongard à Riyad","Ovens, refrigeration, fermentation,<br>complete bakery labs: Bongard in Riyadh")}</h1>${bg}</div></div><div class="pn"><div class="in">${core2}</div></div></div>`
+  app.innerHTML=dvb+(lv==="d"?`<div class="login lg-d">${topD}<div class="mid"></div><div class="bot"><div class="ttl">BEME RIYAD<span> · ${L("OPÉRATIONS","OPERATIONS")}</span></div>${bg}${salD}${avs}${rest}</div></div>`:lv==="a"?`<div class="login lg-a"><div class="ph"><div class="cap"><img class="lg" src="assets/beme-logo-white.svg" alt="BEME"><div class="ttl">BEME RIYAD<span> · ${L("OPÉRATIONS","OPERATIONS")}</span></div>${bg}</div></div><div class="pn"><div class="in"><div class="sal">السلام عليكم<span>Salam alaikum</span></div>${avs}${rest}</div></div></div>`
   :"");
   document.querySelectorAll(".dvs button").forEach(b=>b.onclick=()=>{try{localStorage.setItem("beme_dev",b.dataset.d)}catch(e){}render()});
   const enter=(name,role,title)=>{ME={name:name.slice(0,60),role,title:title||""};sessionStorage.setItem("beme_me",JSON.stringify(ME));NAV=[];render()};
