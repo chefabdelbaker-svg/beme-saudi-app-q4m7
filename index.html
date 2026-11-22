@@ -196,21 +196,84 @@ const uid=()=>Math.random().toString(36).slice(2,10)+Date.now().toString(36).sli
 const IDRE=/^[a-z0-9-]{1,40}$/;
 const DEFSET=()=>({maxDisc:5,wMonths:24,wStart:"commissioning",co:{name:"BEME Saudi",vat:"",cr:"",bank:"",addr:"",phone:"",email:""}});
 const DEFPROF=()=>[["CEO","Rachid","direction"],["Partner","Abdelhafid","direction"],["General Manager","","direction"],["Operations Manager","","orders"],["Sales Manager","","commercial"],["HR","","hr"],["Accounting","","accounting"]].map(a=>({id:uid(),title:a[0],name:a[1],role:a[2]}));
-function seed(){const d=today();return{fx:{SAR:1,EUR:4.1,AED:1.02},qseq:0,settings:DEFSET(),
-clients:[{id:uid(),name:"Hotel bakery (demo)",contact:"Procurement",phone:"",city:"Riyadh",stage:"qualified",source:"referral",lost:"",next:d,notes:""}],quotes:[],stock:[
-{id:uid(),ref:"RO-001",brand:"Bongard",name:"Rotary rack oven (demo)",cond:"new",status:"in_stock",avail:"riyadh",price:185000,cost:132000,extra:9000,cur:"SAR",qty:1,serial:"",volt:"v380",dims:"",loc:"Riyadh warehouse",photo:"assets/img/rotary-oven.webp"},
-{id:uid(),ref:"DK-002",brand:"Bongard",name:"Electric deck oven, 4 decks (demo)",cond:"new",status:"in_transit",avail:"dubai",price:9800,cost:7200,extra:600,cur:"EUR",qty:2,serial:"",volt:"v380",dims:"",loc:"Dubai hub",photo:"assets/img/deck-oven.webp"},
-{id:uid(),ref:"PT-003",brand:"Bongard",name:"Traditional oven (demo)",cond:"used",status:"in_stock",avail:"riyadh",price:65000,cost:40000,extra:2500,cur:"SAR",qty:1,serial:"",volt:"gas",dims:"",loc:"Riyadh warehouse",photo:"assets/img/paneotrad-oven.webp"},
-{id:uid(),ref:"DV-004",brand:"Bongard",name:"Dough divider (demo)",cond:"new",status:"in_stock",avail:"toorder",price:38000,cost:24000,extra:1500,cur:"SAR",qty:1,serial:"",volt:"v380",dims:"",loc:"",photo:"assets/img/divider.webp"},
-{id:uid(),ref:"SH-005",brand:"Bongard",name:"Dough sheeter (demo)",cond:"new",status:"in_stock",avail:"riyadh",price:29000,cost:18000,extra:1200,cur:"SAR",qty:2,serial:"",volt:"v220",dims:"",loc:"Riyadh warehouse",photo:"assets/img/sheeter.webp"},
-{id:uid(),ref:"BC-006",brand:"Bongard",name:"Blast chiller / freezer (demo)",cond:"new",status:"in_stock",avail:"dubai",price:52000,cost:33000,extra:2800,cur:"SAR",qty:1,serial:"",volt:"v380",dims:"",loc:"Dubai hub",photo:"assets/img/blast-chiller.webp"}],
-orders:[],equip:[],service:[],contracts:[],planning:[],hr:[],invoices:[]}}
+function seed(){const d=today(),A=n=>addDays(d,n),M=n=>addMonths(d,n),y=new Date().getFullYear(),N=k=>"BEME-"+y+"-"+String(k).padStart(3,"0");
+const I={};["c1","c2","c3","c4","c5","c6","c7","c8","sRot","sDeck","sTrad","sDiv","sShe","sBc","sSpi","sSol","sRk","sHer","sKry","sZep","sMir","q1","q2","q3","q4","q5","q6","q7","o1","o2","o3","o4","e1","e2","e3","e4"].forEach(k=>I[k]=uid());
+const T=(type,desc,qty,price,extra)=>Object.assign({type,stock:"",desc,qty,price,opt:false,inc:false},extra||{});
+const eq=(sid,desc,qty,price,extra)=>T("equipment",desc,qty,price,Object.assign({stock:sid},extra||{}));
+return{demoV:2,fx:{SAR:1,EUR:4.1,AED:1.02},qseq:7,settings:DEFSET(),
+clients:[
+{id:I.c1,name:"Al Rawabi Bakeries (demo)",contact:"Eng. Khalid (demo)",phone:"+966 5x xxx xxxx",city:"Riyadh",stage:"won",source:"referral",lost:"",next:A(14),notes:"Boulangerie industrielle, 3 sites. Four rotatif installé, contrat de maintenance signé. Prochain projet : 2e ligne de division."},
+{id:I.c2,name:"Sahara Hospitality Group (demo)",contact:"Purchasing manager (demo)",phone:"+966 5x xxx xxxx",city:"Riyadh",stage:"quote",source:"tender",lost:"",next:A(-2),notes:"Cuisine centrale d'hôtel. Devis envoyé, ils demandent une remise. À relancer."},
+{id:I.c3,name:"Dar Al Khobz (demo)",contact:"Mr Omar (demo)",phone:"+966 5x xxx xxxx",city:"Jeddah",stage:"won",source:"dubai",lost:"",next:A(3),notes:"Client venu par BEME Dubaï. Four à soles en transit, mise en service à planifier."},
+{id:I.c4,name:"Qassim Catering Co. (demo)",contact:"Mr Fahad (demo)",phone:"+966 5x xxx xxxx",city:"Buraydah",stage:"visit",source:"walkin",lost:"",next:A(5),notes:"Veut une chaîne froid + fermentation pour un nouvel atelier. Visite du site prévue."},
+{id:I.c5,name:"Olive Tree Café (demo)",contact:"Ms Lina (demo)",phone:"+966 5x xxx xxxx",city:"Riyadh",stage:"won",source:"referral",lost:"",next:A(1),notes:"Petit laboratoire pour 3 cafés. Commande confirmée, acompte à encaisser."},
+{id:I.c6,name:"Eastern Sweets Factory (demo)",contact:"Mr Hassan (demo)",phone:"",city:"Dammam",stage:"lost",source:"tender",lost:"Prix trop élevé face à un concurrent italien",next:"",notes:"Revoir dans 6 mois."},
+{id:I.c7,name:"Marhaba Hotel (demo)",contact:"Chef exécutif (demo)",phone:"",city:"Riyadh",stage:"lead",source:"walkin",lost:"",next:A(0),notes:"Passé au showroom. À rappeler aujourd'hui."},
+{id:I.c8,name:"Al Baraka Mini-Markets (demo)",contact:"Mr Yasser (demo)",phone:"+966 5x xxx xxxx",city:"Medina",stage:"won",source:"referral",lost:"",next:A(20),notes:"Boulangerie intégrée de supermarché. Garantie prolongée, contrat à renouveler."}],
+quotes:[
+{id:I.q1,no:N(1),client:I.c1,cur:"SAR",status:"accepted",date:A(-120),valid:A(-90),items:[eq(I.sRot,"Four rotatif Bongard (demo)",1,185000),T("freight","Transport et manutention",1,6000),T("install","Installation",1,8000),T("commission","Mise en service",1,4000),T("training","Formation des boulangers",1,2500)],notes:"",terms:"Acompte 30 % à la commande, solde à la livraison.",vat:15,disc:3,approved:true},
+{id:I.q2,no:N(2),client:I.c2,cur:"SAR",status:"sent",date:A(-6),valid:A(1),items:[eq(I.sSpi,"SPIRAL EVO TL pétrin (demo)",2,36000),eq(I.sMir,"MIRA diviseuse hydraulique (demo)",1,31000),eq(I.sHer,"HERA armoire de fermentation (demo)",1,24000,{opt:true}),T("install","Installation",1,9000)],notes:"",terms:"",vat:15,disc:8,approved:false},
+{id:I.q3,no:N(3),client:I.c3,cur:"EUR",status:"accepted",date:A(-45),valid:A(-15),items:[eq(I.sSol,"SOLEO EVO M4 four à soles (demo)",1,11500),T("freight","Transport Dubaï – Jeddah",1,1800),T("commission","Mise en service",1,900)],notes:"",terms:"",vat:15,disc:0,approved:false},
+{id:I.q4,no:N(4),client:I.c4,cur:"SAR",status:"draft",date:A(0),valid:A(30),items:[eq(I.sKry,"KRYO surgélateur (demo)",1,68000),T("install","Installation",1,4000)],notes:"",terms:"",vat:15,disc:0,approved:false},
+{id:I.q5,no:N(5),client:I.c6,cur:"SAR",status:"refused",date:A(-70),valid:A(-40),items:[eq(I.sRk,"Four rotatif série 4 (demo)",1,120000)],notes:"",terms:"",vat:15,disc:0,approved:false},
+{id:I.q6,no:N(6),client:I.c8,cur:"SAR",status:"accepted",date:A(-260),valid:A(-230),items:[eq(I.sTrad,"Four traditionnel (demo)",1,65000),T("install","Installation",1,3500)],notes:"",terms:"",vat:15,disc:0,approved:false},
+{id:I.q7,no:N(7),client:I.c5,cur:"SAR",status:"accepted",date:A(-5),valid:A(25),items:[eq(I.sSpi,"SPIRAL EVO TL pétrin (demo)",1,36000),T("install","Installation",1,3000)],notes:"",terms:"",vat:15,disc:0,approved:false}],
+stock:[
+{id:I.sRot,ref:"RO-001",brand:"Bongard",name:"Rotary rack oven (demo)",cond:"new",status:"in_stock",avail:"riyadh",price:185000,cost:132000,extra:9000,cur:"SAR",qty:1,serial:"",volt:"v380",dims:"",loc:"Riyadh warehouse",photo:"assets/img/rotary-oven.webp"},
+{id:I.sDeck,ref:"DK-002",brand:"Bongard",name:"Electric deck oven, 4 decks (demo)",cond:"new",status:"in_transit",avail:"dubai",price:9800,cost:7200,extra:600,cur:"EUR",qty:2,serial:"",volt:"v380",dims:"",loc:"Dubai hub",photo:"assets/img/deck-oven.webp"},
+{id:I.sTrad,ref:"PT-003",brand:"Bongard",name:"Traditional oven (demo)",cond:"used",status:"in_stock",avail:"riyadh",price:65000,cost:40000,extra:2500,cur:"SAR",qty:1,serial:"PT-2019-0112",volt:"gas",dims:"",loc:"Riyadh warehouse",photo:"assets/img/paneotrad-oven.webp"},
+{id:I.sDiv,ref:"DV-004",brand:"Bongard",name:"Dough divider (demo)",cond:"new",status:"in_stock",avail:"toorder",price:38000,cost:24000,extra:1500,cur:"SAR",qty:1,serial:"",volt:"v380",dims:"",loc:"",photo:"assets/img/divider.webp"},
+{id:I.sShe,ref:"SH-005",brand:"Bongard",name:"Dough sheeter (demo)",cond:"new",status:"in_stock",avail:"riyadh",price:29000,cost:18000,extra:1200,cur:"SAR",qty:2,serial:"",volt:"v220",dims:"",loc:"Riyadh warehouse",photo:"assets/img/sheeter.webp"},
+{id:I.sBc,ref:"BC-006",brand:"Bongard",name:"Blast chiller / freezer (demo)",cond:"new",status:"in_stock",avail:"dubai",price:52000,cost:33000,extra:2800,cur:"SAR",qty:1,serial:"",volt:"v380",dims:"",loc:"Dubai hub",photo:"assets/img/blast-chiller.webp"},
+{id:I.sSpi,ref:"SP-007",brand:"Bongard",name:"SPIRAL EVO TL mixer (demo)",cond:"new",status:"in_stock",avail:"riyadh",price:36000,cost:22000,extra:1500,cur:"SAR",qty:3,serial:"",volt:"v380",dims:"",loc:"Riyadh warehouse, bay 1",photo:"assets/gamme/spiral.webp"},
+{id:I.sSol,ref:"SO-008",brand:"Bongard",name:"SOLEO EVO M4 deck oven (demo)",cond:"new",status:"in_transit",avail:"dubai",price:11500,cost:8300,extra:700,cur:"EUR",qty:1,serial:"",volt:"v380",dims:"",loc:"Dubai hub",photo:"assets/gamme/soleo.webp"},
+{id:I.sRk,ref:"RK-009",brand:"Bongard",name:"Rotary rack oven series 4 (demo)",cond:"used",status:"in_stock",avail:"riyadh",price:120000,cost:78000,extra:4000,cur:"SAR",qty:1,serial:"BG-S4-2161",volt:"gas",dims:"",loc:"Riyadh warehouse, bay 2",photo:"assets/gamme/rotatif.webp"},
+{id:I.sHer,ref:"HE-010",brand:"Bongard",name:"HERA proofing cabinet (demo)",cond:"new",status:"in_stock",avail:"toorder",price:24000,cost:15000,extra:900,cur:"SAR",qty:1,serial:"",volt:"v380",dims:"",loc:"",photo:"assets/gamme/hera.webp"},
+{id:I.sKry,ref:"KR-011",brand:"Bongard",name:"KRYO blast freezer (demo)",cond:"new",status:"in_stock",avail:"dubai",price:68000,cost:45000,extra:2500,cur:"SAR",qty:1,serial:"",volt:"v380",dims:"",loc:"Dubai hub",photo:"assets/gamme/kryo.webp"},
+{id:I.sZep,ref:"ZE-012",brand:"Bongard",name:"ZEPHYR cooling cell (demo)",cond:"new",status:"in_stock",avail:"riyadh",price:54000,cost:34000,extra:2000,cur:"SAR",qty:1,serial:"",volt:"v380",dims:"",loc:"Riyadh warehouse, bay 3",photo:"assets/gamme/zephyr.webp"},
+{id:I.sMir,ref:"MI-013",brand:"Bongard",name:"MIRA hydraulic divider (demo)",cond:"new",status:"in_stock",avail:"riyadh",price:31000,cost:19500,extra:1300,cur:"SAR",qty:1,serial:"",volt:"v380",dims:"",loc:"Riyadh warehouse, bay 1",photo:"assets/gamme/mira.webp"}],
+orders:[
+{id:I.o1,quote:I.q1,client:I.c1,no:N(1),amount:229235.25,cur:"SAR",stage:"installed",supplier:"stock",po:"",date:A(-110),eta:A(-85),tracking:"",deposit:55000,notes:"Livré et mis en service sans réserve.",equipMade:true,stockOut:true,history:[{stage:"ordered",date:A(-110),by:"Sales Manager"},{stage:"sourcing",date:A(-108),by:"Operations Manager"},{stage:"delivered",date:A(-85),by:"Operations Manager"},{stage:"installed",date:A(-75),by:"Technicien A (demo)"}]},
+{id:I.o2,quote:I.q3,client:I.c3,no:N(3),amount:16330,cur:"EUR",stage:"transit",supplier:"beme_dubai",po:"PO-DEMO-118",date:A(-40),eta:A(9),tracking:"DHL-DEMO-4471",deposit:4900,notes:"Départ Dubaï, dédouanement à Jeddah à prévoir.",history:[{stage:"ordered",date:A(-40),by:"Sales Manager"},{stage:"sourcing",date:A(-38),by:"Operations Manager"},{stage:"transit",date:A(-12),by:"Operations Manager"}]},
+{id:I.o3,quote:I.q6,client:I.c8,no:N(6),amount:78775,cur:"SAR",stage:"installed",supplier:"stock",po:"",date:A(-255),eta:A(-225),tracking:"",deposit:20000,notes:"",equipMade:true,stockOut:true,history:[{stage:"ordered",date:A(-255),by:"Sales Manager"},{stage:"delivered",date:A(-222),by:"Operations Manager"},{stage:"installed",date:A(-215),by:"Technicien B (demo)"}]},
+{id:I.o4,quote:I.q7,client:I.c5,no:N(7),amount:44850,cur:"SAR",stage:"ordered",supplier:"stock",po:"",date:A(-4),eta:A(12),tracking:"",deposit:0,notes:"Acompte à demander avant livraison.",history:[{stage:"ordered",date:A(-4),by:"Sales Manager"}]}],
+equip:[
+{id:I.e1,client:I.c1,order:I.o1,name:"Four rotatif Bongard (demo)",serial:"BG-RO-2024-0187",delivered:A(-85),commissioned:A(-75),months:24,ext:"",notes:""},
+{id:I.e2,client:I.c8,order:I.o3,name:"Four traditionnel (demo)",serial:"PT-2023-0455",delivered:A(-222),commissioned:A(-215),months:24,ext:A(300),notes:"Extension de garantie achetée."},
+{id:I.e3,client:I.c8,order:"",name:"Diviseuse (demo, ancien matériel)",serial:"DV-2022-0310",delivered:A(-820),commissioned:A(-810),months:24,ext:"",notes:"Hors garantie : réparations facturables."},
+{id:I.e4,client:I.c1,order:"",name:"Laminoir (demo)",serial:"SH-2023-0098",delivered:A(-690),commissioned:A(-680),months:24,ext:"",notes:""}],
+service:[
+{id:uid(),equip:I.e1,client:I.c1,symptom:"Four rotatif : la rotation du chariot s'arrête en cours de cuisson",prio:"p1",status:"diag",date:A(0),tech:"Technicien A (demo)",cause:"",parts:"",address:"Zone industrielle, Riyadh",map:"",notes:"Production arrêtée sur une ligne. Intervention aujourd'hui."},
+{id:uid(),equip:I.e4,client:I.c1,symptom:"Tapis du laminoir : courroie usée, bruit anormal",prio:"p2",status:"parts",date:A(-3),tech:"Technicien B (demo)",cause:"wear",parts:"Courroie de tapis",address:"Zone industrielle, Riyadh",map:"",notes:"Pièce commandée à Bongard France."},
+{id:uid(),equip:I.e3,client:I.c8,symptom:"Réglage thermostat",prio:"p3",status:"closed",date:A(-30),tech:"Technicien A (demo)",cause:"utilities",parts:"",address:"Medina",map:"",notes:"Hors garantie, intervention facturée."}],
+contracts:[
+{id:uid(),client:I.c1,scope:"Four rotatif + laminoir",start:A(-60),end:A(305),visits:2,cur:"SAR",price:14000,notes:"Pièces d'usure non incluses. Délai d'intervention : 48 h."},
+{id:uid(),client:I.c8,scope:"Four traditionnel + diviseuse",start:A(-320),end:A(45),visits:4,cur:"SAR",price:9500,notes:"À renouveler avant la fin."}],
+planning:[
+{id:uid(),person:"Technicien A (demo)",date:A(0),title:"Diagnostic four rotatif — Al Rawabi"},
+{id:uid(),person:"Technicien B (demo)",date:A(1),title:"Préparer la mise en service SOLEO — Dar Al Khobz"},
+{id:uid(),person:"Équipe stock (demo)",date:A(1),title:"Réception conteneur Dubaï"},
+{id:uid(),person:"Rachid",date:A(2),title:"Visite du site — Qassim Catering"},
+{id:uid(),person:"Abdelhafid",date:A(3),title:"Négociation — Dar Al Khobz"},
+{id:uid(),person:"Technicien A (demo)",date:A(4),title:"Maintenance préventive — Al Baraka"}],
+hr:[
+{id:uid(),name:"Sami (demo)",post:"Technicien SAV",iqama:A(25),contract:A(200),leave:12,notes:""},
+{id:uid(),name:"Yousef (demo)",post:"Magasinier",iqama:A(140),contract:A(365),leave:18,notes:""},
+{id:uid(),name:"Nora (demo)",post:"Assistante commerciale",iqama:A(70),contract:A(300),leave:8,notes:""},
+{id:uid(),name:"Faisal (demo)",post:"Chauffeur-livreur",iqama:A(300),contract:A(400),leave:20,notes:""}],
+invoices:[
+{id:uid(),kind:"customer",party:"Al Rawabi Bakeries (demo)",order:I.o1,cur:"SAR",amount:55000,issued:A(-110),due:A(-100),paid:"1"},
+{id:uid(),kind:"customer",party:"Al Rawabi Bakeries (demo)",order:I.o1,cur:"SAR",amount:174235.25,issued:A(-75),due:A(-20),paid:""},
+{id:uid(),kind:"customer",party:"Dar Al Khobz (demo)",order:I.o2,cur:"EUR",amount:4900,issued:A(-40),due:A(-30),paid:"1"},
+{id:uid(),kind:"customer",party:"Dar Al Khobz (demo)",order:I.o2,cur:"EUR",amount:11430,issued:A(0),due:A(30),paid:""},
+{id:uid(),kind:"supplier",party:"Bongard France (demo)",order:"",cur:"EUR",amount:9120,issued:A(-35),due:A(5),paid:""},
+{id:uid(),kind:"supplier",party:"Transport DHL (demo)",order:I.o2,cur:"SAR",amount:1800,issued:A(-12),due:A(-2),paid:"1"}]}}
 const ENUMS={stock:{cond:"cond",status:"status",avail:"avail",volt:"volt"},clients:{stage:"cstage",source:"source"},quotes:{status:"qstatus"},orders:{stage:"stage",supplier:"supplier"},service:{status:"tstatus",prio:"prio",cause:"cause"},invoices:{kind:"kind"}};
 const CURCOLL=["stock","quotes","orders","invoices","contracts"];
 const COLLS=["clients","quotes","stock","orders","equip","service","contracts","planning","hr","invoices"];
 function sanitize(d){
  if(!d||typeof d!=="object")return null;
- const out={profiles:[],fx:{SAR:1,EUR:4.1,AED:1.02},qseq:Math.max(0,parseInt(d.qseq)||0),settings:DEFSET()};
+ const out={demoV:Math.max(0,parseInt(d.demoV)||0),profiles:[],fx:{SAR:1,EUR:4.1,AED:1.02},qseq:Math.max(0,parseInt(d.qseq)||0),settings:DEFSET()};
  ["EUR","AED"].forEach(c=>{const v=+(d.fx&&d.fx[c]);if(v>0&&isFinite(v))out.fx[c]=v});
  out.profiles=(Array.isArray(d.profiles)?d.profiles:DEFPROF()).filter(x=>x&&IDRE.test(String(x.id))&&ROLES.includes(x.role)).slice(0,40).map(x=>({id:x.id,title:String(x.title||"").slice(0,40),name:String(x.name||"").slice(0,60),role:x.role}));
  const s=d.settings&&typeof d.settings==="object"?d.settings:{};
@@ -227,6 +290,7 @@ function sanitize(d){
    return o})});
  return out}
 let DB;try{DB=sanitize(JSON.parse(localStorage.getItem("beme_db")))}catch(e){DB=null}
+if(DB&&DB.demoV!==2){try{localStorage.setItem("beme_db_old_"+Date.now(),localStorage.getItem("beme_db"))}catch(e){}DB=null}
 if(!DB){const raw=localStorage.getItem("beme_db");if(raw){try{localStorage.setItem("beme_db_corrupt_"+Date.now(),raw)}catch(e){}}DB=sanitize(seed())}
 const S=()=>DB.settings;
 const $=s=>document.querySelector(s);
