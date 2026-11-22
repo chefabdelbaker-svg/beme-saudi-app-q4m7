@@ -92,6 +92,18 @@ label{display:block;font-size:12px;color:var(--mut);margin:10px 0 4px;font-weigh
 .avs{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin:16px 0}.av1{width:calc(33.3% - 8px);min-width:104px;max-width:132px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:16px;padding:14px 6px;color:#fff;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;min-height:118px}.av1 .c{width:52px;height:52px;border-radius:50%;background:var(--gold);color:var(--navy);display:flex;align-items:center;justify-content:center;font:800 22px var(--sans)}.av1 b{font:700 13px/1.2 var(--sans)}.av1 small{font-size:12px;color:#c9d3e8;overflow-wrap:anywhere}.av1:active{background:rgba(191,159,95,.3)}
 @media(min-width:900px){body.lg{padding-left:0}}
 .login details{text-align:center}.login details label,.login details input,.login details select{text-align:left}
+
+.bg{display:flex;align-items:center;justify-content:center;gap:10px;color:#c9d3e8;font:700 11px var(--sans);letter-spacing:.22em}.bg img{height:22px;width:auto}
+.login.lg-a{padding:0;display:grid;grid-template-columns:1fr;background:#08111f;min-height:100vh}
+.lg-a .ph{min-height:230px;background:linear-gradient(180deg,rgba(8,17,31,.1),rgba(8,17,31,.75)),url(assets/img/hero-oven.jpg) center 30%/cover;display:flex;align-items:flex-end;padding:20px}
+.lg-a .cap h1{color:#fff;font:800 22px/1.15 var(--sans);margin:6px 0 14px}.lg-a .cap .bg{justify-content:flex-start}
+.lg-a .pn{padding:22px 20px 30px;display:flex;align-items:center;justify-content:center}.lg-a .in{max-width:460px;width:100%}
+@media(min-width:900px){.login.lg-a{grid-template-columns:1.15fr 1fr}.lg-a .ph{min-height:100vh;padding:48px;background:linear-gradient(90deg,rgba(8,17,31,.05) 30%,rgba(8,17,31,.55)),linear-gradient(0deg,rgba(8,17,31,.85),rgba(8,17,31,0) 45%),url(assets/img/hero-oven.jpg) center/cover}.lg-a .cap h1{font-size:36px;max-width:16ch}}
+.login.lg-b{background:linear-gradient(180deg,rgba(8,17,31,.55),rgba(8,17,31,.92) 70%),url(assets/img/gamme-panorama.jpg) center top/cover;gap:20px}.lg-b .in{max-width:460px;margin:0 auto;width:100%}
+.login.lg-c{background:#08111f;display:grid;grid-template-columns:1fr;align-items:center}.lg-c .s1,.lg-c .s2{display:none}.lg-c .in{max-width:460px;width:100%;margin:0 auto}
+@media(min-width:900px){.login.lg-c{grid-template-columns:1fr 480px 1fr;padding:0}.lg-c .s1,.lg-c .s2{display:block;height:100vh;background-size:cover;background-position:center;position:relative}.lg-c .s1{background-image:linear-gradient(90deg,rgba(8,17,31,0) 60%,#08111f),url(assets/img/baker-peel.jpg)}.lg-c .s2{background-image:linear-gradient(270deg,rgba(8,17,31,0) 60%,#08111f),url(assets/img/production-site.jpg)}.lg-c .bg{grid-column:1/4;padding:0 0 18px}.lg-c .in{padding:20px}}
+.login.lg-c .bg{margin-top:14px}
+@media(min-width:900px){.login .in{max-width:560px!important}.login .av1{width:calc(25% - 9px);min-width:112px;min-height:104px;padding:10px 6px}.lg-c{grid-template-columns:1fr 600px 1fr!important}}
 </style>
 </head>
 <body>
@@ -484,10 +496,15 @@ window.openMore=()=>{const tabs=TABS[ME.role]||[];const rest=allowed().filter(p=
 function render(keep){
  const app=$("#app");document.documentElement.lang=LANG;document.body.classList.toggle("lg",!ME);
  if(!ME){const pr=DB.profiles;
-  app.innerHTML=`<div class="login"><div class="in" style="max-width:460px"><img class="lg" src="assets/beme-logo-white.svg" alt="BEME"><div class="tag">YOUR PARTNER IN CULINARY EXCELLENCE</div><div class="tag ar">شريككم في التميز في فنون الطهي</div><div class="kick" style="text-align:center;margin-top:18px">OPERATIONS · RIYADH</div><h2 style="color:#fff;text-align:center;font:800 24px var(--sans);margin-bottom:6px">${L("Qui êtes-vous ?","Who are you?")}</h2>
+  const V=new URLSearchParams(location.search).get("l");const lv=V==="b"||V==="c"?V:"a";
+  const core=`<img class="lg" src="assets/beme-logo-white.svg" alt="BEME"><div class="tag">YOUR PARTNER IN CULINARY EXCELLENCE</div><div class="tag ar">شريككم في التميز في فنون الطهي</div><div class="kick" style="text-align:center;margin-top:18px">OPERATIONS · RIYADH</div><h2 style="color:#fff;text-align:center;font:800 24px var(--sans);margin:0 0 6px">${L("Qui êtes-vous ?","Who are you?")}</h2>
   <div class="avs">${pr.map(x=>`<button class="av1" data-p="${esc(x.id)}"><span class="c">${esc((x.name||x.title).slice(0,1).toUpperCase())}</span><b>${esc(x.title)}</b><small>${esc(x.name||t("role_"+x.role))}</small></button>`).join("")}</div>
   <details style="margin-top:6px"><summary class="mut" style="cursor:pointer;min-height:36px">${L("Autre profil","Other profile")}</summary><label for="ln">${t("name")}</label><input id="ln" maxlength="60" autocomplete="name"><label for="lr">${t("role")}</label><select id="lr">${ROLES.map(r=>`<option value="${r}">${t("role_"+r)}</option>`).join("")}</select><button class="btn gold" style="width:100%;margin-top:12px" id="lgo">${t("login")}</button></details>
-  <div style="text-align:center;margin-top:14px"><button class="btn sm" style="background:transparent;color:#fff;border-color:rgba(255,255,255,.5)" id="llang">${t("lang")}</button></div><p class="mut" style="margin-top:14px;font-size:12px;text-align:center">${t("demo")}</p></div></div>`;
+  <div style="text-align:center;margin-top:14px"><button class="btn sm" style="background:transparent;color:#fff;border-color:rgba(255,255,255,.5)" id="llang">${t("lang")}</button></div><p class="mut" style="margin-top:14px;font-size:12px;text-align:center">${t("demo")}</p>`;
+  const bg=`<div class="bg"><span>BEME × </span><img src="assets/img/bongard-logo.png" alt="Bongard"><span>MIDDLE EAST</span></div>`;
+  app.innerHTML=lv==="a"?`<div class="login lg-a"><div class="ph"><div class="cap"><div class="kick">BEME × BONGARD</div><h1>${L("L'équipement boulangerie pro,<br>de Riyad à tout le Moyen-Orient","Professional bakery equipment,<br>from Riyadh across the Middle East")}</h1>${bg}</div></div><div class="pn"><div class="in">${core}</div></div></div>`
+  :lv==="b"?`<div class="login lg-b"><div class="in">${core}</div>${bg}</div>`
+  :`<div class="login lg-c"><div class="s1"></div><div class="in">${core}</div><div class="s2"></div>${bg}</div>`;
   const enter=(name,role,title)=>{ME={name:name.slice(0,60),role,title:title||""};sessionStorage.setItem("beme_me",JSON.stringify(ME));NAV=[];render()};
   document.querySelectorAll(".av1").forEach(bt=>bt.onclick=()=>{const x=pr.find(y=>y.id===bt.dataset.p);if(x)enter(x.name||x.title,x.role,x.title)});
   $("#lgo").onclick=()=>{const n=$("#ln").value.trim();if(!n){$("#ln").focus();return}enter(n,$("#lr").value,"")};
