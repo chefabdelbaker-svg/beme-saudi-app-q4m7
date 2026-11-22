@@ -366,6 +366,37 @@ html:has(.login)::-webkit-scrollbar,.login::-webkit-scrollbar{width:8px;backgrou
 @media(max-height:700px){.lg-a .lgrow img.lg{width:150px!important}.prt{margin-top:12px}}
 @media(max-width:380px){.dvs button{font-size:11px!important;padding:0 9px!important}}
 @media(orientation:landscape) and (max-height:500px){.login.lg-a .ph{padding:54px 16px 8px!important}.lg-a .lgrow img.lg{width:110px!important}.lg-a .cap{flex-direction:row;gap:18px;flex-wrap:wrap;justify-content:center}}
+/* v38 profils en cartes groupées */
+.login.lg-a .avsx{display:block}
+.login.lg-a .avl{display:flex;align-items:center;gap:12px;margin:12px 0 8px;color:#BF9F5F;font:700 11px var(--sans);letter-spacing:.3em}
+.login.lg-a .avl i{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(191,159,95,.6))}.login.lg-a .avl i:last-child{transform:scaleX(-1)}
+.login.lg-a .avg{display:grid;gap:10px}.login.lg-a .g2{grid-template-columns:1fr 1fr}.login.lg-a .g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.login.lg-a .avsx .av1{display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:center!important;text-align:center!important;gap:6px!important;width:100%!important;min-width:0!important;min-height:0!important;padding:12px 6px!important;border:1px solid rgba(191,159,95,.45)!important;border-radius:18px!important;background:linear-gradient(160deg,rgba(191,159,95,.16),rgba(255,255,255,.03))!important}
+.login.lg-a .avsx .av1::after{display:none!important}
+.login.lg-a .avsx .av1 .c{width:56px!important;height:56px!important;grid-row:auto!important;margin:0!important}
+.login.lg-a .avsx .g2:first-of-type .av1 .c,.login.lg-a .avsx .avl:first-child+.g2 .av1 .c{width:68px!important;height:68px!important}
+.login.lg-a .avsx .av1 .c svg{width:28px!important;height:28px!important}
+.login.lg-a .avsx .av1 b{display:block!important;min-height:0!important;text-align:center!important;font-size:15px!important;line-height:1.15;white-space:normal}
+.login.lg-a .avsx .av1 small{text-align:center!important;font-size:12px!important;white-space:normal!important;opacity:.85}
+.login.lg-a .avsx .g3 .av1 b{font-size:13px!important}
+.login.lg-a .avsx .av1:active,.login.lg-a .avsx .av1:hover{border-color:#BF9F5F!important}
+.login.lg-a .ph{padding-bottom:6px!important}.login.lg-a .sal{margin-bottom:0}
+/* v38b */
+.login.lg-a .avsx .av1 b,.login.lg-a .avsx .av1 small{justify-self:center!important;align-self:auto!important;grid-row:auto!important;width:100%!important;margin:0!important;display:block!important;text-align:center!important;min-height:0!important}
+.login.lg-a .avsx .av1{padding:9px 4px!important;gap:3px!important}
+.login.lg-a .avsx .av1 .c{width:46px!important;height:46px!important}
+.login.lg-a .avsx .av1 .c svg{width:24px!important;height:24px!important}
+.login.lg-a .avsx .avl:first-child+.g2 .av1 .c{width:56px!important;height:56px!important}
+.login.lg-a .avl{margin:9px 0 7px!important}.login.lg-a .avg{gap:8px}
+.login.lg-a .ph{padding-top:64px!important}.login.lg-a .lgrow img.lg{width:170px!important}
+.login.lg-a .avsx .g2:last-child .av1{flex-direction:row!important;justify-content:flex-start!important;gap:10px!important;padding:8px 12px!important;text-align:left!important}
+.login.lg-a .avsx .g2:last-child .av1 b,.login.lg-a .avsx .g2:last-child .av1 small{text-align:left!important}
+.login.lg-a .avsx .g2:last-child .av1 .c{flex:none;width:40px!important;height:40px!important}
+/* v38c */
+.login.lg-a .avsx .g2:last-child .av1{flex-direction:column!important;justify-content:center!important;align-items:center!important;gap:3px!important;padding:9px 4px!important;text-align:center!important}
+.login.lg-a .avsx .g2:last-child .av1 b,.login.lg-a .avsx .g2:last-child .av1 small{text-align:center!important}
+.login.lg-a .avsx .g2:last-child .av1 .c{width:46px!important;height:46px!important}
+.login.lg-a .avsx{padding-bottom:12px}
 </style>
 </head>
 <body>
@@ -937,7 +968,9 @@ function render(keep){
  if(!ME){const pr=DB.profiles;
   const V=new URLSearchParams(location.search).get("l");const FRAME=new URLSearchParams(location.search).has("frame");const lv=FRAME?"a":V==="a"||V==="d"?V:(()=>{let d="";try{d=localStorage.getItem("beme_dev")||""}catch(e){}return d==="m"?"a":d==="l"?"d":matchMedia("(min-width:900px)").matches?"d":"a"})();
   const VV=(new URLSearchParams(location.search).get("v")||"1").replace(/[^123]/g,"")||"1";const head1=`<img class="lg" src="assets/beme-logo-white.svg" alt="BEME"><div class="tag">YOUR PARTNER IN CULINARY EXCELLENCE</div><div class="tag ar">شريككم في التميز في فنون الطهي</div><div class="kick" style="text-align:center;margin-top:18px">BEME KSA · OPERATIONS</div><div class="sal">السلام عليكم<span>Salam alaikum</span></div><h2 style="color:#fff;text-align:center;font:800 24px var(--sans);margin:0 0 6px">${L("Qui êtes-vous ?","Who are you?")}</h2>`;
-  const avs=`<div class="avs">${pr.map(x=>`<button class="av1" data-p="${esc(x.id)}" aria-label="${esc(x.title+(x.name?", "+x.name:""))}"><span class="c">${avIcon(x)}</span><b>${esc(x.title)}</b><small>${esc(x.name||t("role_"+x.role))}</small></button>`).join("")}</div>`;
+  const avB=x=>`<button class="av1" data-p="${esc(x.id)}" aria-label="${esc(x.title+(x.name?", "+x.name:""))}"><span class="c">${avIcon(x)}</span><b>${esc(x.title)}</b><small>${esc(x.name||t("role_"+x.role))}</small></button>`;
+  const avG=[[L("DIRECTION","LEADERSHIP"),pr.slice(0,2),"g2"],[L("GESTION","MANAGEMENT"),pr.slice(2,5),"g3"],[L("ÉQUIPES SUPPORT","SUPPORT TEAMS"),pr.slice(5),"g2"]].filter(g=>g[1].length);
+  const avs=`<div class="avsx">${avG.map(g=>`<div class="avl"><i></i><span>${g[0]}</span><i></i></div><div class="avg ${g[2]}">${g[1].map(avB).join("")}</div>`).join("")}</div>`;
   const rest=`
   <div style="text-align:center;margin-top:14px"><div class="lgsw" role="group" aria-label="Language"><button type="button" data-lg="fr" class="${LANG==="fr"?"on":""}" aria-label="Français" aria-pressed="${LANG==="fr"}"><svg viewBox="0 0 30 20" width="26" height="17" aria-hidden="true"><rect width="10" height="20" fill="#1f3c9c"/><rect x="10" width="10" height="20" fill="#fff"/><rect x="20" width="10" height="20" fill="#d62b3a"/></svg></button><button type="button" data-lg="en" class="${LANG==="en"?"on":""}" aria-label="English" aria-pressed="${LANG==="en"}"><svg viewBox="0 0 60 40" width="26" height="17" aria-hidden="true"><rect width="60" height="40" fill="#1f3c7a"/><path d="M0 0L60 40M60 0L0 40" stroke="#fff" stroke-width="8"/><path d="M0 0L60 40M60 0L0 40" stroke="#d62b3a" stroke-width="3"/><path d="M30 0V40M0 20H60" stroke="#fff" stroke-width="13"/><path d="M30 0V40M0 20H60" stroke="#d62b3a" stroke-width="7"/></svg></button></div></div><p class="mut" style="margin-top:14px;font-size:12px;text-align:center">${t("demo")}</p>`;
   const core=head1+avs+rest;
