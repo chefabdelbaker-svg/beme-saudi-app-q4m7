@@ -89,6 +89,7 @@ label{display:block;font-size:12px;color:var(--mut);margin:10px 0 4px;font-weigh
 .qline{border:1px solid var(--line);border-radius:12px;padding:10px;margin-bottom:10px;background:#fcfaf5}
 .qtotal{position:sticky;bottom:-16px;background:#fff;border-top:1px solid var(--line);padding:10px 0 4px;margin-top:10px}
 .big{font:600 24px var(--serif);color:var(--navy)}
+.avs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}.av1{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:16px;padding:14px 6px;color:#fff;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;min-height:118px}.av1 .c{width:52px;height:52px;border-radius:50%;background:var(--gold);color:var(--navy);display:flex;align-items:center;justify-content:center;font:800 22px var(--sans)}.av1 b{font:700 13px/1.2 var(--sans)}.av1 small{font-size:12px;color:#c9d3e8;overflow-wrap:anywhere}.av1:active{background:rgba(191,159,95,.3)}
 </style>
 </head>
 <body>
@@ -118,7 +119,7 @@ const TABS={direction:["quotes","stock","orders"],commercial:["clients","quotes"
 const ICON={home:"M3 11l9-8 9 8v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z",clients:"M16 8a4 4 0 1 0-8 0 4 4 0 0 0 8 0zM4 21c0-4 3.5-6 8-6s8 2 8 6",quotes:"M6 2h9l5 5v15H6zM14 2v6h6M9 13h8M9 17h8",stock:"M3 7l9-4 9 4v10l-9 4-9-4zM3 7l9 4 9-4M12 11v10",orders:"M2 6h12v10H2zM14 10h4l4 3v3h-8M7 19a1.5 1.5 0 1 0 .01 0M18 19a1.5 1.5 0 1 0 .01 0",equip:"M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6zM9 12l2 2 4-4",service:"M14 6a4 4 0 0 0 5 5l-9 9a2.5 2.5 0 0 1-3.5-3.5l9-9a4 4 0 0 0-1.5-1.5z",contracts:"M4 12a8 8 0 0 1 14-5l2 2M20 12a8 8 0 0 1-14 5l-2-2M20 4v5h-5M4 20v-5h5",planning:"M4 6h16v15H4zM4 10h16M8 3v5M16 3v5",hr:"M3 5h18v14H3zM9 11a2 2 0 1 0 .01 0M5 17c1-2.5 6-2.5 8 0M15 9h4M15 13h4",accounting:"M3 7h17a1 1 0 0 1 1 1v11H4a1 1 0 0 1-1-1zM3 7l13-4v4M16 14h3",dashboard:"M4 20V4M4 20h16M8 16v-5M13 16V8M18 16v-9",settings:"M12 9a3 3 0 1 0 .01 0M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2",more:"M5 12h.01M12 12h.01M19 12h.01",back:"M15 5l-7 7 7 7"};
 const ico=(k,sty)=>`<svg class="i" viewBox="0 0 24 24" aria-hidden="true"${sty?` style="${sty}"`:""}><path d="${ICON[k]||ICON.more}"/></svg>`;
 const CURS=["SAR","EUR","AED"];
-let ME=null;try{const m=JSON.parse(sessionStorage.getItem("beme_me"));if(m&&typeof m.name==="string"&&ROLES.includes(m.role))ME={name:m.name.slice(0,60),role:m.role}}catch(e){}
+let ME=null;try{const m=JSON.parse(sessionStorage.getItem("beme_me"));if(m&&typeof m.name==="string"&&ROLES.includes(m.role))ME={name:m.name.slice(0,60),role:m.role,title:String(m.title||"").slice(0,40)}}catch(e){}
 const can=(act,p)=>{if(!ME)return false;const M=act==="view"?VIEW:EDIT;return own(M,p)&&M[p].includes(ME.role)};
 const pad=n=>String(n).padStart(2,"0");
 const ymd=d=>d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());
@@ -151,6 +152,7 @@ const opts=g=>Object.keys(OPT[g]).map(k=>[k,OPT[g][k][LANG]]);
 const uid=()=>Math.random().toString(36).slice(2,10)+Date.now().toString(36).slice(-3);
 const IDRE=/^[a-z0-9-]{1,40}$/;
 const DEFSET=()=>({maxDisc:5,wMonths:24,wStart:"commissioning",co:{name:"BEME Saudi",vat:"",cr:"",bank:"",addr:"",phone:"",email:""}});
+const DEFPROF=()=>[["CEO","Rachid","direction"],["Partner","Abdelhafid","direction"],["General Manager","","direction"],["Operations Manager","","orders"],["Sales Manager","","commercial"],["HR","","hr"],["Accounting","","accounting"]].map(a=>({id:uid(),title:a[0],name:a[1],role:a[2]}));
 function seed(){const d=today();return{fx:{SAR:1,EUR:4.1,AED:1.02},qseq:0,settings:DEFSET(),
 clients:[{id:uid(),name:"Hotel bakery (demo)",contact:"Procurement",phone:"",city:"Riyadh",stage:"qualified",source:"referral",lost:"",next:d,notes:""}],quotes:[],stock:[
 {id:uid(),ref:"RO-001",brand:"Bongard",name:"Rotary rack oven (demo)",cond:"new",status:"in_stock",avail:"riyadh",price:185000,cost:132000,extra:9000,cur:"SAR",qty:1,serial:"",volt:"v380",dims:"",loc:"Riyadh warehouse",photo:"assets/img/rotary-oven.webp"},
@@ -165,8 +167,9 @@ const CURCOLL=["stock","quotes","orders","invoices","contracts"];
 const COLLS=["clients","quotes","stock","orders","equip","service","contracts","planning","hr","invoices"];
 function sanitize(d){
  if(!d||typeof d!=="object")return null;
- const out={fx:{SAR:1,EUR:4.1,AED:1.02},qseq:Math.max(0,parseInt(d.qseq)||0),settings:DEFSET()};
+ const out={profiles:[],fx:{SAR:1,EUR:4.1,AED:1.02},qseq:Math.max(0,parseInt(d.qseq)||0),settings:DEFSET()};
  ["EUR","AED"].forEach(c=>{const v=+(d.fx&&d.fx[c]);if(v>0&&isFinite(v))out.fx[c]=v});
+ out.profiles=(Array.isArray(d.profiles)?d.profiles:DEFPROF()).filter(x=>x&&IDRE.test(String(x.id))&&ROLES.includes(x.role)).slice(0,40).map(x=>({id:x.id,title:String(x.title||"").slice(0,40),name:String(x.name||"").slice(0,60),role:x.role}));
  const s=d.settings&&typeof d.settings==="object"?d.settings:{};
  out.settings.maxDisc=Math.min(100,Math.max(0,+s.maxDisc>=0?+s.maxDisc:5));out.settings.wMonths=Math.min(120,Math.max(1,Math.round(+s.wMonths||24)));
  out.settings.wStart=s.wStart==="delivery"?"delivery":"commissioning";
@@ -280,7 +283,7 @@ function kpis(){const r=ME.role;const al=alerts();
 const V={};
 V.home=()=>{const al=alerts();const show=window.ALL?al:al.slice(0,3);
  const q=[];if(can("edit","quotes"))q.push(`<button class="btn gold" onclick="A_quotes()">+ ${L("Devis","Quote")}</button>`);if(can("edit","clients"))q.push(`<button class="btn" onclick="A_clients()">+ Client</button>`);if(can("edit","stock"))q.push(`<button class="btn" onclick="A_stock()">+ ${L("Article","Item")}</button>`);if(can("edit","service"))q.push(`<button class="btn" onclick="A_service()">+ ${L("Panne","Fault")}</button>`);if(can("edit","accounting"))q.push(`<button class="btn" onclick="A_invoices()">+ ${L("Facture","Invoice")}</button>`);
- return `<div class="hello"><div class="kick">BEME SAUDI · OPERATIONS</div><h1>${L("Bonjour","Hello")} ${esc(ME.name)}</h1><div class="mut">${esc(fmtD(today()))} · ${t("role_"+ME.role)}</div></div>
+ return `<div class="hello"><div class="kick">BEME SAUDI · OPERATIONS</div><h1>${L("Bonjour","Hello")} ${esc(ME.name)}</h1><div class="mut">${esc(fmtD(today()))} · ${esc(ME.title||t("role_"+ME.role))}</div></div>
  <div class="stats">${kpis().map(k=>`<button class="stat" onclick="go('${k[2]}')"><div class="v num">${esc(k[1])}</div><div class="l">${esc(k[0])}</div></button>`).join("")}</div>
  ${q.length?`<div class="quick">${q.join("")}</div>`:""}
  <h3 style="margin:6px 0 8px">${t("alerts")} ${al.length?badge(al.length,"gold"):""}</h3>
@@ -453,9 +456,12 @@ window.fxSet=(c,v)=>{if(ME.role!=="direction"||!(c==="EUR"||c==="AED"))return;co
 window.exportDB=()=>{if(ME.role!=="direction")return;const b=new Blob([JSON.stringify(DB)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="beme-backup-"+today()+".json";a.click();localStorage.setItem("beme_lastbackup",today());render()};
 window.importDB=inp=>{if(ME.role!=="direction")return;const f=inp.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=sanitize(JSON.parse(r.result));if(!d)throw 0;if(!confirm(L("Remplacer toutes les données par cette sauvegarde ?","Replace all data with this backup?")))return;DB=d;persist();render()}catch(e){toast(L("Fichier invalide.","Invalid file."))}};r.readAsText(f)};
 window.resetDB=()=>{if(ME.role!=="direction")return;if(prompt(L("Tapez RESET pour effacer toutes les données :","Type RESET to erase all data:"))==="RESET"){DB=sanitize(seed());persist();render()}};
+window.pEdit=id=>{if(ME.role!=="direction")return;const x=id?DB.profiles.find(y=>y.id===id):{id:uid(),title:"",name:"",role:"staff"};form(id?t("edit"):t("add"),[{k:"title",label:L("Fonction (CEO, RH…)","Position (CEO, HR…)"),req:1},{k:"name",label:L("Prénom / nom","Name")},{k:"role",label:L("Droits d'accès","Access rights"),type:"select",opts:ROLES.map(r=>[r,t("role_"+r)])}],x,o=>{if(ME.role!=="direction"||!ROLES.includes(o.role))return false;const i=DB.profiles.findIndex(y=>y.id===o.id);if(i>=0)DB.profiles[i]=o;else DB.profiles.push(o);persist();render();return true})};
+window.pDel=id=>{if(ME.role!=="direction")return;if(confirm(L("Supprimer ce profil ?","Delete this profile?"))){DB.profiles=DB.profiles.filter(y=>y.id!==id);persist();render()}};
 V.settings=()=>{const co=S().co;const lb=localStorage.getItem("beme_lastbackup");
  const fld=(k,l)=>`<label>${l}</label><input value="${esc(co[k])}" onchange="setCo('${k}',this.value)">`;
  return `<div class="pt"><h1>${t("settings")}</h1></div>
+ <div class="card"><h3>${L("Équipe et accès","Team & access")}</h3><p class="mut">${L("Les profils proposés à la connexion. Les droits décident de ce que chacun voit.","Profiles shown at sign-in. Access rights decide what each person sees.")}</p>${DB.profiles.map(x=>`<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)"><span class="ib av" style="border:0">${esc((x.name||x.title).slice(0,1).toUpperCase())}</span><div style="flex:1"><b>${esc(x.title)}</b><div class="mut">${esc(x.name||"—")} · ${t("role_"+x.role)}</div></div><button class="btn sm" onclick="pEdit('${esc(x.id)}')">${t("edit")}</button><button class="btn sm bad" aria-label="Delete" onclick="pDel('${esc(x.id)}')">✕</button></div>`).join("")}<button class="btn gold" style="margin-top:10px" onclick="pEdit()">+ ${t("add")}</button></div>
  <div class="card"><h3>${L("Société (apparaît sur les devis)","Company (shown on quotes)")}</h3>${fld("name",L("Raison sociale","Legal name"))}${fld("addr",L("Adresse","Address"))}${fld("phone",L("Téléphone","Phone"))}${fld("email","Email")}${fld("vat",L("N° de TVA","VAT number"))}${fld("cr",L("Registre de commerce (CR)","Commercial registration (CR)"))}${fld("bank",L("Coordonnées bancaires (IBAN…)","Bank details (IBAN…)"))}</div>
  <div class="card"><h3>${L("Règles","Rules")}</h3>
  <label>${L("Garantie standard (mois)","Standard warranty (months)")}</label><input type="number" min="1" step="1" inputmode="numeric" value="${esc(S().wMonths)}" onchange="setS('wMonths',this.value)">
@@ -469,17 +475,20 @@ let NAV=[];
 window.go=p=>{window.QS="";location.hash="#"+p};
 window.goBack=()=>{const prev=NAV.length>1?NAV[NAV.length-2]:"home";NAV.length=Math.max(NAV.length-2,0);go(prev)};
 const allowed=()=>["home"].concat(PAGES.filter(p=>can("view",p)));
-window.openProfile=()=>{const m=sheet(`<h3>${esc(ME.name)}</h3><p class="mut">${t("role_"+ME.role)}</p><div class="menu"><button id="pl">${t("lang")}</button><button id="ps">${t("logout")}</button><button id="px" style="color:var(--mut)">${t("cancel")}</button></div>`);
+window.openProfile=()=>{const m=sheet(`<h3>${esc(ME.name)}</h3><p class="mut">${esc(ME.title||t("role_"+ME.role))}</p><div class="menu"><button id="pl">${t("lang")}</button><button id="ps">${t("logout")}</button><button id="px" style="color:var(--mut)">${t("cancel")}</button></div>`);
  m.querySelector("#pl").onclick=()=>{LANG=LANG==="fr"?"en":"fr";localStorage.setItem("beme_lang",LANG);m.remove();render()};
  m.querySelector("#ps").onclick=()=>{m.remove();ME=null;NAV=[];sessionStorage.removeItem("beme_me");render()};m.querySelector("#px").onclick=()=>m.remove()};
 window.openMore=()=>{const tabs=TABS[ME.role]||[];const rest=allowed().filter(p=>p!=="home"&&!tabs.includes(p));const m=sheet(`<h3>${t("more")}</h3><div class="menu">${rest.map(p=>`<button data-p="${p}">${esc(t(p))}</button>`).join("")}<button data-p="x" style="color:var(--mut)">${t("cancel")}</button></div>`);m.querySelectorAll("button").forEach(b=>b.onclick=()=>{m.remove();if(b.dataset.p!=="x")go(b.dataset.p)})};
 function render(keep){
  const app=$("#app");document.documentElement.lang=LANG;
- if(!ME){app.innerHTML=`<div class="login"><div class="in"><img src="assets/beme-logo-white.png" alt="BEME"><h2 style="color:#fff;text-align:center;margin-bottom:14px">Operations</h2>
-  <label for="ln">${t("name")}</label><input id="ln" maxlength="60" autocomplete="name">
-  <label for="lr">${t("role")}</label><select id="lr">${ROLES.map(r=>`<option value="${r}">${t("role_"+r)}</option>`).join("")}</select>
-  <div style="display:flex;gap:10px;margin-top:18px"><button class="btn gold" style="flex:1" id="lgo">${t("login")}</button><button class="btn" style="background:transparent;color:#fff;border-color:rgba(255,255,255,.5)" id="llang">${t("lang")}</button></div><p class="mut" style="margin-top:14px;font-size:12px">${t("demo")}</p></div></div>`;
-  $("#lgo").onclick=()=>{const n=$("#ln").value.trim();if(!n){$("#ln").focus();return}ME={name:n,role:$("#lr").value};sessionStorage.setItem("beme_me",JSON.stringify(ME));NAV=[];render()};
+ if(!ME){const pr=DB.profiles;
+  app.innerHTML=`<div class="login"><div class="in" style="max-width:460px"><img src="assets/beme-logo-white.png" alt="BEME"><div class="kick" style="text-align:center">OPERATIONS · RIYADH</div><h2 style="color:#fff;text-align:center;font:800 24px var(--sans);margin-bottom:6px">${L("Qui êtes-vous ?","Who are you?")}</h2>
+  <div class="avs">${pr.map(x=>`<button class="av1" data-p="${esc(x.id)}"><span class="c">${esc((x.name||x.title).slice(0,1).toUpperCase())}</span><b>${esc(x.title)}</b><small>${esc(x.name||t("role_"+x.role))}</small></button>`).join("")}</div>
+  <details style="margin-top:6px"><summary class="mut" style="cursor:pointer;min-height:36px">${L("Autre profil","Other profile")}</summary><label for="ln">${t("name")}</label><input id="ln" maxlength="60" autocomplete="name"><label for="lr">${t("role")}</label><select id="lr">${ROLES.map(r=>`<option value="${r}">${t("role_"+r)}</option>`).join("")}</select><button class="btn gold" style="width:100%;margin-top:12px" id="lgo">${t("login")}</button></details>
+  <div style="text-align:center;margin-top:14px"><button class="btn sm" style="background:transparent;color:#fff;border-color:rgba(255,255,255,.5)" id="llang">${t("lang")}</button></div><p class="mut" style="margin-top:14px;font-size:12px;text-align:center">${t("demo")}</p></div></div>`;
+  const enter=(name,role,title)=>{ME={name:name.slice(0,60),role,title:title||""};sessionStorage.setItem("beme_me",JSON.stringify(ME));NAV=[];render()};
+  document.querySelectorAll(".av1").forEach(bt=>bt.onclick=()=>{const x=pr.find(y=>y.id===bt.dataset.p);if(x)enter(x.name||x.title,x.role,x.title)});
+  $("#lgo").onclick=()=>{const n=$("#ln").value.trim();if(!n){$("#ln").focus();return}enter(n,$("#lr").value,"")};
   $("#llang").onclick=()=>{LANG=LANG==="fr"?"en":"fr";localStorage.setItem("beme_lang",LANG);render()};return}
  let p=location.hash.slice(1)||"home";if(!(p==="home"||(PAGES.includes(p)&&can("view",p))))p="home";
  if(NAV[NAV.length-1]!==p)NAV.push(p);
