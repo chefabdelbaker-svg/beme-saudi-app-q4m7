@@ -141,6 +141,31 @@ label{display:block;font-size:12px;color:var(--mut);margin:10px 0 4px;font-weigh
 .lg-a .cap{width:100%;display:flex;flex-direction:column;align-items:center}.lg-a .cap .bg{justify-content:center!important}
 .login.lg-d{background-color:#0f2650!important;background-blend-mode:lighten}
 .lg-d .bot{background:linear-gradient(180deg,rgba(23,53,106,0),rgba(18,42,86,.94) 30%)!important}
+
+/* v19 login polish (design audit) */
+:root{--login-navy:#0f2650}
+html:has(.login),body:has(.login){background:#0b1c3b!important}
+.login.lg-a,.login.lg-d{min-height:100dvh}
+.login.lg-d::before{content:"";position:absolute;inset:0 0 auto 0;height:clamp(78px,11vw,130px);background:linear-gradient(var(--login-navy) 78%,transparent);z-index:0;pointer-events:none}
+.lg-d .top{z-index:1}
+.lg-d .bot{padding-top:80px!important;background:linear-gradient(180deg,rgba(15,38,80,0),#0f2650 24%)!important}
+.lg-d .sal{font-size:22px!important}.lg-d .sal span{font-size:12px!important;letter-spacing:.2em!important}
+@media(min-width:900px){.lg-d img.lg{width:190px!important}.lg-d .avs{display:grid!important;grid-template-columns:repeat(7,1fr);max-width:1040px;margin:0 auto!important;gap:8px;background:rgba(10,24,52,.55);backdrop-filter:blur(10px);border:1px solid rgba(201,162,75,.25);border-radius:20px;padding:16px 20px}.lg-d .av1{width:auto!important;min-width:0!important;max-width:none!important}.lg-d .ttl{font-size:26px}}
+.lg-d .av1 b,.lg-a .av1 b{white-space:normal;text-wrap:balance;min-height:2.6em;display:flex;align-items:center;justify-content:center;text-align:center}
+.lg-d .av1 small,.lg-a .av1 small{font-size:13px;opacity:.85}
+.lg-d .av1,.lg-a .av1{justify-content:flex-start!important}
+.lg-a .av1{min-height:124px}
+.lg-d details summary,.lg-a details summary{color:var(--gold);font-size:13px}
+.lg-d .bot p.mut,.lg-a .pn p.mut{font-size:12px!important;opacity:.8}
+.lg-a .ph{min-height:clamp(230px,38vh,300px)!important;background:linear-gradient(180deg,rgba(14,35,71,.15),rgba(14,35,71,.5) 50%,#16356b 96%),url(assets/img/hero-oven.jpg) center 15%/cover!important;margin-bottom:-1px}
+.lg-a .cap img.lg{margin-bottom:8px}
+.lg-a .sal{font-size:22px!important}.lg-a .sal span{font-size:12px;letter-spacing:.2em}
+.login.lg-a{position:relative}.lg-a .in>div[style*="text-align:center"]{position:absolute;top:14px;right:14px;margin:0!important;z-index:3}
+@media(max-width:380px){.lg-a .av1 .c{width:56px;height:56px}.lg-a .avs{gap:8px 6px}}
+.lg-d .ttl::after,.lg-a .cap .ttl::after{content:"";display:block;width:60px;height:1px;background:var(--gold);margin:8px auto 0;opacity:.7}
+.lg-d::after{content:"";position:absolute;left:0;top:0;width:36%;height:280px;background:#0f2650;z-index:0;pointer-events:none;-webkit-mask-image:linear-gradient(120deg,#000 60%,transparent 90%);mask-image:linear-gradient(120deg,#000 60%,transparent 90%)}
+.lg-d .sal{margin-top:10px!important}.lg-d .dvs{z-index:5}
+@media(max-width:380px){.lg-a .in{padding:0!important}.lg-a .av1{width:calc(25% - 4px)!important;padding:6px 0!important}.lg-a .av1 .c{width:52px!important;height:52px!important}.lg-a .av1 b{font-size:11.5px}.lg-a .av1 small{font-size:10.5px;white-space:nowrap}.lg-a .avs{gap:8px 4px!important}}
 </style>
 </head>
 <body>
@@ -673,7 +698,7 @@ function render(keep){
   const rest=`<details style="margin-top:6px"><summary class="mut" style="cursor:pointer;min-height:36px">${L("Autre profil","Other profile")}</summary><label for="ln">${t("name")}</label><input id="ln" maxlength="60" autocomplete="name"><label for="lr">${t("role")}</label><select id="lr">${ROLES.map(r=>`<option value="${r}">${t("role_"+r)}</option>`).join("")}</select><button class="btn gold" style="width:100%;margin-top:12px" id="lgo">${t("login")}</button></details>
   <div style="text-align:center;margin-top:14px"><button class="btn sm" style="background:transparent;color:#fff;border-color:rgba(255,255,255,.5)" id="llang">${t("lang")}</button></div><p class="mut" style="margin-top:14px;font-size:12px;text-align:center">${t("demo")}</p>`;
   const core=head1+avs+rest;
-  const bg=`<div class="bg"><span>BEME =</span><img src="assets/img/bongard-logo.png" alt="Bongard"><span>ÉQUIPEMENT MIDDLE EAST</span></div>`;
+  const bg="";
   const core2=`<img class="lg" src="assets/beme-logo-white.svg" alt="BEME"><div class="ttl">BEME RIYAD<span> · ${L("OPÉRATIONS","OPERATIONS")}</span></div>`+`<div class="sal">السلام عليكم<span>Salam alaikum</span></div>`+avs+rest;
   const topD=`<div class="top"><img class="lg" src="assets/beme-logo-white.svg" alt="BEME"></div>`;const salD=`<div class="sal">السلام عليكم<span>Salam alaikum</span></div>`;
   let dv="";try{dv=localStorage.getItem("beme_dev")||""}catch(e){}const dvb=`<div class="dvs" role="group" aria-label="${L("Affichage","Display")}"><button data-d="m" class="${dv==="m"||(!dv&&!matchMedia("(min-width:900px)").matches)?"on":""}">${L("Téléphone","Phone")}</button><button data-d="l" class="${dv==="l"||(!dv&&matchMedia("(min-width:900px)").matches)?"on":""}">${L("Ordinateur","Laptop")}</button></div>`;
