@@ -166,6 +166,21 @@ html:has(.login),body:has(.login){background:#070e1c!important}
 .lg-d::after{content:"";position:absolute;left:0;top:0;width:36%;height:280px;background:#0a1428;z-index:0;pointer-events:none;-webkit-mask-image:linear-gradient(120deg,#000 60%,transparent 90%);mask-image:linear-gradient(120deg,#000 60%,transparent 90%)}
 .lg-d .sal{margin-top:10px!important}.lg-d .dvs{z-index:5}
 @media(max-width:380px){.lg-a .in{padding:0!important}.lg-a .av1{width:calc(25% - 4px)!important;padding:6px 0!important}.lg-a .av1 .c{width:52px!important;height:52px!important}.lg-a .av1 b{font-size:11.5px}.lg-a .av1 small{font-size:10.5px;white-space:nowrap}.lg-a .avs{gap:8px 4px!important}}
+
+/* v21 lists and More menu */
+.mg{color:var(--gold-d,#8f7433);font:700 11px var(--sans);letter-spacing:.2em;text-transform:uppercase;margin:14px 2px 8px}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.tile{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:8px;padding:14px 6px 10px;min-height:96px;background:linear-gradient(180deg,#fff,#f6f1e6);border:1px solid var(--line);border-radius:16px;color:var(--navy);box-shadow:0 4px 12px rgba(18,40,76,.07)}
+.tile:active{background:var(--gold-tint)}
+.tile .ti{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 30% 25%,#1d4a8c,#0e2347);border:2px solid #BF9F5F}
+.tile .ti svg{width:22px;height:22px;fill:none;stroke:#fff;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tile b{font:600 12px/1.25 var(--sans);text-align:center;overflow-wrap:anywhere}
+.rc1{align-items:center!important}.rc1 b{flex:1}
+.rav{flex:none;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 30% 25%,#1d4a8c,#0e2347);border:2px solid #BF9F5F;color:#fff;font:700 13px var(--sans);letter-spacing:.02em}
+.rav svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.rc{border-left:4px solid #BF9F5F;background:linear-gradient(180deg,#fff,#fcfaf5)}
+.rc2{margin:6px 0 2px 48px}
+.rc3{padding-top:8px;margin-top:8px;border-top:1px dashed var(--line)}
 </style>
 </head>
 <body>
@@ -343,7 +358,7 @@ const guard=p=>{if(!can("edit",p)){toast(L("Action non autorisée pour ce rôle.
 document.addEventListener("keydown",e=>{if(e.key==="Escape"){const m=document.querySelectorAll(".modal");if(m.length)m[m.length-1].remove()}});
 const badge=(txt,c)=>`<span class="badge ${c||""}">${txt}</span>`;
 window.addEventListener("popstate",()=>{if(window._sk){window._sk=0;return}const ms=document.querySelectorAll(".modal");if(ms.length){const m=ms[ms.length-1];m._h=0;m.remove()}});
-function sheet(html){const m=document.createElement("div");m.className="modal";try{history.pushState({m:1},"");m._h=1;const rm=m.remove.bind(m);m.remove=()=>{rm();if(m._h){m._h=0;if(history.state&&history.state.m){window._sk=1;history.back()}}}}catch(e){}m.innerHTML=`<div class="box">${html}</div>`;m.addEventListener("click",e=>{if(e.target===m&&!m.querySelector("form,.qline"))m.remove()});document.body.appendChild(m);return m}
+function sheet(html){const m=document.createElement("div");m.className="modal";try{history.pushState({m:1},"");m._h=1;const rm=m.remove.bind(m);m._k=location.hash;m.remove=()=>{rm();if(m._h){m._h=0;setTimeout(()=>{if(location.hash===m._k&&history.state&&history.state.m){window._sk=1;history.back()}},0)}}}catch(e){}m.innerHTML=`<div class="box">${html}</div>`;m.addEventListener("click",e=>{if(e.target===m&&!m.querySelector("form,.qline"))m.remove()});document.body.appendChild(m);return m}
 function form(title,fields,vals,onSave){
  const v=Object.assign({},vals);
  let h=`<h3>${esc(title)}</h3><form id="f" novalidate>`;
@@ -382,7 +397,8 @@ const empty=(fn,p,msg)=>`<div class="empty">${ico(p==="invoices"?"accounting":p)
 let MN=[];
 function mk(items){if(!items.length)return"";MN.push(items);return `<button class="btn sm" aria-label="Actions" onclick="event.stopPropagation();openMenu(${MN.length-1})" style="min-width:44px">⋯</button>`}
 window.openMenu=n=>{const items=MN[n]||[];const m=sheet(`<div class="menu">${items.map((it,i)=>`<button class="${it.bad?"bad":""}" data-i="${i}">${esc(it.t)}</button>`).join("")}<button data-i="x" style="color:var(--mut)">${t("cancel")}</button></div>`);m.querySelectorAll("button").forEach(b=>b.onclick=()=>{m.remove();const it=items[+b.dataset.i];if(it)it.f()})};
-const rc=o=>`<div class="rc${o.on?" tap":""}" ${o.on?`onclick="${o.on}"`:""}><div class="rc1"><b>${o.title}</b>${o.badge||""}</div>${o.meta?`<div class="rc2">${o.meta}</div>`:""}<div class="rc3">${o.fig?`<span class="fig num">${o.fig}</span>`:""}<span class="chips">${o.chips||""}</span>${o.menu||""}</div></div>`;
+const rcAv=o=>{const pg=(location.hash.slice(1)||"home");const tx=String(o.title).replace(/<[^>]*>/g,"").replace(/&[a-z#0-9]+;/g,"");const ini=tx.split(/[\s\-·]+/).filter(w=>/^[A-Za-zÀ-ÿ]/.test(w)).slice(0,2).map(w=>w[0]).join("").toUpperCase();return pg==="clients"||pg==="contracts"?`<span class="rav">${esc(ini||"•")}</span>`:`<span class="rav ic">${ico(PAGES.includes(pg)?pg:"stock")}</span>`};
+const rc=o=>`<div class="rc${o.on?" tap":""}" ${o.on?`onclick="${o.on}"`:""}><div class="rc1">${rcAv(o)}<b>${o.title}</b>${o.badge||""}</div>${o.meta?`<div class="rc2">${o.meta}</div>`:""}<div class="rc3">${o.fig?`<span class="fig num">${o.fig}</span>`:""}<span class="chips">${o.chips||""}</span>${o.menu||""}</div></div>`;
 const stdMenu=(coll,id,extra)=>{const p=PG[coll];const a=(extra||[]).slice();if(can("edit",p)){a.push({t:t("edit"),f:()=>window["E_"+coll](id)});a.push({t:L("Supprimer","Delete"),bad:1,f:()=>remove(coll,id)})}return mk(a)};
 const onEdit=(coll,id)=>can("edit",PG[coll])?`E_${coll}('${esc(id)}')`:"";
 function reserved(s){let r=0;DB.quotes.forEach(q=>{if(q.status!=="accepted")return;const o=DB.orders.find(x=>x.quote===q.id);if(o&&(o.stage==="delivered"||o.stage==="installed"))return;q.items.forEach(i=>{if(i.stock===s.id&&(!i.opt||i.inc))r+=+i.qty||0})});return r}
@@ -684,7 +700,12 @@ const allowed=()=>["home"].concat(PAGES.filter(p=>can("view",p)));
 window.openProfile=()=>{const m=sheet(`<h3>${esc(ME.name)}</h3><p class="mut">${esc(ME.title||t("role_"+ME.role))}</p><div class="menu"><button id="pl">${t("lang")}</button><button id="ps">${t("logout")}</button><button id="px" style="color:var(--mut)">${t("cancel")}</button></div>`);
  m.querySelector("#pl").onclick=()=>{LANG=LANG==="fr"?"en":"fr";localStorage.setItem("beme_lang",LANG);m.remove();render()};
  m.querySelector("#ps").onclick=()=>{m.remove();ME=null;NAV=[];sessionStorage.removeItem("beme_me");render()};m.querySelector("#px").onclick=()=>m.remove()};
-window.openMore=()=>{const tabs=TABS[ME.role]||[];const rest=allowed().filter(p=>p!=="home"&&!tabs.includes(p));const m=sheet(`<h3>${t("more")}</h3><div class="menu">${rest.map(p=>`<button data-p="${p}">${esc(t(p))}</button>`).join("")}<button data-p="x" style="color:var(--mut)">${t("cancel")}</button></div>`);m.querySelectorAll("button").forEach(b=>b.onclick=()=>{m.remove();if(b.dataset.p!=="x")go(b.dataset.p)})};
+window.openMore=()=>{const tabs=TABS[ME.role]||[];const rest=allowed().filter(p=>p!=="home"&&!tabs.includes(p));
+ const G={clients:L("Vente","Sales"),orders:L("Logistique","Logistics"),service:L("Après-vente","After-sales"),planning:L("Gestion","Management")};
+ const grp=x=>["clients","quotes","stock","gamme"].includes(x)?"clients":["orders","equip"].includes(x)?"orders":["service","contracts"].includes(x)?"service":"planning";
+ const groups={};rest.forEach(p=>{(groups[grp(p)]=groups[grp(p)]||[]).push(p)});
+ const m=sheet(`<h3>${t("more")}</h3>`+["clients","orders","service","planning"].filter(g=>groups[g]).map(g=>`<div class="mg">${G[g]}</div><div class="tiles">${groups[g].map(p=>`<button class="tile" data-p="${p}"><span class="ti">${ico(p)}</span><b>${esc(t(p))}</b></button>`).join("")}</div>`).join("")+`<button class="btn" style="width:100%;margin-top:14px" data-p="x">${t("cancel")}</button>`);
+ m.querySelectorAll("button").forEach(b=>b.onclick=()=>{m.remove();if(b.dataset.p!=="x")go(b.dataset.p)})};
 const AIC={hand:'<path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"/><path d="m21 3 1 11h-2"/><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"/><path d="M3 4h8"/>',link:'<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>',compass:'<circle cx="12" cy="12" r="10"/><path d="m16.24 7.76-2.12 6.36-6.36 2.12 2.12-6.36z"/>',plan:'<path d="M4 4h16v16H4z"/><path d="M4 10h7M11 4v6M11 15h9M15 15v5"/>',target:'<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>',doc:'<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4M10 9H8M16 13H8M16 17H8"/>',money:'<rect width="20" height="12" x="2" y="6" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/>',box:'<path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/>',wrench:'<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>',cal:'<rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',user:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>'};
 const avIcon=x=>{const t=((x.title||"")+" "+(x.name||"")).toLowerCase();const byR={direction:"hand",commercial:"target",stock:"box",orders:"plan",tech:"wrench",planning:"cal",hr:"doc",accounting:"money",staff:"user"};
  const k=/partner|associ/.test(t)?"link":/general|\bgm\b/.test(t)?"compass":/ceo/.test(t)?"hand":/operations/.test(t)?"plan":/sales/.test(t)?"target":/\bhr\b/.test(t)?"doc":/account|financ/.test(t)?"money":byR[x.role]||"user";
