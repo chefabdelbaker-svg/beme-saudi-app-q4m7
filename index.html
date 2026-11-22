@@ -315,6 +315,18 @@ html:has(.login)::-webkit-scrollbar,.login::-webkit-scrollbar{width:8px;backgrou
 .pinm .pcx{background:transparent!important;color:#a9adb8!important;border:0!important}
 .pinm .pmsg.bad{color:#ff8f86}
 .login.lg-a.lg-w .avs .av1{min-height:150px!important;padding:20px 12px 16px!important}.login.lg-a.lg-w .avs{gap:14px!important}.login.lg-a.lg-w .lgrow img.lg{width:210px!important}
+
+/* ===== v31 audit fixes ===== */
+.pinm .pkeys.off{opacity:.35;pointer-events:none}
+.login #llang,.pinm .pcx{min-height:44px;padding-inline:18px}.dvs button{min-height:40px;padding:8px 14px;font-size:12px}
+.pinm .pkeys button:hover{border-color:#BF9F5F}.pinm .pkeys button:focus-visible{outline:2px solid #d9c28f;outline-offset:3px}
+.prt img.bl{filter:drop-shadow(0 1px 6px rgba(0,0,0,.85))}
+.login .av1 small{opacity:1!important;color:#b5b9c4!important}.login .mut{color:#b5b9c4!important}
+.login .sal span{font-size:12px!important}
+.pinm .pdots i{opacity:.65}
+@media(min-width:600px) and (max-width:899px){.login.lg-a .in{max-width:560px!important}.login.lg-a .av1{min-height:0!important;padding:10px 16px!important}}
+@media(min-width:900px) and (max-height:800px){.login.lg-a.lg-w .ph{min-height:36vh!important;padding-top:36px!important}.login.lg-a.lg-w .lgrow img.lg{width:150px!important}.login.lg-a.lg-w .avs .av1{min-height:112px!important;padding:10px 10px!important}.login.lg-a.lg-w .avs .av1 .c{width:58px!important;height:58px!important}.login.lg-a.lg-w .prt{margin-top:14px}}
+@media(min-width:900px) and (min-height:950px){.login.lg-a.lg-w .pn{min-height:46vh;display:flex;align-items:center;justify-content:center}}
 </style>
 </head>
 <body>
@@ -820,12 +832,13 @@ const PSEED={"CEO": "76d9478abf014393d2933b081dfa3efab02c7a90fc93e000a8449e5751a
 const seedHash=async(t,p)=>{const d="seed:"+t+":"+p;try{if(crypto&&crypto.subtle){const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(d));return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("")}}catch(e){}return""};
 window.pinAsk=(x,ok,create)=>{
  const first=create||(!x.pin&&!PSEED[x.title]);let step=first?1:0,buf="",first1="";
- const m=sheet(`<div class="pinbox"><div class="pav">${avIcon(x)}</div><div class="pinh"><b></b><small></small></div><div class="pdots" aria-live="polite"></div><div class="pmsg" role="alert"></div><div class="pkeys">${[1,2,3,4,5,6,7,8,9].map(n=>`<button type="button" data-k="${n}">${n}</button>`).join("")}<button type="button" data-k="x" aria-label="${L("Effacer","Delete")}">⌫</button><button type="button" data-k="0">0</button><button type="button" data-k="ok" class="go">OK</button></div><button type="button" class="btn sm pcx" style="width:100%;margin-top:8px">${t("cancel")}</button></div>`);
+ const m=sheet(`<div class="pinbox"><div class="pav">${avIcon(x)}</div><div class="pinh"><b id="pinT"></b><small></small></div><div class="pdots" role="img"></div><div class="pmsg" role="alert"></div><div class="pkeys">${[1,2,3,4,5,6,7,8,9].map(n=>`<button type="button" data-k="${n}">${n}</button>`).join("")}<button type="button" data-k="x" aria-label="${L("Effacer","Delete")}">⌫</button><button type="button" data-k="0">0</button><button type="button" data-k="ok" class="go" aria-label="${L("Valider","Confirm")}">OK</button></div><button type="button" class="btn sm pcx" style="width:100%;margin-top:8px">${t("cancel")}</button></div>`);
+ const opener=document.activeElement,box=m.querySelector(".box");box.setAttribute("role","dialog");box.setAttribute("aria-modal","true");box.setAttribute("aria-labelledby","pinT");let tmr=0;const rm0=m.remove.bind(m);m.remove=()=>{clearInterval(tmr);rm0();try{opener&&opener.focus&&opener.focus()}catch(e){}};
  const H=m.querySelector(".pinh b"),S=m.querySelector(".pinh small"),D=m.querySelector(".pdots"),M=m.querySelector(".pmsg");
- const paint=()=>{H.textContent=x.name||x.title;S.textContent=step===1?L("Première connexion : choisissez un code (4 à 6 chiffres)","First sign-in: choose a code (4 to 6 digits)"):step===2?L("Confirmez votre code","Confirm your code"):L("Entrez votre code d'accès","Enter your access code");D.innerHTML=Array.from({length:6},(_,i)=>`<i class="${i<buf.length?"on":""}"></i>`).join("")};
+ const paint=()=>{H.textContent=x.name||x.title;S.textContent=step===1?L("Première connexion : choisissez un code (4 à 6 chiffres)","First sign-in: choose a code (4 to 6 digits)"):step===2?L("Confirmez votre code","Confirm your code"):L("Entrez votre code d'accès","Enter your access code");D.innerHTML=Array.from({length:6},(_,i)=>`<i class="${i<buf.length?"on":""}"></i>`).join("");D.setAttribute("aria-label",buf.length+" / 6 "+L("chiffres","digits"))};
  const msg=(t1,bad)=>{M.textContent=t1||"";M.classList.toggle("bad",!!bad)};
  const shake=()=>{D.classList.remove("shk");void D.offsetWidth;D.classList.add("shk")};
- const lockMsg=()=>{const l=lockGet(x.id);const r=Math.ceil((l.u-Date.now())/1000);return r>0?(msg(L("Trop d'essais. Réessayez dans "+r+" s.","Too many attempts. Try again in "+r+" s."),1),true):false};
+ const lockMsg=()=>{const K=m.querySelector(".pkeys");const l=lockGet(x.id);const r=Math.ceil((l.u-Date.now())/1000);if(r>0){msg(L("Trop d'essais. Réessayez dans "+r+" s.","Too many attempts. Try again in "+r+" s."),1);K.classList.add("off");if(!tmr)tmr=setInterval(lockMsg,1000);return true}K.classList.remove("off");if(tmr){clearInterval(tmr);tmr=0;msg("")}return false};
  const submit=async()=>{
   if(buf.length<4){msg(L("4 chiffres minimum.","4 digits minimum."),1);shake();return}
   if(step===1){first1=buf;buf="";step=2;msg("");paint();return}
@@ -837,8 +850,8 @@ window.pinAsk=(x,ok,create)=>{
   if(good){lockSet(x.id,{n:0,u:0});m.remove();ok();return}
   const l=lockGet(x.id);l.n++;if(l.n>=5){l.n=0;l.u=Date.now()+30000}lockSet(x.id,l);buf="";shake();paint();if(!lockMsg())msg(L("Code incorrect.","Wrong code."),1)};
  m.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;if(b.classList.contains("pcx")){m.remove();return}const k=b.dataset.k;if(k===undefined)return;if(k==="x"){buf=buf.slice(0,-1);msg("")}else if(k==="ok")submit();else if(buf.length<6){buf+=k;msg("")}paint()});
- m.addEventListener("keydown",e=>{if(/^\d$/.test(e.key)&&buf.length<6){buf+=e.key;msg("");paint()}else if(e.key==="Backspace"){buf=buf.slice(0,-1);paint()}else if(e.key==="Enter")submit()});
- m.classList.add("pinm");m.tabIndex=-1;m.focus();paint();lockMsg();
+ m.addEventListener("keydown",e=>{if(e.key==="Tab"){const f=[...m.querySelectorAll("button")],a=f[0],z=f[f.length-1];if(e.shiftKey&&(document.activeElement===a||document.activeElement===m)){e.preventDefault();z.focus()}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}return}if(e.target.closest&&e.target.closest("button")&&(e.key==="Enter"||e.key===" "))return;if(/^\d$/.test(e.key)&&buf.length<6){e.preventDefault();buf+=e.key;msg("");paint()}else if(e.key==="Backspace"){buf=buf.slice(0,-1);paint()}else if(e.key==="Enter")submit()});
+ m.classList.add("pinm");m.tabIndex=-1;paint();lockMsg();(m.querySelector(".pkeys button")||m).focus();
 };
 window.pinReset=id=>{if(ME.role!=="direction")return;const x=DB.profiles.find(y=>y.id===id);if(!x)return;pinAsk({...x},()=>{},true,id)};
 window.pEdit=id=>{if(ME.role!=="direction")return;const x=id?DB.profiles.find(y=>y.id===id):{id:uid(),title:"",name:"",role:"staff"};form(id?t("edit"):t("add"),[{k:"title",label:L("Fonction (CEO, RH…)","Position (CEO, HR…)"),req:1},{k:"name",label:L("Prénom / nom","Name")},{k:"role",label:L("Droits d'accès","Access rights"),type:"select",opts:ROLES.map(r=>[r,t("role_"+r)])}],x,o=>{if(ME.role!=="direction"||!ROLES.includes(o.role))return false;const i=DB.profiles.findIndex(y=>y.id===o.id);if(i>=0)DB.profiles[i]=o;else DB.profiles.push(o);persist();render();return true})};
@@ -880,7 +893,7 @@ function render(keep){
  if(!ME){const pr=DB.profiles;
   const V=new URLSearchParams(location.search).get("l");const FRAME=new URLSearchParams(location.search).has("frame");const lv=FRAME?"a":V==="a"||V==="d"?V:(()=>{let d="";try{d=localStorage.getItem("beme_dev")||""}catch(e){}return d==="m"?"a":d==="l"?"d":matchMedia("(min-width:900px)").matches?"d":"a"})();
   const VV=(new URLSearchParams(location.search).get("v")||"1").replace(/[^123]/g,"")||"1";const head1=`<img class="lg" src="assets/beme-logo-white.svg" alt="BEME"><div class="tag">YOUR PARTNER IN CULINARY EXCELLENCE</div><div class="tag ar">شريككم في التميز في فنون الطهي</div><div class="kick" style="text-align:center;margin-top:18px">BEME KSA · OPERATIONS</div><div class="sal">السلام عليكم<span>Salam alaikum</span></div><h2 style="color:#fff;text-align:center;font:800 24px var(--sans);margin:0 0 6px">${L("Qui êtes-vous ?","Who are you?")}</h2>`;
-  const avs=`<div class="avs">${pr.map(x=>`<button class="av1" data-p="${esc(x.id)}"><span class="c">${avIcon(x)}</span><b>${esc(x.title)}</b><small>${esc(x.name||"")}</small></button>`).join("")}</div>`;
+  const avs=`<div class="avs">${pr.map(x=>`<button class="av1" data-p="${esc(x.id)}" aria-label="${esc(x.title+(x.name?", "+x.name:""))}"><span class="c">${avIcon(x)}</span><b>${esc(x.title)}</b><small>${esc(x.name||t("role_"+x.role))}</small></button>`).join("")}</div>`;
   const rest=`
   <div style="text-align:center;margin-top:14px"><button class="btn sm" style="background:transparent;color:#fff;border-color:rgba(255,255,255,.5)" id="llang">${t("lang")}</button></div><p class="mut" style="margin-top:14px;font-size:12px;text-align:center">${t("demo")}</p>`;
   const core=head1+avs+rest;
