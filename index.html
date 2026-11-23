@@ -501,6 +501,12 @@ body.lg{background:#0a1428}
 /* v45 Riyad en fond, fondu bleu nuit */
 .lx:not(.lxw) .lx-bg{background:radial-gradient(ellipse 85% 45% at 50% 52%,rgba(70,110,190,.22),transparent 70%),linear-gradient(180deg,#0a1428 0%,rgba(10,20,40,.72) 14%,rgba(10,20,40,.46) 40%,rgba(10,20,40,.72) 74%,#0a1428 100%),url(assets/img/riyadh-night.webp) center 62%/cover no-repeat,#0a1428!important}
 .lx:not(.lxw) .lx-bg::after{background:linear-gradient(180deg,rgba(14,32,72,.35),rgba(14,32,72,.2) 50%,rgba(8,16,34,.4));display:block;mix-blend-mode:multiply}
+/* v46 médaillons bleu glacé, or réservé à la sélection + retour accueil */
+.lx-medal,.lxb-med,.lxd-ic,.lxc-med:not([aria-checked=true]){color:#e4edfb!important;border:1.2px solid rgba(190,212,245,.6)!important;background:radial-gradient(circle at 35% 28%,rgba(130,170,230,.38),rgba(14,30,62,.9) 72%)!important;box-shadow:0 0 0 1px rgba(190,212,245,.18),0 6px 18px rgba(4,10,24,.6)!important}
+.lxc-med[aria-checked=true]{color:#1a1409}
+.lx-back{position:absolute!important;left:max(10px,env(safe-area-inset-left));top:66px;z-index:9!important;display:flex;align-items:center;gap:4px;min-height:44px;padding:0 14px 0 8px;border:1px solid rgba(190,212,245,.4);border-radius:999px;background:rgba(10,20,40,.6);color:#e4edfb;font:600 11px var(--sans);letter-spacing:.18em;text-transform:uppercase;cursor:pointer;backdrop-filter:blur(6px)}
+.lx-back:focus-visible{outline:2px solid #d9c28f;outline-offset:2px}
+body.fr .lx-back,.frame .lx-back{top:10px}
 </style>
 <link rel="stylesheet" href="assets/login-b.css"><link rel="stylesheet" href="assets/login-c.css"><link rel="stylesheet" href="assets/login-d.css">
 </head>
@@ -1098,7 +1104,9 @@ function render(keep){
    const GL=[[L("Direction","Leadership"),pr.slice(0,2)],[L("Gestion","Management"),pr.slice(2,5)],[L("Support","Support"),pr.slice(5)]];
    BLogin.mount(document.getElementById("lx"),{lang:LANG,L:L,onLang:l=>{LANG=l;localStorage.setItem("beme_lang",LANG);render()},
     groups:GL.map(g=>({label:g[0],items:g[1].map(x=>({id:x.id,title:x.title,sub:x.name||t("role_"+x.role),icon:avIcon(x)}))})),
-    onPick:id=>{const x=pr.find(y=>y.id===id);if(x)pinAsk(x,()=>enter(x.name||x.title,x.role,x.title))}})}
+    onPick:id=>{const x=pr.find(y=>y.id===id);if(x)pinAsk(x,()=>enter(x.name||x.title,x.role,x.title))}})
+   const lxh=document.getElementById("lx");const bk=document.createElement("button");bk.type="button";bk.className="lx-back";bk.setAttribute("aria-label",L("Retour à l’accueil","Back to welcome"));bk.innerHTML='<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg><span>'+L("Accueil","Welcome")+'</span>';
+   bk.onclick=()=>{try{sessionStorage.removeItem("beme_w")}catch(e){}render()};lxh.appendChild(bk)}
   document.querySelectorAll(".dvs button").forEach(b=>b.onclick=()=>{try{localStorage.setItem("beme_dev",b.dataset.d)}catch(e){}location.reload()});
   const enter=(name,role,title)=>{ME={name:name.slice(0,60),role,title:title||""};sessionStorage.setItem("beme_me",JSON.stringify(ME));NAV=[];render()};
   document.querySelectorAll(".av1").forEach(bt=>bt.onclick=()=>{const x=pr.find(y=>y.id===bt.dataset.p);if(x)pinAsk(x,()=>enter(x.name||x.title,x.role,x.title))});

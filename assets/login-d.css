@@ -6,8 +6,8 @@
 .lxd-sec span{text-indent:.42em;white-space:nowrap}
 .lxd-wallet.lxd-open .lxd-sec{opacity:0}
 .lxd-card{position:absolute;left:0;right:0;top:0;border-radius:20px;overflow:hidden;will-change:transform,height;
- background:linear-gradient(115deg,transparent 30%,rgba(217,194,143,.10) 48%,transparent 62%),repeating-linear-gradient(135deg,rgba(191,159,95,.05) 0 1px,transparent 1px 7px),linear-gradient(160deg,#1d1810 0%,#0f0c07 62%,#16120a 100%);
- border:1px solid #8f7433;
+ background:linear-gradient(115deg,transparent 30%,rgba(217,194,143,.10) 48%,transparent 62%),repeating-linear-gradient(135deg,rgba(191,159,95,.05) 0 1px,transparent 1px 7px),linear-gradient(160deg,#1a3160 0%,#0c1a36 62%,#13274c 100%);
+ border:1px solid rgba(190,212,245,.45);
  box-shadow:0 -6px 18px rgba(4,10,24,.55),inset 0 1px 0 rgba(217,194,143,.45),inset 0 0 0 1px rgba(10,20,40,.8),inset 0 0 0 2px rgba(191,159,95,.12);
  transition:transform var(--lxd-dur) var(--lxd-ease),height var(--lxd-dur) var(--lxd-ease),border-color .5s,box-shadow .5s}
 .lxd-card.lxd-sel{border-color:#d9c28f;
