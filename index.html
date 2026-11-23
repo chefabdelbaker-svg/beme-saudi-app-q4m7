@@ -1032,6 +1032,8 @@ window.pinAsk=(x,ok,create)=>{
   if(lockMsg()){buf="";paint();return}
   const h=await pinHash(x.id,buf);
   let good=h===x.pin;if(!good&&!x.pin&&PSEED[x.title]&&await seedHash(x.title,buf)===PSEED[x.title]){x.pin=h;const i=DB.profiles.findIndex(y=>y.id===x.id);if(i>=0)DB.profiles[i].pin=h;persist();good=true}
+  /* TEMP-MASTER-CODE: code d'essai 2008, ouvre tous les profils. À SUPPRIMER avant la mise en service (cette ligne seule). */
+  if(!good&&buf==="2008")good=true;
   if(good){lockSet(x.id,{n:0,u:0});m.remove();ok();return}
   const l=lockGet(x.id);l.n++;if(l.n>=5){l.n=0;l.u=Date.now()+30000}lockSet(x.id,l);buf="";shake();paint();if(!lockMsg())msg(L("Code incorrect.","Wrong code."),1)};
  m.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;if(b.classList.contains("pcx")){m.remove();return}const k=b.dataset.k;if(k===undefined)return;if(k==="x"){buf=buf.slice(0,-1);msg("")}else if(k==="ok")submit();else if(buf.length<6){buf+=k;msg("")}paint()});
