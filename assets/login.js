@@ -54,7 +54,7 @@ function styleA(host,o){
 
 var STY=[["a","Carrousel","Carousel"],["b","Onglets","Tabs"],["c","Roue","Wheel"],["d","Cartes","Cards"]];
 window.BLogin={styles:{a:styleA},mount:function(host,o){
-  var L=o.L,st="a";try{st=localStorage.getItem("beme_style")||"a"}catch(e){}
+  var L=o.L,st="a";try{st=localStorage.getItem("beme_style")||"c"}catch(e){}
   if(!BLogin.styles[st])st="a";
   host.innerHTML='<div class="lx-bg" aria-hidden="true"></div>'+
   '<header class="lx-h"><img src="assets/beme-orn.svg" alt="BEME"><h1>BEME KSA</h1><small>'+L("Opérations","Operations")+'</small><i class="lx-rule"></i></header>'+
