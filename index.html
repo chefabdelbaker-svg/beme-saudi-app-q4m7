@@ -984,7 +984,7 @@ function quoteForm(q){
   if(q.status!=="accepted")delete q.fx;
   const i=DB.quotes.findIndex(x=>x.id===q.id);if(i>=0)DB.quotes[i]=q;else DB.quotes.push(q);
   const o=DB.orders.find(x=>x.quote===q.id);if(o){o.amount=qTotal(q);o.cur=q.cur;o.client=q.client}
-  const ok=persist();render();return ok};
+  const ok=persist();window.QV=1;render();return ok};
  const draw=()=>{
  box.innerHTML=`<h3>${L("Devis","Quote")} ${esc(q.no||"")}</h3>
  <label>Client</label><select id="qc">${clientOpts().map(o=>`<option value="${esc(o[0])}" ${q.client===o[0]?"selected":""}>${esc(o[1])}</option>`).join("")}</select>
@@ -1224,7 +1224,7 @@ V.planning=()=>{let Ls=DB.planning.slice().sort((a,b)=>a.date>b.date?1:-1);if(ME
  const col=["#12284c","#BF9F5F","#1b8a6b","#0072B2","#D55E00","#7a5c99"];
  return head("planning","A_planning()")+tg+`<div class="gt"><div class="gt-h"><div class="gt-n"></div><div class="gt-c"><div class="gt-m">${mon}</div></div></div>${people.map((pn,pi)=>{const its=Ls.filter(p=>(p.person||"—")===pn);return `<div class="gt-r"><div class="gt-n">${esc(pn)}</div><div class="gt-c">${grid}<i class="gt-t" style="left:${pc(t0)}%"></i>${its.map((p,k)=>{const a=D(p.date)||t0,b=(D(p.end||p.date)||a)+day;return `<button type="button" class="gt-b" style="left:${pc(a)}%;width:${Math.max(2.5,pc(b)-pc(a))}%;background:${col[pi%col.length]};top:${6+(k%3)*18}px" onclick="${onFiche("planning",p.id)}" title="${esc(p.title)}">${esc(p.title)}</button>`}).join("")}</div></div>`}).join("")}</div>`};
 const HF=()=>[{k:"name",label:L("Nom","Name"),req:1},{k:"post",label:L("Poste","Position")},{k:"iqama",label:L("Expiration iqama","Iqama expiry"),type:"date"},{k:"contract",label:L("Fin de contrat","Contract end"),type:"date"},{k:"leave",label:L("Jours de congé restants","Leave days left"),type:"number"},{k:"dept",label:L("Service","Department")},{k:"start",label:L("Date d'entrée","Start date"),type:"date"},{k:"phone",label:L("Téléphone","Phone")},{k:"ctype",label:L("Type de contrat","Contract type")},{k:"reports",label:L("Supérieur hiérarchique","Reports to")},{k:"duties",label:L("Missions du poste (fiche de poste)","Duties (job description)"),type:"textarea"},{k:"skills",label:L("Compétences requises","Required skills"),type:"textarea"},{k:"notes",label:"Notes",type:"textarea"}];
-window.A_hr=()=>crud("hr",HF(),t("add"));window.E_hr=id=>crud("hr",HF(),t("edit"),DB.hr.find(x=>x.id===id));
+window.A_hr=()=>crud("hr",HF(),t("add"),undefined,o=>{setTimeout(()=>{window.HV=1;render()},350)});window.E_hr=id=>crud("hr",HF(),t("edit"),DB.hr.find(x=>x.id===id));
 V.hr_list=()=>(DB.hr.length?`<div class="lst">${DB.hr.slice().sort((a,b)=>a.name>b.name?1:-1).map(h=>{const a=daysTo(h.iqama),b=daysTo(h.contract);return rc({title:esc(h.name),badge:"",meta:esc(h.post),chips:(h.iqama?badge("Iqama "+esc(fmtD(h.iqama)),a<0?"bad":a<=60?"warn":"ok"):"")+(h.contract?badge(L("Contrat ","Contract ")+esc(fmtD(h.contract)),b<0?"bad":b<=60?"warn":"ok"):"")+badge(esc(h.leave||0)+L(" j congé"," d leave")),menu:stdMenu("hr",h.id),on:onFiche("hr",h.id)})}).join("")}</div>`:empty("A_hr()","hr"));
 window.HV=0;
 const hrLanding=()=>{const H=DB.hr;const exp=k=>H.filter(h=>{const n=daysTo(h[k]);return h[k]&&n!==null&&n<=60}).length;const lv=H.reduce((n,h)=>n+(+h.leave||0),0);
