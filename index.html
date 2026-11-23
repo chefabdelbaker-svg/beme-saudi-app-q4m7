@@ -415,10 +415,63 @@ html:has(.login)::-webkit-scrollbar,.login::-webkit-scrollbar{width:8px;backgrou
 .login.lg-a.lg-w.wl .ph{min-height:100vh!important;height:100vh!important;justify-content:center}
 .login.lg-a.lg-w.wl .ph::before,.login.lg-a.lg-w.wl .ph::after,.login.lg-a.wl .ph{background-size:cover!important}
 .login.lg-a.lg-w.wl .wlb h1{font-size:36px}.login.lg-a.lg-w.wl .wlb p{font-size:17px;max-width:44ch}
+/* v40 écran d'entrée: onglets + carrousel 3D */
+body.lg{background:#0b0b0b}
+.lx{position:fixed;inset:0;z-index:5;display:flex;flex-direction:column;color:#f3eee2;overflow:hidden;font-family:var(--sans)}
+.lx-bg{position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse 80% 45% at 50% 56%,rgba(191,159,95,.20),transparent 70%),linear-gradient(180deg,rgba(11,11,11,.8) 0%,rgba(11,11,11,.6) 35%,rgba(11,11,11,.9) 80%,#0b0b0b 100%),url(assets/img/riyadh-night.webp) center bottom/cover no-repeat,#0b0b0b}
+.lx-bg::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 45%,rgba(0,0,0,.7) 100%)}
+.lx>*{position:relative;z-index:2}.lx>.lx-bg{position:absolute;z-index:0}
+.lx-h{display:flex;flex-direction:column;align-items:center;gap:5px;text-align:center;padding:max(58px,env(safe-area-inset-top)) 16px 0}
+.lx-h img{height:clamp(38px,6.5vh,56px);width:auto;filter:drop-shadow(0 0 14px rgba(191,159,95,.35))}
+.lx-h h1{font:400 clamp(15px,4.3vw,19px) Georgia,'Times New Roman',serif;letter-spacing:.42em;padding-left:.42em;margin:0}
+.lx-h small{font-size:9.5px;letter-spacing:.5em;padding-left:.5em;color:#BF9F5F;text-transform:uppercase}
+.lx-rule{display:block;width:54px;height:1px;background:linear-gradient(90deg,transparent,#BF9F5F,transparent)}
+.lx-lang{position:absolute!important;right:max(8px,env(safe-area-inset-right));top:max(6px,env(safe-area-inset-top));display:flex;gap:0;z-index:9!important}
+.lx-lang button{width:46px;height:46px;border:0;background:none;display:grid;place-items:center;cursor:pointer;border-radius:50%}
+.lx-lang button span{display:block;width:27px;height:19px;border-radius:3px;overflow:hidden;opacity:.5;outline:1px solid rgba(191,159,95,.35);transition:.25s}
+.lx-lang button[aria-pressed=true] span{opacity:1;outline:1.5px solid #d9c28f;box-shadow:0 0 12px rgba(191,159,95,.45)}
+.lx-lang svg{display:block;width:100%;height:100%}
+.dvs{z-index:9!important}
+.lx-tabs{position:relative;display:flex;margin:14px auto 0;width:min(92vw,440px);padding:4px;border:1px solid rgba(191,159,95,.5);border-radius:999px;background:rgba(11,11,11,.65)}
+.lx-ind{position:absolute;top:4px;bottom:4px;left:0;border-radius:999px;background:linear-gradient(180deg,#d9c28f,#BF9F5F);box-shadow:0 4px 16px rgba(191,159,95,.35);transition:transform .35s cubic-bezier(.3,.8,.3,1),width .35s;z-index:0}
+.lx-tabs button{position:relative;z-index:1;flex:1;min-height:44px;border:0;background:none;color:#d9c28f;font:700 12px var(--sans);letter-spacing:.16em;text-transform:uppercase;cursor:pointer;transition:color .3s;padding:0 6px}
+.lx-tabs button[aria-selected=true]{color:#0b0b0b}
+.lx-stage{flex:1;min-height:250px;position:relative;perspective:1100px;perspective-origin:50% 45%;touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none;overflow:hidden;margin-top:6px}
+.lx-card{--w:min(62vw,240px);position:absolute;left:50%;top:50%;width:var(--w);height:calc(var(--w)*1.28);margin:calc(var(--w)*-.64) 0 0 calc(var(--w)*-.5);border-radius:22px;border:0;color:inherit;font:inherit;cursor:pointer;background:linear-gradient(160deg,#1c1913,#0e0d0a 55%,#17140d);box-shadow:0 0 0 1px rgba(191,159,95,.35),inset 0 1px 0 rgba(217,194,143,.25),0 24px 50px -12px rgba(0,0,0,.9);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;padding:16px 12px;will-change:transform,opacity;overflow:hidden}
+.lx-card::before{content:"";position:absolute;inset:7px;border-radius:16px;border:1px solid rgba(191,159,95,.22);pointer-events:none}
+.lx-card::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 30%,rgba(191,159,95,.18),transparent 60%);opacity:var(--glow,0);pointer-events:none}
+.lx-card.on{box-shadow:0 0 0 1px #BF9F5F,inset 0 1px 0 rgba(217,194,143,.4),0 0 46px -4px rgba(191,159,95,.38),0 30px 60px -14px rgba(0,0,0,.95)}
+.lx-n{position:absolute;top:15px;left:0;right:0;font:11px Georgia,serif;letter-spacing:.3em;color:#8f7433}
+.lx-medal{width:calc(var(--w)*.4);height:calc(var(--w)*.4);border-radius:50%;display:grid;place-items:center;color:#d9c28f;background:radial-gradient(circle at 35% 30%,#2a2417,#0d0c09 70%);box-shadow:0 0 0 1px #BF9F5F,0 0 0 5px #0d0c09,0 0 0 6px rgba(191,159,95,.4),0 8px 22px rgba(0,0,0,.7)}
+.lx-medal svg{width:46%;height:46%}
+.lx-orn{display:block;width:34px;height:1px;background:linear-gradient(90deg,transparent,#BF9F5F,transparent)}
+.lx-card b{font:500 clamp(16px,4.8vw,20px)/1.15 Georgia,'Times New Roman',serif;color:#f3eee2}
+.lx-card em{font-style:normal;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#BF9F5F}
+.lx-info{text-align:center;padding:0 16px;min-height:58px}
+.lx-nm{font:400 clamp(22px,6.2vw,28px) Georgia,'Times New Roman',serif;letter-spacing:.04em}
+.lx-sb{font-size:12px;color:#a89c82;letter-spacing:.18em;text-transform:uppercase;margin-top:4px}
+.lx-ctrl{display:flex;align-items:center;justify-content:center;gap:6px;padding:0 12px}
+.lx-nav{width:48px;height:48px;border-radius:50%;border:1px solid rgba(191,159,95,.45);background:rgba(11,11,11,.6);color:#d9c28f;cursor:pointer;display:grid;place-items:center}
+.lx-nav:disabled{opacity:.3;cursor:default}
+.lx-nav svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.lx-dots{display:flex;align-items:center;justify-content:center;min-width:90px}
+.lx-dot{width:26px;height:44px;border:0;background:none;cursor:pointer;display:grid;place-items:center}
+.lx-dot i{display:block;width:6px;height:6px;border-radius:50%;background:rgba(191,159,95,.35);transition:.3s}
+.lx-dot[aria-current=true] i{width:20px;border-radius:4px;background:#d9c28f;box-shadow:0 0 10px rgba(191,159,95,.6)}
+.lx-cta{display:flex;justify-content:center;padding:4px 16px 0}
+.lx-go{min-height:50px;padding:0 38px;border-radius:30px;border:1px solid #BF9F5F;background:linear-gradient(180deg,#d9c28f,#BF9F5F);color:#0b0b0b;font:800 13px var(--sans);letter-spacing:.3em;text-transform:uppercase;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.5)}
+.lx-f{display:flex;align-items:center;justify-content:center;gap:10px;padding:10px 16px max(14px,env(safe-area-inset-bottom));font-size:9.5px;letter-spacing:.3em;text-transform:uppercase;color:#a89c82}
+.lx-f img{height:16px;width:auto;opacity:.8}
+.lx button:focus-visible,.lx-card:focus-visible{outline:2px solid #d9c28f;outline-offset:2px}
+@media(max-height:640px){.lx-h small,.lx-rule{display:none}.lx-card em{display:none}}
+@media(min-width:900px){.lx-card{--w:250px}.lx-stage{min-height:320px}}
+@media(prefers-reduced-motion:reduce){.lx *{transition-duration:.01s!important}}
+.lx-h h1{color:#f3eee2!important;font-family:Georgia,"Times New Roman",serif!important}.lx-h{padding-top:max(66px,env(safe-area-inset-top))!important}.lx-h small{color:#BF9F5F!important}
 </style>
 </head>
 <body>
 <div id="app"></div>
+<script src="assets/login.js"></script>
 <script>
 "use strict";
 let LANG=localStorage.getItem("beme_lang")==="en"?"en":"fr";
@@ -999,7 +1052,11 @@ function render(keep){
   const ttl=`<div class="ttl">BEME KSA</div><div class="ttl2">${L("OPÉRATIONS","OPERATIONS")}</div>`;const lgrow=`<div class="lgrow"><img class="lg" src="assets/beme-logo-white.svg" alt="BEME"></div>`;const prt=`<div class="prt"><i></i><img class="bl" src="assets/img/bongard-logo.png" alt="Bongard"><i></i></div>`;
   const dvbX=FRAME?"":dvb;let WEL=false;try{WEL=sessionStorage.getItem("beme_w")==="1"}catch(e){}
   if(lv==="a"&&!FRAME&&innerWidth>=900){app.innerHTML=dvbX+`<div class="pf"><iframe title="Phone view" src="?frame=1&l=a"></iframe></div>`;document.querySelectorAll(".dvs button").forEach(b=>b.onclick=()=>{try{localStorage.setItem("beme_dev",b.dataset.d)}catch(e){}location.reload()});return}
-  else app.innerHTML=dvbX+(`<div class="login lg-a${lv==="d"?" lg-w":""}${WEL?"":" wl"}"><div class="ph"><div class="cap">${lgrow}${ttl}${prt}</div><div class="wlb"><div class="sal">السلام عليكم<span>Salam alaikum</span></div><h1>${L("Bienvenue chez BEME KSA","Welcome to BEME KSA")}</h1><p>${L("Équipements Bongard pour les fournils d’Arabie saoudite","Bongard equipment for Saudi bakeries")}</p><button type="button" class="wlgo" id="wlgo">${L("Toucher pour continuer","Tap to continue")}</button></div></div><div class="pn"><div class="in"><div class="sal">السلام عليكم<span>Salam alaikum</span></div>${avs}<button type="button" class="wlk" id="wlk">← ${L("Retour à l’accueil","Back to welcome")}</button>${rest}</div></div></div>`);const wg=document.getElementById("wlgo");if(wg)wg.onclick=()=>{try{sessionStorage.setItem("beme_w","1")}catch(e){}render();scrollTo(0,0)};const wk=document.getElementById("wlk");if(wk)wk.onclick=()=>{try{sessionStorage.removeItem("beme_w")}catch(e){}render();scrollTo(0,0)};
+  else{app.innerHTML=dvbX+'<div class="lx" id="lx"></div>';
+   const GL=[[L("Direction","Leadership"),pr.slice(0,2)],[L("Gestion","Management"),pr.slice(2,5)],[L("Support","Support"),pr.slice(5)]];
+   BLogin.mount(document.getElementById("lx"),{lang:LANG,L:L,onLang:l=>{LANG=l;localStorage.setItem("beme_lang",LANG);render()},
+    groups:GL.map(g=>({label:g[0],items:g[1].map(x=>({id:x.id,title:x.title,sub:x.name||t("role_"+x.role),icon:avIcon(x)}))})),
+    onPick:id=>{const x=pr.find(y=>y.id===id);if(x)pinAsk(x,()=>enter(x.name||x.title,x.role,x.title))}})}
   document.querySelectorAll(".dvs button").forEach(b=>b.onclick=()=>{try{localStorage.setItem("beme_dev",b.dataset.d)}catch(e){}location.reload()});
   const enter=(name,role,title)=>{ME={name:name.slice(0,60),role,title:title||""};sessionStorage.setItem("beme_me",JSON.stringify(ME));NAV=[];render()};
   document.querySelectorAll(".av1").forEach(bt=>bt.onclick=()=>{const x=pr.find(y=>y.id===bt.dataset.p);if(x)pinAsk(x,()=>enter(x.name||x.title,x.role,x.title))});
