@@ -63,7 +63,7 @@ window.BLogin={styles:{a:styleA},mount:function(host,o){
   '<nav class="lx-sty" aria-label="'+L("Style d’affichage","Display style")+'"><span>'+L("Style","Style")+'</span>'+STY.filter(function(x){return BLogin.styles[x[0]]}).map(function(x){return'<button type="button" data-s="'+x[0]+'" aria-pressed="'+(x[0]===st)+'">'+L(x[1],x[2])+'</button>'}).join("")+'</nav>'+
   '<footer class="lx-f"><span>'+L("Un partenaire","A partner of")+'</span><img src="assets/img/bongard-logo.png" alt="Bongard"></footer>';
   host.querySelectorAll(".lx-lang button").forEach(function(b){b.onclick=function(){o.onLang(b.dataset.lg)}});
-  host.querySelectorAll(".lx-sty button").forEach(function(b){b.onclick=function(){try{localStorage.setItem("beme_style",b.dataset.s)}catch(e){}BLogin.mount(host,o)}});
+  host.querySelectorAll(".lx-sty button").forEach(function(b){b.onclick=function(){try{localStorage.setItem("beme_style",b.dataset.s)}catch(e){}var kb=host.querySelector(".lx-back");BLogin.mount(host,o);if(kb)host.appendChild(kb)}});
   BLogin.styles[st](host.querySelector(".lx-body"),o);
 }};
 })();
