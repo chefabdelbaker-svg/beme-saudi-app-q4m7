@@ -467,11 +467,19 @@ body.lg{background:#0b0b0b}
 @media(min-width:900px){.lx-card{--w:250px}.lx-stage{min-height:320px}}
 @media(prefers-reduced-motion:reduce){.lx *{transition-duration:.01s!important}}
 .lx-h h1{color:#f3eee2!important;font-family:Georgia,"Times New Roman",serif!important}.lx-h{padding-top:max(66px,env(safe-area-inset-top))!important}.lx-h small{color:#BF9F5F!important}
+/* v41 sélecteur de styles */
+.lx-body{flex:1;min-height:0;display:flex;flex-direction:column;position:relative;z-index:2}
+.lx-sty{display:flex;align-items:center;justify-content:center;gap:6px;padding:8px 10px 0;flex-wrap:nowrap}
+.lx-sty span{font:700 10px var(--sans);letter-spacing:.3em;text-transform:uppercase;color:#8f7433;margin-right:4px}
+.lx-sty button{min-height:44px;padding:0 12px;border-radius:999px;border:1px solid rgba(191,159,95,.4);background:rgba(11,11,11,.6);color:#d9c28f;font:600 12px var(--sans);cursor:pointer}
+.lx-sty button[aria-pressed=true]{background:linear-gradient(180deg,#d9c28f,#BF9F5F);color:#0b0b0b;border-color:#BF9F5F}
+@media(max-width:360px){.lx-sty span{display:none}.lx-sty button{padding:0 10px}}
 </style>
+<link rel="stylesheet" href="assets/login-b.css"><link rel="stylesheet" href="assets/login-c.css"><link rel="stylesheet" href="assets/login-d.css">
 </head>
 <body>
 <div id="app"></div>
-<script src="assets/login.js"></script>
+<script src="assets/login.js"></script><script src="assets/login-b.js"></script><script src="assets/login-c.js"></script><script src="assets/login-d.js"></script>
 <script>
 "use strict";
 let LANG=localStorage.getItem("beme_lang")==="en"?"en":"fr";

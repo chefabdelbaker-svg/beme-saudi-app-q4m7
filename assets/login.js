@@ -5,21 +5,16 @@ var GB='<svg viewBox="0 0 60 40" aria-hidden="true"><path fill="#1f2f6b" d="M0 0
 var CH='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>';
 var cur=0;
 function esc(s){return String(s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
-window.BLogin={mount:function(host,o){
+function styleA(host,o){
   var L=o.L,groups=o.groups.filter(function(g){return g.items.length});
   if(cur>=groups.length)cur=0;
   host.innerHTML=
-  '<div class="lx-bg" aria-hidden="true"></div>'+
-  '<header class="lx-h"><img src="assets/beme-orn.svg" alt="BEME"><h1>BEME KSA</h1><small>'+L("Opérations","Operations")+'</small><i class="lx-rule"></i></header>'+
-  '<div class="lx-lang" role="group" aria-label="Langue / Language"><button type="button" data-lg="fr" aria-label="Français" aria-pressed="'+(o.lang==="fr")+'"><span>'+FR+'</span></button><button type="button" data-lg="en" aria-label="English" aria-pressed="'+(o.lang==="en")+'"><span>'+GB+'</span></button></div>'+
   '<div class="lx-tabs" role="tablist" aria-label="'+L("Groupes","Groups")+'"><i class="lx-ind"></i>'+groups.map(function(g,i){return'<button type="button" role="tab" id="lxt'+i+'" aria-selected="'+(i===cur)+'" data-g="'+i+'">'+esc(g.label)+'</button>'}).join("")+'</div>'+
   '<div class="lx-stage" role="listbox" tabindex="-1" aria-label="'+L("Profils","Profiles")+'"></div>'+
   '<div class="lx-info" aria-live="polite"><div class="lx-nm"></div><div class="lx-sb"></div></div>'+
   '<div class="lx-ctrl"><button type="button" class="lx-nav" data-n="-1" aria-label="'+L("Précédent","Previous")+'">'+CH.replace('m9 5 7 7-7 7','m15 5-7 7 7 7')+'</button><div class="lx-dots"></div><button type="button" class="lx-nav" data-n="1" aria-label="'+L("Suivant","Next")+'">'+CH+'</button></div>'+
-  '<div class="lx-cta"><button type="button" class="lx-go">'+L("Entrer","Enter")+'</button></div>'+
-  '<footer class="lx-f"><span>'+L("Un partenaire","A partner of")+'</span><img src="assets/img/bongard-logo.png" alt="Bongard"></footer>';
+  '<div class="lx-cta"><button type="button" class="lx-go">'+L("Entrer","Enter")+'</button></div>';
   var $=function(s){return host.querySelector(s)},stage=$(".lx-stage"),tabs=host.querySelectorAll(".lx-tabs [role=tab]"),ind=$(".lx-ind");
-  host.querySelectorAll(".lx-lang button").forEach(function(b){b.onclick=function(){o.onLang(b.dataset.lg)}});
   var items,cards,dots,pos,target,sel,drag,raf,moved=0;
   function ind_(){var t=tabs[cur];if(t){ind.style.width=t.offsetWidth+"px";ind.style.transform="translateX("+t.offsetLeft+"px)"}}
   function build(){
@@ -55,5 +50,20 @@ window.BLogin={mount:function(host,o){
     t.onkeydown=function(e){var k=e.key==="ArrowRight"?1:e.key==="ArrowLeft"?-1:0;if(k){var n=(cur+k+tabs.length)%tabs.length;tabs[n].click();tabs[n].focus();e.preventDefault()}}});
   addEventListener("resize",function(){if(host.isConnected){ind_();draw()}});
   build();requestAnimationFrame(function(){ind_();draw()});
+}
+
+var STY=[["a","Carrousel","Carousel"],["b","Onglets","Tabs"],["c","Roue","Wheel"],["d","Cartes","Cards"]];
+window.BLogin={styles:{a:styleA},mount:function(host,o){
+  var L=o.L,st="a";try{st=localStorage.getItem("beme_style")||"a"}catch(e){}
+  if(!BLogin.styles[st])st="a";
+  host.innerHTML='<div class="lx-bg" aria-hidden="true"></div>'+
+  '<header class="lx-h"><img src="assets/beme-orn.svg" alt="BEME"><h1>BEME KSA</h1><small>'+L("Opérations","Operations")+'</small><i class="lx-rule"></i></header>'+
+  '<div class="lx-lang" role="group" aria-label="Langue / Language"><button type="button" data-lg="fr" aria-label="Français" aria-pressed="'+(o.lang==="fr")+'"><span>'+FR+'</span></button><button type="button" data-lg="en" aria-label="English" aria-pressed="'+(o.lang==="en")+'"><span>'+GB+'</span></button></div>'+
+  '<div class="lx-body" data-style="'+st+'"></div>'+
+  '<nav class="lx-sty" aria-label="'+L("Style d’affichage","Display style")+'"><span>'+L("Style","Style")+'</span>'+STY.filter(function(x){return BLogin.styles[x[0]]}).map(function(x){return'<button type="button" data-s="'+x[0]+'" aria-pressed="'+(x[0]===st)+'">'+L(x[1],x[2])+'</button>'}).join("")+'</nav>'+
+  '<footer class="lx-f"><span>'+L("Un partenaire","A partner of")+'</span><img src="assets/img/bongard-logo.png" alt="Bongard"></footer>';
+  host.querySelectorAll(".lx-lang button").forEach(function(b){b.onclick=function(){o.onLang(b.dataset.lg)}});
+  host.querySelectorAll(".lx-sty button").forEach(function(b){b.onclick=function(){try{localStorage.setItem("beme_style",b.dataset.s)}catch(e){}BLogin.mount(host,o)}});
+  BLogin.styles[st](host.querySelector(".lx-body"),o);
 }};
 })();
