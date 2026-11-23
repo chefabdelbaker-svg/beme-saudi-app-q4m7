@@ -478,6 +478,16 @@ body.lg{background:#0b0b0b}
 .lx-bg{background:radial-gradient(ellipse 90% 50% at 50% 60%,rgba(191,159,95,.14),transparent 70%),linear-gradient(180deg,rgba(11,11,11,.38) 0%,rgba(11,11,11,.12) 38%,rgba(11,11,11,.5) 78%,rgba(11,11,11,.88) 100%),url(assets/img/riyadh-night.webp) center bottom/cover no-repeat,#0b0b0b!important}
 .lx-bg::after{background:radial-gradient(ellipse at center,transparent 60%,rgba(0,0,0,.4) 100%)!important}
 @media(min-width:900px){.lx-h{padding-top:34px!important}.lx-card{--w:210px!important}.lx-stage{min-height:0!important}.lx-body{overflow:hidden}.lx-f{padding-top:6px}}
+/* v43 accueil */
+.lxw-c{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:10px;padding:60px 22px 8px}
+.lxw-lg{height:clamp(54px,9vh,76px);width:auto;filter:drop-shadow(0 0 16px rgba(191,159,95,.45))}
+.lxw-c h1{font:400 clamp(20px,6vw,28px) Georgia,serif;letter-spacing:.42em;padding-left:.42em;margin:6px 0 0;color:#f3eee2}
+.lxw-c small{font-size:11px;letter-spacing:.5em;padding-left:.5em;color:#BF9F5F;text-transform:uppercase}
+.lxw-sal{margin-top:22px;font:400 clamp(24px,7vw,32px) Georgia,serif;color:#f3eee2;display:flex;flex-direction:column;gap:2px}.lxw-sal span{font:700 10px var(--sans);letter-spacing:.4em;text-transform:uppercase;color:#d9c28f}
+.lxw-c h2{font:700 clamp(24px,7.2vw,38px)/1.15 Georgia,serif;color:#fff;margin:16px 0 0;text-shadow:0 2px 18px rgba(0,0,0,.7)}
+.lxw-c p{font-size:clamp(13px,3.8vw,16px);color:#f3eee2;max-width:30em;margin:0 0 14px;text-shadow:0 1px 10px rgba(0,0,0,.8)}
+.lxw .lx-bg{background:linear-gradient(180deg,rgba(11,11,11,.55) 0%,rgba(11,11,11,.1) 40%,rgba(11,11,11,.6) 85%,rgba(11,11,11,.9) 100%),url(assets/img/riyadh-night.webp) center bottom/cover no-repeat,#0b0b0b!important}
+.lxw-c .lx-go{padding:0 26px;letter-spacing:.2em;white-space:nowrap}
 </style>
 <link rel="stylesheet" href="assets/login-b.css"><link rel="stylesheet" href="assets/login-c.css"><link rel="stylesheet" href="assets/login-d.css">
 </head>
@@ -1064,6 +1074,13 @@ function render(keep){
   const ttl=`<div class="ttl">BEME KSA</div><div class="ttl2">${L("OPÉRATIONS","OPERATIONS")}</div>`;const lgrow=`<div class="lgrow"><img class="lg" src="assets/beme-logo-white.svg" alt="BEME"></div>`;const prt=`<div class="prt"><i></i><img class="bl" src="assets/img/bongard-logo.png" alt="Bongard"><i></i></div>`;
   const dvbX=FRAME?"":dvb;let WEL=false;try{WEL=sessionStorage.getItem("beme_w")==="1"}catch(e){}
   if(lv==="a"&&!FRAME&&innerWidth>=900){app.innerHTML=dvbX+`<div class="pf"><iframe title="Phone view" src="?frame=1&l=a"></iframe></div>`;document.querySelectorAll(".dvs button").forEach(b=>b.onclick=()=>{try{localStorage.setItem("beme_dev",b.dataset.d)}catch(e){}location.reload()});return}
+  else if(!WEL){app.innerHTML=dvbX+`<div class="lx lxw" id="lx"><div class="lx-bg"></div><div class="lx-lang">${["fr","en"].map(c=>`<button type="button" data-lg="${c}" aria-pressed="${LANG===c}" aria-label="${c==="fr"?"Français":"English"}"><span>${c==="fr"?'<svg viewBox="0 0 3 2"><path fill="#ED2939" d="M0 0h3v2H0z"/><path fill="#fff" d="M0 0h2v2H0z"/><path fill="#002395" d="M0 0h1v2H0z"/></svg>':'<svg viewBox="0 0 60 30"><clipPath id="wc"><path d="M0 0v30h60V0z"/></clipPath><g clip-path="url(#wc)"><path d="M0 0v30h60V0z" fill="#012169"/><path d="M0 0l60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0l60 30m0-30L0 30" stroke="#C8102E" stroke-width="3"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#C8102E" stroke-width="6"/></g></svg>'}</span></button>`).join("")}</div>
+   <div class="lxw-c"><img class="lxw-lg" src="assets/beme-orn.svg" alt="BEME"><h1>BEME KSA</h1><small>${L("Opérations","Operations")}</small><i class="lx-rule"></i>
+   <div class="lxw-sal">السلام عليكم<span>Salam alaikum</span></div><h2>${L("Bienvenue chez BEME KSA","Welcome to BEME KSA")}</h2><p>${L("Équipements Bongard pour les fournils d’Arabie saoudite","Bongard equipment for Saudi bakeries")}</p>
+   <button type="button" class="lx-go" id="wlgo">${L("Toucher pour continuer","Tap to continue")}</button></div>
+   <footer class="lx-f">${L("Un partenaire","A partner of")} <img src="assets/img/bongard-logo.png" alt="Bongard"></footer></div>`;
+   document.querySelectorAll(".lx-lang button").forEach(b=>b.onclick=()=>{LANG=b.dataset.lg;localStorage.setItem("beme_lang",LANG);render()});
+   document.getElementById("wlgo").onclick=()=>{try{sessionStorage.setItem("beme_w","1")}catch(e){}render()}}
   else{app.innerHTML=dvbX+'<div class="lx" id="lx"></div>';
    const GL=[[L("Direction","Leadership"),pr.slice(0,2)],[L("Gestion","Management"),pr.slice(2,5)],[L("Support","Support"),pr.slice(5)]];
    BLogin.mount(document.getElementById("lx"),{lang:LANG,L:L,onLang:l=>{LANG=l;localStorage.setItem("beme_lang",LANG);render()},
