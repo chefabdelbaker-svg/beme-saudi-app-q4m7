@@ -531,6 +531,12 @@ body.fr .lx-back,.frame .lx-back{top:10px}
 .stk-h em,.stk-c em{font:500 12px var(--sans);font-style:normal;opacity:.8}
 .stk-c{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin:16px 2px 8px;font:700 12px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:#8f7433;border-bottom:1px solid #e6dfcf;padding-bottom:5px}
 .stk-c em{color:#6b7385}
+
+/* v52b audit */
+.sgrid .sc{content-visibility:auto;contain-intrinsic-size:auto 300px}
+.sgrid .sc .ph:not(:has(img)){height:84px!important;min-height:0!important}
+.btn.sm{min-height:44px;min-width:44px}
+.chips-row{padding-right:24px}
 </style>
 <link rel="stylesheet" href="assets/login-b.css"><link rel="stylesheet" href="assets/login-c.css"><link rel="stylesheet" href="assets/login-d.css">
 </head>
@@ -849,7 +855,7 @@ V.stock=()=>{const q=Q();const cost=SEE_COST.includes(ME.role);
  const chip=(v,cur,k,txt)=>`<button class="chip ${cur===v?"on":""}" onclick="${k}='${v}';render()">${txt}</button>`;
  return head("stock","A_stock()")+search()+`<div class="chips-row">${chip("",SFa,"SFa",L("Tout","All"))}${Object.keys(OPT.avail).map(k=>chip(k,SFa,"SFa",OPT.avail[k][LANG])).join("")}<span style="width:8px"></span>${chip("",SFc,"SFc",L("Neuf + occasion","New + used"))}${Object.keys(OPT.cond).map(k=>chip(k,SFc,"SFc",OPT.cond[k][LANG])).join("")}</div>`+
  (Ls.length?`${stockGroups(Ls,s=>{const r=reserved(s),a=(+s.qty||0)-r;const ed=can("edit","stock");const ex=ed?[{t:"+1",f:()=>adj(s.id,1)},{t:"−1",f:()=>adj(s.id,-1)},{t:t("edit"),f:()=>E_stock(s.id)},{t:L("Supprimer","Delete"),bad:1,f:()=>remove("stock",s.id)}]:[];
-  return `<div class="sc" ${ed?`onclick="E_stock('${esc(s.id)}')"`:""}><div class="ph">${s.photo?`<img alt="" src="${esc(s.photo)}">`:ico("stock")}<span class="t1">${badge(lab("cond",s.cond),s.cond==="new"?"ok":"gold")}</span></div><div class="bd"><b>${esc(s.name)}</b><span class="mut">${esc(s.ref)} · ${esc(s.brand)}${s.serial?" · S/N "+esc(s.serial):""}</span><span class="pr num">${money(s.price,s.cur)}</span>${cost&&(+s.cost)?`<span class="mut num">${L("Achat","Cost")} ${money(s.cost,s.cur)}${s.extra?` + ${money(s.extra,s.cur)}`:""}</span>`:""}<span class="mut">${L("Qté","Qty")} <b>${esc(s.qty)}</b>${r?` · ${L("réservé","reserved")} ${r} · ${L("dispo","avail.")} <b style="color:${a<0?"var(--bad)":"var(--ok)"}">${a}</b>`:""}${s.volt?` · ${lab("volt",s.volt)}`:""}</span><span style="margin-top:6px;display:flex;gap:6px;align-items:center;flex-wrap:wrap">${badge(lab("avail",s.avail),s.avail==="toorder"?"warn":"ok")}${badge(lab("status",s.status))}${mk(ex)}</span></div></div>`})}`:empty("A_stock()","stock",L("Aucun équipement. Ajoutez le premier.","No equipment yet. Add the first one.")))};
+  return `<div class="sc" ${ed?`onclick="E_stock('${esc(s.id)}')"`:""}><div class="ph">${s.photo?`<img alt="" src="${esc(s.photo)}">`:ico("stock")}<span class="t1">${badge(lab("cond",s.cond),s.cond==="new"?"ok":"gold")}</span></div><div class="bd"><b>${esc(s.name)}</b><span class="mut">${esc(s.ref)} · ${esc(s.brand)}${s.serial?" · S/N "+esc(s.serial):""}</span><span class="pr num">${+s.price?money(s.price,s.cur):`<span style="color:#6b7385;font-weight:500">${L("Prix sur demande","Price on request")}</span>`}</span>${cost&&(+s.cost)?`<span class="mut num">${L("Achat","Cost")} ${money(s.cost,s.cur)}${s.extra?` + ${money(s.extra,s.cur)}`:""}</span>`:""}<span class="mut">${L("Qté","Qty")} <b>${esc(s.qty)}</b>${r?` · ${L("réservé","reserved")} ${r} · ${L("dispo","avail.")} <b style="color:${a<0?"var(--bad)":"var(--ok)"}">${a}</b>`:""}${s.volt?` · ${lab("volt",s.volt)}`:""}</span><span style="margin-top:6px;display:flex;gap:6px;align-items:center;flex-wrap:wrap">${badge(lab("avail",s.avail),s.avail==="toorder"?"warn":"ok")}${badge(lab("status",s.status))}${mk(ex)}</span></div></div>`})}`:empty("A_stock()","stock",L("Aucun équipement. Ajoutez le premier.","No equipment yet. Add the first one.")))};
 window.A_quotes=cid=>quoteForm({id:uid(),client:(typeof cid==="string"&&DB.clients.some(c=>c.id===cid))?cid:(DB.clients[0]&&DB.clients[0].id),cur:"SAR",status:"draft",date:today(),valid:addDays(today(),30),items:[{type:"equipment",stock:"",desc:"",qty:1,price:0,opt:false,inc:false}],notes:"",terms:"",vat:0,disc:0});
 window.E_quotes=id=>quoteForm(JSON.parse(JSON.stringify(DB.quotes.find(x=>x.id===id))));
 function quoteForm(q){
