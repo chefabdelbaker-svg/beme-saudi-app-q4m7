@@ -15,7 +15,7 @@ function styleC(host,o){
     '<div class="lxc-ctr" aria-live="polite" aria-atomic="true"><div class="lxc-halo"><span class="lxc-glow"></span><span class="lxc-disc"></span></div>'+
     '<div class="lxc-swap"><div class="lxc-role"></div><div class="lxc-who"></div><div class="lxc-grp"></div></div></div>'+
   '</div></div>'+
-  '<div class="lxc-act"><button type="button" class="lxc-enter">'+L("Entrer","Enter")+'</button><div class="lxc-hint">'+L("Tournez la roue · touchez le centre ou appuyez sur Entrée","Spin the wheel · tap the centre or press Enter")+'</div></div></div>';
+  '<div class="lxc-act"><button type="button" class="lxc-enter">'+L("Entrer","Enter")+'</button><div class="lxc-hint">'+L("Tournez la roue · touchez l’avatar du centre pour entrer","Spin the wheel · tap the centre avatar to enter")+'</div></div></div>';
   var $=function(s){return host.querySelector(s)};
   var stage=$(".lxc-stage"),wheel=$(".lxc-wheel"),ring=$(".lxc-ring"),swap=$(".lxc-swap");
   var els=items.map(function(p,i){
@@ -24,7 +24,7 @@ function styleC(host,o){
     var b=document.createElement("button");b.type="button";b.className="lxc-med";b.setAttribute("role","radio");
     b.setAttribute("aria-label",p.title+" — "+p.sub);
     b.innerHTML=p.icon+'<span class="lxc-lbl">'+esc(p.title)+'</span>';
-    b.addEventListener("click",function(){if(moved)return;if(i===idx)pick();else go(i)});
+    b.addEventListener("click",function(){if(moved)return;if(i!==idx)go(i)});b.addEventListener("keydown",function(e){if(e.key==="Enter"&&i===idx){e.preventDefault();pick()}});
     b.addEventListener("keydown",function(e){
       var d={ArrowRight:1,ArrowDown:1,ArrowLeft:-1,ArrowUp:-1}[e.key];
       if(d){e.preventDefault();go(idx+d,true)}

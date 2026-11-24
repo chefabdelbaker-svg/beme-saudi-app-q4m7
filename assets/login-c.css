@@ -42,3 +42,5 @@
 @media(max-height:700px){.lxc-hint{display:none}}
 @media(max-width:340px){.lxc-enter{min-width:150px;padding:0 20px}.lxc-lbl{font-size:9.5px;width:66px}}
 @media(prefers-reduced-motion:reduce){.lxc *,.lxc *::before,.lxc *::after{animation:none!important;transition-duration:.01ms!important}}
+
+.lxc-ctr{cursor:pointer;-webkit-tap-highlight-color:transparent}.lxc-halo{transition:transform .2s}.lxc-ctr:hover .lxc-halo,.lxc-ctr:active .lxc-halo{transform:scale(1.06)}.lxc-ctr .lxc-glow{animation:lxcPulse 2.4s ease-in-out infinite}@keyframes lxcPulse{0%,100%{opacity:.55}50%{opacity:1}}
