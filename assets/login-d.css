@@ -56,10 +56,10 @@
 .lxd-sec{z-index:300;height:24px}
 .lxd-sec::before,.lxd-sec::after{background:linear-gradient(90deg,transparent,#d9c28f)}
 .lxd-sec span{font:800 12px/20px var(--sans,system-ui);letter-spacing:.34em;text-indent:.34em;color:#f3e3b4;padding:1px 16px;border-radius:99px;border:1px solid rgba(217,194,143,.75);box-shadow:0 2px 10px rgba(0,0,0,.4)}
-.lxd-sec.lxd-g0 span{background:linear-gradient(#2d58b0,#193a7d)}
-.lxd-sec.lxd-g1 span{background:linear-gradient(#1f86c0,#115a86)}
-.lxd-sec.lxd-g2 span{background:linear-gradient(#5558c4,#32348d)}
-.lxd-card.lxd-g0:not(.lxd-sel){background:linear-gradient(115deg,transparent 30%,rgba(190,212,245,.14) 48%,transparent 62%),linear-gradient(160deg,#2a56ac 0%,#142f68 62%,#1c3f86 100%);border-color:rgba(150,190,255,.65)}
-.lxd-card.lxd-g1:not(.lxd-sel){background:linear-gradient(115deg,transparent 30%,rgba(190,235,255,.14) 48%,transparent 62%),linear-gradient(160deg,#1d83bd 0%,#0d4a73 62%,#1368a0 100%);border-color:rgba(130,215,255,.65)}
-.lxd-card.lxd-g2:not(.lxd-sel){background:linear-gradient(115deg,transparent 30%,rgba(205,205,255,.14) 48%,transparent 62%),linear-gradient(160deg,#5256c2 0%,#272a78 62%,#3a3ea0 100%);border-color:rgba(175,178,255,.65)}
+.lxd-sec.lxd-g0 span{background:linear-gradient(#1b3866,#12284c)}
+.lxd-sec.lxd-g1 span{background:linear-gradient(#27487f,#1b3866)}
+.lxd-sec.lxd-g2 span{background:linear-gradient(#35599a,#27487f)}
+.lxd-card.lxd-g0:not(.lxd-sel){background:linear-gradient(115deg,transparent 30%,rgba(190,212,245,.14) 48%,transparent 62%),linear-gradient(160deg,#1b3866 0%,#0a1a36 62%,#12284c 100%);border-color:rgba(217,194,143,.55)}
+.lxd-card.lxd-g1:not(.lxd-sel){background:linear-gradient(115deg,transparent 30%,rgba(190,235,255,.14) 48%,transparent 62%),linear-gradient(160deg,#27487f 0%,#12284c 62%,#1b3866 100%);border-color:rgba(217,194,143,.55)}
+.lxd-card.lxd-g2:not(.lxd-sel){background:linear-gradient(115deg,transparent 30%,rgba(205,205,255,.14) 48%,transparent 62%),linear-gradient(160deg,#35599a 0%,#1b3866 62%,#27487f 100%);border-color:rgba(217,194,143,.55)}
 .lxd-t{font-size:20px}
