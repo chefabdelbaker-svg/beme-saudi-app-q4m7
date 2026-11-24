@@ -647,6 +647,22 @@ body.fr .lx-back,.frame .lx-back{top:10px}
 .hlive-mini .czclk{display:none}.hlive-mini .czsim{display:block;right:8px;top:6px;bottom:auto}.urgt{min-height:44px;padding:6px 0}.urgmore{min-height:44px;padding:12px 2px;display:block}.hpick{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.hpick .chip{flex:none}.urg span{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;min-width:0}.g-new .quick{flex-wrap:wrap!important;overflow:visible!important;-webkit-mask-image:none!important;mask-image:none!important}.hero2.slim{padding:12px 16px}.hfl span{font-size:12px;color:#4d566b}
 @media(max-width:899px){.czctl{grid-template-columns:repeat(4,44px)!important;gap:6px!important;bottom:30px!important}.czctl button{width:44px!important;height:44px!important;font-size:18px!important}.hero2.slim .kick{display:none}}
 .hclk{display:flex;flex-direction:column;align-items:flex-end;line-height:1.1;color:#fff;margin-right:8px;white-space:nowrap}.hclk b{font:700 15px var(--sans,inherit);letter-spacing:.02em}.hclk small{font-size:11px;color:#d9c28f}@media(max-width:340px){.hclk small{display:none}}
+
+.g-quick{display:none;order:4}
+@media(min-width:900px){
+.g-quick{display:block}
+.qa{display:grid;grid-template-columns:repeat(auto-fill,minmax(172px,1fr));gap:12px}
+.qa-i{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;font:600 14px var(--sans);color:var(--navy);text-align:left;cursor:pointer;box-shadow:0 6px 18px rgba(18,40,76,.07);transition:transform .15s,box-shadow .15s}
+.qa-i:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(18,40,76,.14)}
+.qa-ic{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#f6edd6,#ead6a0);display:grid;place-items:center;flex:none}
+.qa-ic svg{width:20px;height:20px;stroke:#7a5f1c;fill:none;stroke-width:1.8}
+.qa-t{flex:1;min-width:0;overflow-wrap:anywhere;line-height:1.2}.qa-n{font:800 13px var(--sans);color:#8f7433;background:#f6edd6;border-radius:99px;padding:2px 9px}
+.hc .stats{grid-template-columns:repeat(2,1fr);gap:14px}
+.hc .stat{padding:18px 18px 16px!important;min-height:104px;display:flex;flex-direction:column;justify-content:space-between;border-top:4px solid var(--gold);background:linear-gradient(180deg,#fff,#fbf8f0)}
+.hc .stat .v{font:800 clamp(26px,2.4vw,34px) var(--sans);white-space:nowrap;line-height:1.1}
+.hc .stat .l{font:600 13.5px var(--sans);color:#4a5a73;margin-top:6px}
+.hc .stat:hover{box-shadow:0 12px 28px rgba(18,40,76,.14)}
+}
 </style>
 <link rel="stylesheet" href="assets/login-b.css"><link rel="stylesheet" href="assets/login-c.css"><link rel="stylesheet" href="assets/login-d.css">
 </head>
@@ -989,6 +1005,7 @@ V.home=()=>{const al=alerts();const show=window.ALL?al:al.slice(0,3);
  <div class="hgrid"><div class="hc hc1">
  ${homeFleet()}
  <section class="g-kpi"><h3 class="hsec">${L("Chiffres clés","Key figures")}</h3><div class="stats">${kpis().map(k=>`<button class="stat" onclick="go('${k[2]}')"><div class="v num">${esc(k[1])}</div><div class="l">${esc(k[0])}</div></button>`).join("")}</div></section>
+ ${ME.role!=="direction"?(()=>{const cnt=p=>{if(["gamme","tracking","dashboard","settings","myspace"].includes(p))return"";const k=Object.keys(PG).find(x=>PG[x]===p&&Array.isArray(DB[x]));return k?DB[k].length:""};const pg=PAGES.filter(p=>can("view",p)&&p!=="dashboard"&&p!=="settings");return pg.length>1?`<section class="g-quick"><h3 class="hsec">${L("Accès rapides","Quick access")}</h3><div class="qa">${pg.map(p=>`<button type="button" class="qa-i" onclick="go('${p}')"><span class="qa-ic">${ico(p)}</span><span class="qa-t">${esc(t(p))}</span>${cnt(p)!==""?`<b class="qa-n">${cnt(p)}</b>`:""}</button>`).join("")}</div></section>`:""})():""}
  ${q.length?`<section class="g-new"><h3 class="hsec">${L("Créer","Create")}</h3><div class="quick">${q.join("")}</div></section>`:""}
  </div><div class="hc hc2">
  ${(()=>{const R=al.filter(x=>x[0]==="r"),O=al.filter(x=>x[0]!=="r");const row=x=>`<button type="button" class="urg ${x[0]==="r"?"r":"o"}" onclick="go('${x[2]}');${x[3]&&["clients","quotes","orders","equip","service","stock"].includes(x[2])&&FICHE[x[2]]?`setTimeout(()=>F('${x[2]}','${x[3]}'),260)`:''}"><i></i><span>${esc(x[1])}</span><em>›</em></button>`;const first=R[0]||O[0];const lim=window.ALL?99:5;const full=(R.length?`<div class="urgh">${L("Urgent","Urgent")}</div>`+R.slice(0,lim).map(row).join(""):"")+(O.length?`<div class="urgh o">${L("À suivre","To watch")}</div>`+O.slice(0,lim).map(row).join(""):"");const more=(R.length>lim||O.length>lim)||window.ALL;return `<section class="urgp g-urg">${al.length?`<button type="button" class="urgt" onclick="hUrg()" aria-expanded="${urgOpen()?"true":"false"}"><h3>${L("À traiter","To handle")} ${R.length?badge(R.length+" "+L("urgent","urgent"),"bad"):""}${O.length?badge(O.length+" "+L("à suivre","to watch"),"gold"):""}</h3><em>${urgOpen()?"▴":"▾"}</em></button>`:`<h3>${L("À traiter","To handle")}</h3>`}${!urgOpen()?(first?row(first):`<p class="mut">${t("none")}</p>`)+(al.length>1?`<button type="button" class="urgmore" onclick="hUrg()">${L("Voir tout","See all")} (${al.length}) ▾</button>`:""):full+(more?`<button class="urgmore" onclick="window.ALL=!window.ALL;render()">${window.ALL?L("Réduire","Show less"):L("Tout afficher","Show everything")+" ("+al.length+")"}</button>`:"")}</section>`})()}
