@@ -9,9 +9,9 @@ window.BLogin.styles.d=function(host,o){
   var n=list.length,ng=groups.length,sel=-1;
   host.innerHTML='<div class="lxd-wrap"><div class="lxd-wallet" role="group" aria-label="'+esc(L("Choix du profil","Profile selection"))+'"></div></div>';
   var wallet=host.querySelector(".lxd-wallet");
-  var secs=groups.map(function(g){var d=document.createElement("div");d.className="lxd-sec";d.setAttribute("aria-hidden","true");d.innerHTML="<span>"+esc(g.label)+"</span>";wallet.appendChild(d);return d});
+  var secs=groups.map(function(g,gi){var d=document.createElement("div");d.className="lxd-sec lxd-g"+gi;d.setAttribute("aria-hidden","true");d.innerHTML="<span>"+esc(g.label)+"</span>";wallet.appendChild(d);return d});
   var cards=list.map(function(e,i){
-    var p=e.it,c=document.createElement("div");c.className="lxd-card";c.style.zIndex=i+1;
+    var p=e.it,c=document.createElement("div");c.className="lxd-card lxd-g"+e.g;c.style.zIndex=i+1;
     c.innerHTML='<button type="button" class="lxd-head" aria-expanded="false" aria-label="'+esc(p.title+" — "+p.sub)+'"><span class="lxd-ic">'+p.icon+'</span><span class="lxd-tx"><span class="lxd-t">'+esc(p.title)+'</span><span class="lxd-w">'+esc(p.sub)+'</span></span>'+CHEV+'</button>'+
     '<div class="lxd-body" aria-hidden="true"><button type="button" class="lxd-back" aria-label="'+esc(L("Retour à la liste des profils","Back to profile list"))+'" tabindex="-1">'+BACK+'<span>'+L("Retour","Back")+'</span></button>'+
     '<div class="lxd-halo"><span class="lxd-glow"></span><span class="lxd-disc">'+p.icon+'</span></div><div class="lxd-role">'+esc(p.title)+'</div><div class="lxd-who">'+esc(p.sub)+'</div>'+
