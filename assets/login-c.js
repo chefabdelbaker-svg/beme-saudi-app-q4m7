@@ -15,7 +15,7 @@ function styleC(host,o){
     '<div class="lxc-ctr" aria-live="polite" aria-atomic="true"><div class="lxc-halo"><span class="lxc-glow"></span><span class="lxc-disc"></span></div>'+
     '<div class="lxc-swap"><div class="lxc-role"></div><div class="lxc-who"></div><div class="lxc-grp"></div></div></div>'+
   '</div></div>'+
-  '<div class="lxc-act"><button type="button" class="lxc-enter">'+L("Entrer","Enter")+'</button><div class="lxc-hint">'+L("Faites tourner la roue ou touchez un médaillon","Spin the wheel or tap a medallion")+'</div></div></div>';
+  '<div class="lxc-act"><button type="button" class="lxc-enter">'+L("Entrer","Enter")+'</button><div class="lxc-hint">'+L("Tournez la roue · touchez le centre ou appuyez sur Entrée","Spin the wheel · tap the centre or press Enter")+'</div></div></div>';
   var $=function(s){return host.querySelector(s)};
   var stage=$(".lxc-stage"),wheel=$(".lxc-wheel"),ring=$(".lxc-ring"),swap=$(".lxc-swap");
   var els=items.map(function(p,i){
@@ -33,6 +33,9 @@ function styleC(host,o){
     arm.appendChild(b);slot.appendChild(arm);ring.appendChild(slot);return{slot:slot,arm:arm,b:b}});
   function pick(){o.onPick(items[idx].id)}
   $(".lxc-enter").onclick=pick;
+  var ctr=$(".lxc-ctr");if(ctr){ctr.style.pointerEvents="auto";ctr.style.cursor="pointer";ctr.setAttribute("role","button");ctr.setAttribute("aria-label",L("Entrer avec ce profil","Enter with this profile"));ctr.addEventListener("click",function(){if(!moved)pick()})}
+  var onKey=function(e){if(!host.isConnected){document.removeEventListener("keydown",onKey);return}if(e.key!=="Enter"||e.defaultPrevented)return;var t=e.target&&e.target.tagName;if(t==="BUTTON"||t==="INPUT"||t==="TEXTAREA"||t==="SELECT"||t==="A")return;e.preventDefault();pick()};
+  document.addEventListener("keydown",onKey);
   function size(){
     var w=stage.clientWidth,h=stage.clientHeight;
     var S=Math.max(220,Math.min(w-20,h-14,400));

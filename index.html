@@ -646,6 +646,7 @@ body.fr .lx-back,.frame .lx-back{top:10px}
 @media(min-width:900px){.hgrid{grid-template-columns:1.15fr 1fr;align-items:start}.g-cam{grid-column:1;grid-row:1}.g-kpi{grid-column:1;grid-row:2}.g-new{grid-column:1;grid-row:3}.g-urg{grid-column:2;grid-row:1/span 2}.g-ord{grid-column:2;grid-row:3}.hlive-mini{height:200px}}
 .hlive-mini .czclk{display:none}.hlive-mini .czsim{display:block;right:8px;top:6px;bottom:auto}.urgt{min-height:44px;padding:6px 0}.urgmore{min-height:44px;padding:12px 2px;display:block}.hpick{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.hpick .chip{flex:none}.urg span{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;min-width:0}.g-new .quick{flex-wrap:wrap!important;overflow:visible!important;-webkit-mask-image:none!important;mask-image:none!important}.hero2.slim{padding:12px 16px}.hfl span{font-size:12px;color:#4d566b}
 @media(max-width:899px){.czctl{grid-template-columns:repeat(4,44px)!important;gap:6px!important;bottom:30px!important}.czctl button{width:44px!important;height:44px!important;font-size:18px!important}.hero2.slim .kick{display:none}}
+.hclk{display:flex;flex-direction:column;align-items:flex-end;line-height:1.1;color:#fff;margin-right:8px;white-space:nowrap}.hclk b{font:700 15px var(--sans,inherit);letter-spacing:.02em}.hclk small{font-size:11px;color:#d9c28f}@media(max-width:340px){.hclk small{display:none}}
 </style>
 <link rel="stylesheet" href="assets/login-b.css"><link rel="stylesheet" href="assets/login-c.css"><link rel="stylesheet" href="assets/login-d.css">
 </head>
@@ -975,6 +976,8 @@ function kpis(){const r=ME.role;const al=alerts();
 const V={};
 window.HCAM=window.HCAM||0;window.HURG=window.HURG||0;window.HCID=window.HCID||"";
 window.hCam=()=>{HCAM=HCAM?0:1;render()};window.hUrg=()=>{HURG=HURG?0:1;render()};window.hPick=id=>{HCID=id;HCAM=1;render()};
+const hclk=()=>{const d=new Date();const loc=LANG==="en"?"en-GB":"fr-FR";const dt=d.toLocaleDateString(loc,{weekday:"short",day:"numeric",month:"short"}).replace(/\./g,"");const tm=d.toLocaleTimeString(loc,{hour:"2-digit",minute:"2-digit"});return`<b>${esc(tm)}</b><small>${esc(dt)}</small>`};
+if(!window._hclkI)window._hclkI=setInterval(()=>{document.querySelectorAll("[data-hclk]").forEach(e=>e.innerHTML=hclk())},15000);
 const homeFleet=()=>{if(!can("view","fleet"))return"";const dm=DB.cams.filter(x=>x.kind==="demo");const c=dm.find(x=>x.id===HCID)||dm[0];const due=DB.vehicles.filter(v=>v.status!=="out"&&vState(v)!=="ok").length;const exp=DB.vehicles.reduce((n,v)=>n+[v.insurance,v.istimara,v.inspection].filter(d=>{const k=daysTo(d);return d&&k!==null&&k<=30}).length,0)+DB.drivers.filter(d=>{const k=daysTo(d.licExp);return d.licExp&&k!==null&&k<=30}).length;
  if(c)setTimeout(()=>camBoot(document.body),0);
  const open=HCAM&&c;
@@ -1672,7 +1675,7 @@ function render(keep){
    <button type="button" class="lx-go" id="wlgo">${L("Toucher pour continuer","Tap to continue")}</button></div>
    <footer class="lx-f">${L("Un partenaire","A partner of")} <img src="assets/img/bongard-logo.png" alt="Bongard"></footer></div>`;
    document.querySelectorAll(".lx-lang button").forEach(b=>b.onclick=()=>{LANG=b.dataset.lg;localStorage.setItem("beme_lang",LANG);render()});
-   document.getElementById("wlgo").onclick=()=>{try{sessionStorage.setItem("beme_w","1")}catch(e){}render()}}
+   const goW=()=>{document.removeEventListener("keydown",kW);try{sessionStorage.setItem("beme_w","1")}catch(e){}render()};const kW=e=>{if(e.key==="Enter"&&!e.defaultPrevented){const t=e.target&&e.target.tagName;if(t==="INPUT"||t==="TEXTAREA"||t==="SELECT")return;e.preventDefault();goW()}};document.addEventListener("keydown",kW);document.getElementById("wlgo").onclick=goW}
   else{app.innerHTML=dvbX+'<div class="lx" id="lx"></div>';
    const GL=[[L("Direction","Leadership"),pr.slice(0,2)],[L("Gestion","Management"),pr.slice(2,5)],[L("Support","Support"),pr.slice(5)]];
    BLogin.mount(document.getElementById("lx"),{lang:LANG,L:L,onLang:l=>{LANG=l;localStorage.setItem("beme_lang",LANG);render()},
@@ -1691,7 +1694,7 @@ function render(keep){
  let body;try{body=V[p]()}catch(err){console.error(err);body=`<div class="empty"><p>${L("Cette page n'a pas pu s'afficher : données invalides.","This page could not be displayed: invalid data.")}</p>${ME.role==="direction"?`<button class="btn" onclick="resetDB()">${L("Tout effacer et repartir","Erase all and restart")}</button>`:""}</div>`}
  const tabs=(TABS[ME.role]||[]).filter(x=>can("view",x));const hasMore=allowed().filter(x=>x!=="home"&&!tabs.includes(x)).length>0;
  const tab=(id,label,on,click)=>`<button class="tab ${on?"on":""}" onclick="${click}">${ico(id)}<span>${esc(label)}</span></button>`;
- app.innerHTML=`<header class="appbar"><button class="ib" ${p==="home"?"hidden":""} aria-label="${t("back")}" onclick="goBack()">${ico("back","width:22px;height:22px")}</button><span class="brand"><img class="o" src="assets/beme-orn.svg" alt=""><img class="w" src="assets/beme-word-white.svg" alt="BEME"></span><span class="sp"></span><button class="ib av" aria-label="Profil" onclick="openProfile()">${esc(ME.name.slice(0,1).toUpperCase())}</button></header>
+ app.innerHTML=`<header class="appbar"><button class="ib" ${p==="home"?"hidden":""} aria-label="${t("back")}" onclick="goBack()">${ico("back","width:22px;height:22px")}</button><span class="brand"><img class="o" src="assets/beme-orn.svg" alt=""><img class="w" src="assets/beme-word-white.svg" alt="BEME"></span><span class="sp"></span><span class="hclk" data-hclk aria-label="${L("Date et heure","Date and time")}">${hclk()}</span><button class="ib av" aria-label="Profil" onclick="openProfile()">${esc(ME.name.slice(0,1).toUpperCase())}</button></header>
  <aside class="side">${(()=>{const G={clients:L("Vente","Sales"),orders:L("Stock et commandes","Stock & orders"),service:L("Après-vente","After-sales"),team:L("Équipe","Team"),pilot:L("Pilotage","Management")};const grp=x=>["clients","quotes"].includes(x)?"clients":["stock","gamme","orders","tracking"].includes(x)?"orders":["equip","service","contracts"].includes(x)?"service":["planning","hr"].includes(x)?"team":x==="home"?"":"pilot";window.SG=window.SG||{};const cur=grp(p);const bt=x=>`<button class="${x===p?"on":""}" onclick="go('${x}')">${ico(x)}${esc(t(x))}</button>`;const groups={};allowed().forEach(x=>{const g=grp(x);(groups[g]=groups[g]||[]).push(x)});
  return (groups[""]||[]).map(bt).join("")+["clients","orders","service","team","pilot"].filter(g=>groups[g]).map(g=>{const open=SG[g]!==undefined?SG[g]:true;return `<div class="sg sg-${g}"><button class="sgh ${open?"open":""}" onclick="SG['${g}']=${open?'false':'true'};render()" aria-expanded="${open?"true":"false"}"><span>${G[g]}</span><i>›</i></button><div class="sgb" ${open?"":"hidden"}>${groups[g].map(bt).join("")}</div></div>`}).join("")})()}</aside>
  <main>${body}</main>
